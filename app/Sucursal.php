@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sucursal extends Model
 {
+    protected $table="sucursal";
     // public $timestamps = false;
     // protected $appends = ['categoria'];
     // public function categoria (){

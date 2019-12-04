@@ -27,3 +27,8 @@ Route::get('/departamento', 'DepartamentoController@index');
 Route::post('/departamento/registrar', 'DepartamentoController@store');
 Route::put('/departamento/actualizar', 'DepartamentoController@update');
 Route::delete('/departamento/eliminar_{id}', 'DepartamentoController@destroy');
+
+Route::get('/sucursal', 'SucursalController@index');
+Route::post('/sucursal/registrar', 'SucursalController@store');
+Route::put('/sucursal/actualizar', 'SucursalController@update');
+Route::delete('/sucursal/eliminar_{id}', 'SucursalController@destroy');

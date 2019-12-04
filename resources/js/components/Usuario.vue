@@ -7,7 +7,7 @@
             <div class="col-lg-12">
               <div class="card">
                 <div class="card-header">
-                  <i class="fa fa-align-justify"></i> Departamento
+                  <i class="fa fa-align-justify"></i> Usuario
                   <button
                     type="button"
                     data-toggle="modal"
@@ -43,8 +43,16 @@
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Opciones</th>
+                        <th>Sucursal</th>
+                        <th>Departamento</th>
+                        <th>Direccion IP</th>
+                        <th>Usuario</th>
+                        <th>Usuario SAP</th>
+                        <th>Usuario AD</th>
+                        <th>Password AD</th>
+                        <th>Email Office</th>
+                        <th>Password Office</th>
+                        <th>Telefono IP</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -56,7 +64,16 @@
                             }}
                           </span>
                         </td>
-                        <td>{{ data.nombre }}</td>
+                        <td>{{ data.sucursal }}</td>
+                        <th>{{ data.departamento }}</th>
+                        <th>{{ data.direccion_ip }}</th>
+                        <th>{{ data.usuario }}</th>
+                        <th>{{ data.usuario_sap }}</th>
+                        <th>{{ data.usuario_ad }}</th>
+                        <th>{{ data.password_ad }}</th>
+                        <th>{{ data.email_office }}</th>
+                        <th>{{ data.password_office }}</th>
+                        <th>{{ data.telefono_ip }}</th>
                         <td>
                           <button
                             type="button"
@@ -147,20 +164,131 @@
             </button>
           </div>
           <div :class="'modal-body '+activarValidate">
-            <!-- <form action method="post" enctype="multipart/form-data" class="form-horizontal"> -->
-              <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
+            <form action method="post" enctype="multipart/form-data" class="form-horizontal">
+             
+               <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Direccion IP</label>
                 <div class="col-md-9">
                   <input
                     type="text"
-                    v-model="nombre"
-                    placeholder="Nombre......"
+                    v-model="direccion_ip"
+                    placeholder="Direccion IP......"
                     class="form-control"
                     required
                   />
                 </div>
               </div>
-            <!-- </form> -->
+               <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Usuario</label>
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    v-model="usuario"
+                    placeholder="Usuario......"
+                    class="form-control"
+                    required
+                  />
+                </div>
+              </div>
+               <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Usuario_Sap</label>
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    v-model="usuario_sap"
+                    placeholder="Usuario_Sap......"
+                    class="form-control"
+                    required
+                  />
+                </div>
+              </div>
+               <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Usuario_AD</label>
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    v-model="usuario_ad"
+                    placeholder="Usuario_AD......"
+                    class="form-control"
+                    required
+                  />
+                </div>
+              </div>
+               <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Password_AD</label>
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    v-model="password_ad"
+                    placeholder="Password_AD......"
+                    class="form-control"
+                    required
+                  />
+                </div>
+              </div>
+               <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Email_Office</label>
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    v-model="email_office"
+                    placeholder="Email_Office......"
+                    class="form-control"
+                    required
+                  />
+                </div>
+              </div>
+               <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Password_Office</label>
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    v-model="password_office"
+                    placeholder="Password_Office......"
+                    class="form-control"
+                    required
+                  />
+                </div>
+              </div>
+               <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Telefono_IP</label>
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    v-model="telefono_ip"
+                    placeholder="Telefono_IP......"
+                    class="form-control"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Departamento</label>
+                <div class="col-md-9">
+                  <v-select
+                    @search="select_departamento"
+                    label="nombre"
+                    :options="array_departamento"
+                    placeholder="Departamento..."
+                    @input="get_departamento"
+                    v-model="vue_departamento"
+                  />
+                </div>
+              </div>
+               <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Sucursal</label>
+                <div class="col-md-9">
+                  <v-select
+                    @search="select_sucursal"
+                    label="nombre"
+                    :options="array_sucursal"
+                    placeholder="Sucursal..."
+                    @input="get_sucursal"
+                    v-model="vue_sucursal"
+                  />
+                </div>
+              </div>
+            </form>
           </div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
@@ -183,8 +311,17 @@ export default {
   data() {
     return {
       id: 0,
-      nombre: "",
-      url_ctrl: "departamento",
+      direccion_ip: "",
+      usuario:'',
+      usuario_sap:'',
+      usuario_ad:'',
+      password_ad:'',
+      email_office:'',
+      password_office:'',
+      telefono_ip:'',
+      array_departamento:[],
+      array_sucursal:[],
+      url_ctrl: "usuario",
       array_data: [],
       tituloModal: "",
       tipoAccion: 0,
@@ -367,13 +504,13 @@ export default {
       // $("#ModalLong").modal('show')
       switch (accion) {
         case "registrar": {
-          this.tituloModal = "Registrar Departamento";
+          this.tituloModal = "Registrar Usuario";
           this.limpiar();
           this.tipoAccion = 1;
           break;
         }
         case "actualizar": {
-          this.tituloModal = "Actualizar Departamento";
+          this.tituloModal = "Actualizar Usuario";
           this.tipoAccion = 2;
           this.id = data.id;
           this.nombre = data.nombre;

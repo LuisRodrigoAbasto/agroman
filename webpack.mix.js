@@ -14,12 +14,13 @@ const mix = require('laravel-mix');
 // mix.js('resources/js/app.js', 'public/js')
 //    .sass('resources/sass/app.scss', 'public/css');
 mix.js('resources/js/app.js', 'public/js/app.js')
-   .sass('resources/sass/app.scss', 'public/css/app.css')
+   // .sass('resources/sass/app.scss', 'public/css/app.css')
    .styles(['resources/lib/css/style.css',
    'resources/lib/css/free.min.css',
+   // 'sweetalert2.css',
 'resources/lib/css/flag-icon.min.css'
 ],
    'public/css/lib.css')
    .scripts(['resources/lib/js/coreui.bundle.min.js',
-// 'pace.min.js'
+// 'sweetalert2.js'
 ],'public/js/lib.js');

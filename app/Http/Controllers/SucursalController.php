@@ -7,15 +7,11 @@ use App\Sucursal;
 
 class SucursalController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(Request $request)
     {
         $buscar=$request->buscar;
         $table=Sucursal::where('nombre','like','%'.$buscar.'%')
+        ->where('estado','=','1')
         ->orderBy('id','desc')
         // ->with('categoria')
          ->paginate(10);
@@ -30,16 +26,7 @@ class SucursalController extends Controller
             ],
             'table' => $table
         ];
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    
     }
 
     /**
@@ -50,29 +37,11 @@ class SucursalController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        // if(!$request->ajax()) return redirect('/');
+        $table= new Sucursal();
+        $table->nombre=$request->nombre;
+        $table->estado='1';
+        $table->save();
     }
 
     /**
@@ -82,9 +51,12 @@ class SucursalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $table= Sucursal::findOrfail($request->id);
+        $table->nombre=$request->nombre;
+        $table->estado='1';
+        $table->save();
     }
 
     /**
@@ -95,6 +67,9 @@ class SucursalController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // if(!$request->ajax()) return redirect('/');
+        $table=Sucursal::find($id);
+        $table->estado='0';
+        $table->save();
     }
 }

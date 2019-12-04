@@ -16,6 +16,7 @@ class CreateUsuariosTable extends Migration
         Schema::create('usuarios', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('sucursal_id');
+            $table->unsignedBigInteger('departamento_id');
             $table->string('direccion_ip',20);
             $table->string('usuario',50);
             $table->string('usuario_sap',50);
@@ -24,7 +25,9 @@ class CreateUsuariosTable extends Migration
             $table->string('email_office',50);
             $table->string('password_office',50);
             $table->string('telefono_ip',50);
+            $table->boolean('estado')->default(1);
             $table->foreign('sucursal_id')->references('id')->on('sucursal');
+            $table->foreign('departamento_id')->references('id')->on('departamentos');
             $table->timestamps();
         });
     }

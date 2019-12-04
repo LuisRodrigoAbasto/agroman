@@ -7,7 +7,7 @@
             <div class="col-lg-12">
               <div class="card">
                 <div class="card-header">
-                  <i class="fa fa-align-justify"></i> Departamento
+                  <i class="fa fa-align-justify"></i> Sucursal
                   <button
                     type="button"
                     data-toggle="modal"
@@ -184,7 +184,7 @@ export default {
     return {
       id: 0,
       nombre: "",
-      url_ctrl: "departamento",
+      url_ctrl: "sucursal",
       array_data: [],
       tituloModal: "",
       tipoAccion: 0,
@@ -367,13 +367,13 @@ export default {
       // $("#ModalLong").modal('show')
       switch (accion) {
         case "registrar": {
-          this.tituloModal = "Registrar Departamento";
+          this.tituloModal = "Registrar Sucursal";
           this.limpiar();
           this.tipoAccion = 1;
           break;
         }
         case "actualizar": {
-          this.tituloModal = "Actualizar Departamento";
+          this.tituloModal = "Actualizar Sucursal";
           this.tipoAccion = 2;
           this.id = data.id;
           this.nombre = data.nombre;

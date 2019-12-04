@@ -16,6 +16,7 @@ class DepartamentoController extends Controller
     {
         $buscar=$request->buscar;
         $table=Departamento::where('nombre','like','%'.$buscar.'%')
+        ->where('estado','=','1')
         ->orderBy('id','desc')
         // ->with('categoria')
          ->paginate(10);
@@ -44,6 +45,7 @@ class DepartamentoController extends Controller
         // if(!$request->ajax()) return redirect('/');
         $table= new Departamento();
         $table->nombre=$request->nombre;
+        $table->estado='1';
         $table->save();
     }
 
@@ -58,6 +60,7 @@ class DepartamentoController extends Controller
     {
         $table= Departamento::findOrfail($request->id);
         $table->nombre=$request->nombre;
+        $table->estado='1';
         $table->save();
     }
 
@@ -71,6 +74,7 @@ class DepartamentoController extends Controller
     {
         // if(!$request->ajax()) return redirect('/');
         $table=Departamento::find($id);
-        $table->delete();
+        $table->estado='0';
+        $table->save();
     }
 }
