@@ -319,8 +319,18 @@ export default {
       email_office:'',
       password_office:'',
       telefono_ip:'',
+      departamento_id:0,
       array_departamento:[],
+      vue_departamento:{
+        id:0,
+        nombre:''
+      },
+      sucursal_id:0,
       array_sucursal:[],
+      vue_sucursal:{
+        id:0,
+        nombre:''
+      },
       url_ctrl: "usuario",
       array_data: [],
       tituloModal: "",
@@ -477,29 +487,66 @@ export default {
           }
         });
     },
-    // selectCategoria(search, loading) {
-    //   loading(true);
-    //   var url = "categoria/select?buscar=" + search;
-    //   axios
-    //     .get(url)
-    //     .then(resp => {
-    //       let respuesta = resp.data;
-    //       q: search;
-    //       this.array_categoria = respuesta.table;
-    //       loading(false);
-    //     })
-    //     .catch(error => {
-    //       console.log(error);
-    //     });
-    // },
-    // getDatoCategoria(val1) {
-    //   this.id_categoria = val1.id;
-    //   this.categoria = val1.nombre;
-    //   this.vue_categoria={
-    //     id:val1.id,
-    //     nombre:val1.nombre
-    //   };
-    // },
+    select_departamento(search, loading) {
+      loading(true);
+      var url = "departamento/select?buscar=" + search;
+      axios
+        .get(url)
+        .then(resp => {
+          let respuesta = resp.data;
+          q: search;
+          this.array_departamento = respuesta.table;
+          loading(false);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    get_detapartamento(val1) {
+      try {
+        this.departamento_id = val1.id;
+      this.vue_departamento={
+        id:val1.id,
+        nombre:val1.nombre
+      };
+      } catch{
+        this.departamento_id = 0;
+      this.vue_departamento={
+        id:0,
+        nombre:''
+      };
+      }
+    },
+      select_sucursal(search, loading) {
+      loading(true);
+      var url = "sucursal/select?buscar=" + search;
+      axios
+        .get(url)
+        .then(resp => {
+          let respuesta = resp.data;
+          q: search;
+          this.array_sucursal = respuesta.table;
+          loading(false);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    get_sucursal(val1) {
+      try {
+        this.sucursal_id = val1.id;
+      this.vue_sucursal={
+        id:val1.id,
+        nombre:val1.nombre
+      };
+      } catch{
+        this.sucursal_id = 0;
+      this.vue_sucursal={
+        id:0,
+        nombre:''
+      };
+      }
+    },
     abrirModal(accion, data = []) {
       // $("#ModalLong").modal('show')
       switch (accion) {
