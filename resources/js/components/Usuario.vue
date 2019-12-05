@@ -27,7 +27,7 @@
                             <select class="form-control col-md-3">
                               <option value="nombre">Nombre</option>
                             </select>
-                            <input type="text" class="form-control" @keyup="listar(1,buscar)" v-model="buscar" placeholder="Buscar...." />
+                            <input type="text" class="form-control" @input="listar(1,buscar)" v-model="buscar" placeholder="Buscar...." />
                             <span class="input-group-append">
                               <button type="submit" class="btn btn-primary" @click="listar(1,buscar)">
                                 <i class="fa fa-search"></i>
@@ -39,7 +39,7 @@
                       </div>
                     </div>
                   </div>
-                  <table class="table table-responsive-sm table-bordered table-striped table-sm">
+                  <table class="table table-responsive table-bordered table-striped table-sm">
                     <thead>
                       <tr>
                         <th>ID</th>
@@ -53,6 +53,7 @@
                         <th>Email Office</th>
                         <th>Password Office</th>
                         <th>Telefono IP</th>
+                        <th>Opciones</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -65,15 +66,15 @@
                           </span>
                         </td>
                         <td>{{ data.sucursal }}</td>
-                        <th>{{ data.departamento }}</th>
-                        <th>{{ data.direccion_ip }}</th>
-                        <th>{{ data.usuario }}</th>
-                        <th>{{ data.usuario_sap }}</th>
-                        <th>{{ data.usuario_ad }}</th>
-                        <th>{{ data.password_ad }}</th>
-                        <th>{{ data.email_office }}</th>
-                        <th>{{ data.password_office }}</th>
-                        <th>{{ data.telefono_ip }}</th>
+                        <td>{{ data.departamento }}</td>
+                        <td>{{ data.direccion_ip }}</td>
+                        <td>{{ data.usuario }}</td>
+                        <td>{{ data.usuario_sap }}</td>
+                        <td>{{ data.usuario_ad }}</td>
+                        <td>{{ data.password_ad }}</td>
+                        <td>{{ data.email_office }}</td>
+                        <td>{{ data.password_office }}</td>
+                        <td>{{ data.telefono_ip }}</td>
                         <td>
                           <button
                             type="button"
@@ -305,6 +306,10 @@
 </template>
 <script>
 import Vue from "vue";
+import vSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
+Vue.component("v-select", vSelect);
+
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 export default {
@@ -414,7 +419,16 @@ export default {
       }
       axios
         .post(this.url_ctrl + "/registrar", {
-          nombre: this.nombre
+          sucursal_id: this.sucursal_id,
+          departamento_id:this.departamento_id,
+          direccion_ip:this.direccion_ip,
+          usuario:this.usuario,
+          usuario_sap:this.usuario_sap,
+          usuario_ad:this.usuario_ad,
+          password_ad:this.password_ad,
+          email_office:this.email_office,
+          password_office:this.password_office,
+          telefono_ip:this.telefono_ip
         })
         .then(resp => {
           this.eventoAlerta("success", "Guardado Exitosamente");
@@ -436,7 +450,16 @@ export default {
       axios
         .put(this.url_ctrl + "/actualizar", {
           id: this.id,
-          nombre: this.nombre
+          sucursal_id: this.sucursal_id,
+          departamento_id:this.departamento_id,
+          direccion_ip:this.direccion_ip,
+          usuario:this.usuario,
+          usuario_sap:this.usuario_sap,
+          usuario_ad:this.usuario_ad,
+          password_ad:this.password_ad,
+          email_office:this.email_office,
+          password_office:this.password_office,
+          telefono_ip:this.telefono_ip
         })
         .then(resp => {
           this.eventoAlerta("success", "Actualizado Exitosamente");
@@ -502,7 +525,7 @@ export default {
           console.log(error);
         });
     },
-    get_detapartamento(val1) {
+    get_departamento(val1) {
       try {
         this.departamento_id = val1.id;
       this.vue_departamento={
@@ -560,22 +583,59 @@ export default {
           this.tituloModal = "Actualizar Usuario";
           this.tipoAccion = 2;
           this.id = data.id;
-          this.nombre = data.nombre;
+          this.sucursal_id= data.sucursal_id;
+          this.departamento_id=data.departamento_id;
+          this.direccion_ip=data.direccion_ip;
+          this.usuario=data.usuario;
+          this.usuario_sap=data.usuario_sap;
+          this.usuario_ad=data.usuario_ad,
+          this.password_ad=data.password_ad;
+          this.email_office=data.email_office;
+          this.password_office=data.password_office;
+          this.telefono_ip=data.telefono_ip;
+          this.vue_departamento={
+            id:data.departamento_id,
+            nombre:data.departamento
+          }
+          this.vue_sucursal={
+            id:data.sucursal_id,
+            nombre:data.sucursal
+          }
           break;
         }
       }
     },
     limpiar() {
       this.id = 0;
-      this.nombre = "";
       this.buscar = "";
+      this.sucursal_id= '';
+      this.departamento_id='';
+      this.direccion_ip='';
+      this.usuario='';
+      this.usuario_ad='';
+      this.usuario_sap='';
+      this.password_ad='';
+      this.email_office='';
+      this.password_office='';
+      this.telefono_ip='';
+      this.vue_departamento={
+        id:0,
+        nombre:''
+      };
+      this.vue_sucursal={
+        id:0,
+        nombre:''
+      };
+      this.array_departamento=[];
+      this.array_sucursal=[];
       this.activarValidate = "";
     },
     validar() {
-      if (!this.nombre) {
+      if (!this.usuario) {
         this.mensaje = "Ingrese el Nombre";
         return true;
       }
+
       return false;
     }
   }

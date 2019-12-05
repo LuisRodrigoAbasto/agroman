@@ -28,7 +28,7 @@
 </template>
 <template v-if="menu==2">
     <sucursal-component></sucursal-component>
-</template>
+{{-- </template>
 <iframe width="900" height="700" src="https://app.powerbi.com/view?r=eyJrIjoiNDdlMmU1NmUtMWJlYy00YWQyLTg5MDktNDU4ZDNjOTg5NTRjIiwidCI6ImEwNGJlMDE1LWIyNjYtNDRiZi1iZTM3LTIxMWNmZDQ0YTMyMSIsImMiOjR9" frameborder="0" allowFullScreen="true"></iframe>
-<iframe width="933" height="700" src="https://app.powerbi.com/view?r=eyJrIjoiNDdlMmU1NmUtMWJlYy00YWQyLTg5MDktNDU4ZDNjOTg5NTRjIiwidCI6ImEwNGJlMDE1LWIyNjYtNDRiZi1iZTM3LTIxMWNmZDQ0YTMyMSIsImMiOjR9" frameborder="0" allowFullScreen="true"></iframe>
+<iframe width="933" height="700" src="https://app.powerbi.com/view?r=eyJrIjoiNDdlMmU1NmUtMWJlYy00YWQyLTg5MDktNDU4ZDNjOTg5NTRjIiwidCI6ImEwNGJlMDE1LWIyNjYtNDRiZi1iZTM3LTIxMWNmZDQ0YTMyMSIsImMiOjR9" frameborder="0" allowFullScreen="true"></iframe> --}}
 @endsection

@@ -33,7 +33,15 @@ class DepartamentoController extends Controller
         ];
     
     }
-
+    public function select(Request $request)
+    {
+        // if(!$request->ajax()) return redirect('/');
+        $buscar=$request->buscar;
+        $table=Departamento::where('nombre','like','%'.$buscar.'%')
+        ->take(10)
+        ->get();
+        return ['table' => $table];
+    }
     /**
      * Store a newly created resource in storage.
      *

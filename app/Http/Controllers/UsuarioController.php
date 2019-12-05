@@ -3,27 +3,30 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Usuario;
 
 class UsuarioController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $buscar=$request->buscar;
+        $table=Usuario::where('usuario','like','%'.$buscar.'%')
+        ->where('estado','=','1')
+        ->orderBy('id','desc')
+        // ->with('categoria')
+         ->paginate(10);
+        return [
+            'pagination' => [
+                'total'        => $table->total(),
+                'current_page' => $table->currentPage(),
+                'per_page'     => $table->perPage(),
+                'last_page'    => $table->lastPage(),
+                'from'         => $table->firstItem(),
+                'to'           => $table->lastItem(),
+            ],
+            'table' => $table
+        ];
+    
     }
 
     /**
@@ -34,29 +37,20 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        // if(!$request->ajax()) return redirect('/');
+        $table= new Usuario();
+        $table->sucursal_id=$request->sucursal_id;
+        $table->departamento_id=$request->departamento_id;
+        $table->direccion_ip=$request->direccion_ip;
+        $table->usuario=$request->usuario;
+        $table->usuario_sap=$request->usuario_sap;
+        $table->usuario_ad=$request->usuario_ad;
+        $table->password_ad=$request->password_ad;
+        $table->email_office=$request->email_office;
+        $table->password_office=$request->password_office;
+        $table->telefono_ip=$request->telefono_ip;
+        $table->estado='1';
+        $table->save();
     }
 
     /**
@@ -66,9 +60,21 @@ class UsuarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $table= Usuario::findOrfail($request->id);
+        $table->sucursal_id=$request->sucursal_id;
+        $table->departamento_id=$request->departamento_id;
+        $table->direccion_ip=$request->direccion_ip;
+        $table->usuario=$request->usuario;
+        $table->usuario_sap=$request->usuario_sap;
+        $table->usuario_ad=$request->usuario_ad;
+        $table->password_ad=$request->password_ad;
+        $table->email_office=$request->email_office;
+        $table->password_office=$request->password_office;
+        $table->telefono_ip=$request->telefono_ip;
+        $table->estado='1';
+        $table->save();
     }
 
     /**
@@ -79,6 +85,9 @@ class UsuarioController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // if(!$request->ajax()) return redirect('/');
+        $table=Usuario::find($id);
+        $table->estado='0';
+        $table->save();
     }
 }
