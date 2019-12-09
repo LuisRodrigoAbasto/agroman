@@ -2,6 +2,6 @@
 
 @section('content')
 <template>
-<departamento-component></departamento-component>
+<usuario-component></usuario-component>
 </template>
 @endsection

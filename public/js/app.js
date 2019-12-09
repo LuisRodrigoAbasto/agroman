@@ -2029,7 +2029,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       id: 0,
       nombre: "",
-      url_ctrl: "departamento",
+      url_ctrl: "departamento_controller",
       array_data: [],
       tituloModal: "",
       tipoAccion: 0,
@@ -2456,7 +2456,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       id: 0,
       nombre: "",
-      url_ctrl: "sucursal",
+      url_ctrl: "sucursal_controller",
       array_data: [],
       tituloModal: "",
       tipoAccion: 0,
@@ -3038,7 +3038,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
         id: 0,
         nombre: ''
       },
-      url_ctrl: "usuario",
+      url_ctrl: "usuario_controller",
       array_data: [],
       tituloModal: "",
       tipoAccion: 0,
@@ -3222,7 +3222,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
       var _this5 = this;
 
       loading(true);
-      var url = "departamento/select?buscar=" + search;
+      var url = "departamento_controller/select?buscar=" + search;
       axios.get(url).then(function (resp) {
         var respuesta = resp.data;
 
@@ -3253,7 +3253,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
       var _this6 = this;
 
       loading(true);
-      var url = "sucursal/select?buscar=" + search;
+      var url = "sucursal_controller/select?buscar=" + search;
       axios.get(url).then(function (resp) {
         var respuesta = resp.data;
 

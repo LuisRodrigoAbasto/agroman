@@ -48,7 +48,10 @@ class UsuarioController extends Controller
         $table->password_ad=$request->password_ad;
         $table->email_office=$request->email_office;
         $table->password_office=$request->password_office;
+        $table->telefono_interno=$request->telefono_interno;
         $table->telefono_ip=$request->telefono_ip;
+        $table->celular=$request->celular;
+        $table->celular_corto=$request->celular_corto;
         $table->estado='1';
         $table->save();
     }
@@ -72,7 +75,10 @@ class UsuarioController extends Controller
         $table->password_ad=$request->password_ad;
         $table->email_office=$request->email_office;
         $table->password_office=$request->password_office;
+        $table->telefono_interno=$request->telefono_interno;
         $table->telefono_ip=$request->telefono_ip;
+        $table->celular=$request->celular;
+        $table->celular_corto=$request->celular_corto;
         $table->estado='1';
         $table->save();
     }
@@ -86,7 +92,7 @@ class UsuarioController extends Controller
     public function destroy($id)
     {
         // if(!$request->ajax()) return redirect('/');
-        $table=Usuario::find($id);
+        $table=Usuario::findOrfail($id);
         $table->estado='0';
         $table->save();
     }

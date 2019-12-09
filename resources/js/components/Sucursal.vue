@@ -184,7 +184,7 @@ export default {
     return {
       id: 0,
       nombre: "",
-      url_ctrl: "sucursal",
+      url_ctrl: "sucursal_controller",
       array_data: [],
       tituloModal: "",
       tipoAccion: 0,

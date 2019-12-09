@@ -15,16 +15,19 @@ class CreateUsuariosTable extends Migration
     {
         Schema::create('usuarios', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('sucursal_id');
-            $table->unsignedBigInteger('departamento_id');
-            $table->string('direccion_ip',20);
-            $table->string('usuario',50);
-            $table->string('usuario_sap',50);
-            $table->string('usuario_ad',50);
-            $table->string('password_ad',50);
-            $table->string('email_office',50);
-            $table->string('password_office',50);
-            $table->string('telefono_ip',50);
+            $table->unsignedBigInteger('sucursal_id')->nullable();
+            $table->unsignedBigInteger('departamento_id')->nullable();
+            $table->string('direccion_ip',20)->nullable();
+            $table->string('usuario',50)->nullable();
+            $table->string('usuario_sap',50)->nullable();
+            $table->string('usuario_ad',50)->nullable();
+            $table->string('password_ad',50)->nullable();
+            $table->string('email_office',50)->nullable();
+            $table->string('password_office',50)->nullable();
+            $table->string('telefono_interno',50)->nullable();
+            $table->string('telefono_ip',50)->nullable();
+            $table->string('celular',50)->nullable();
+            $table->string('celular_corto',50)->nullable();
             $table->boolean('estado')->default(1);
             $table->foreign('sucursal_id')->references('id')->on('sucursal');
             $table->foreign('departamento_id')->references('id')->on('departamentos');

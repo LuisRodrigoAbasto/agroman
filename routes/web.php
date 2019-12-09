@@ -20,22 +20,28 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/departamentos', function () {
-    return view('departamento/index')->name('departamentos');
+    return view('departamento/index');
+});
+Route::get('/sucursal', function () {
+    return view('sucursal/index');
+});
+Route::get('/usuarios', function () {
+    return view('usuario/index');
 });
 
-Route::get('/departamento', 'DepartamentoController@index');
-Route::post('/departamento/registrar', 'DepartamentoController@store');
-Route::put('/departamento/actualizar', 'DepartamentoController@update');
-Route::delete('/departamento/eliminar_{id}', 'DepartamentoController@destroy');
-Route::get('/departamento/select', 'DepartamentoController@select');
+Route::get('/departamento_controller', 'DepartamentoController@index');
+Route::post('/departamento_controller/registrar', 'DepartamentoController@store');
+Route::put('/departamento_controller/actualizar', 'DepartamentoController@update');
+Route::delete('/departamento_controller/eliminar_{id}', 'DepartamentoController@destroy');
+Route::get('/departamento_controller/select', 'DepartamentoController@select');
 
-Route::get('/sucursal', 'SucursalController@index');
-Route::post('/sucursal/registrar', 'SucursalController@store');
-Route::put('/sucursal/actualizar', 'SucursalController@update');
-Route::delete('/sucursal/eliminar_{id}', 'SucursalController@destroy');
-Route::get('/sucursal/select', 'SucursalController@select');
+Route::get('/sucursal_controller', 'SucursalController@index');
+Route::post('/sucursal_controller/registrar', 'SucursalController@store');
+Route::put('/sucursal_controller/actualizar', 'SucursalController@update');
+Route::delete('/sucursal_controller/eliminar_{id}', 'SucursalController@destroy');
+Route::get('/sucursal_controller/select', 'SucursalController@select');
 
-Route::get('/usuario', 'UsuarioController@index');
-Route::post('/usuario/registrar', 'UsuarioController@store');
-Route::put('/usuario/actualizar', 'UsuarioController@update');
-Route::delete('/usuario/eliminar_{id}', 'UsuarioController@destroy');
+Route::get('/usuario_controller', 'UsuarioController@index');
+Route::post('/usuario_controller/registrar', 'UsuarioController@store');
+Route::put('/usuario_controller/actualizar', 'UsuarioController@update');
+Route::delete('/usuario_controller/eliminar_{id}', 'UsuarioController@destroy');

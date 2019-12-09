@@ -336,7 +336,7 @@ export default {
         id:0,
         nombre:''
       },
-      url_ctrl: "usuario",
+      url_ctrl: "usuario_controller",
       array_data: [],
       tituloModal: "",
       tipoAccion: 0,
@@ -512,7 +512,7 @@ export default {
     },
     select_departamento(search, loading) {
       loading(true);
-      var url = "departamento/select?buscar=" + search;
+      var url = "departamento_controller/select?buscar=" + search;
       axios
         .get(url)
         .then(resp => {
@@ -542,7 +542,7 @@ export default {
     },
       select_sucursal(search, loading) {
       loading(true);
-      var url = "sucursal/select?buscar=" + search;
+      var url = "sucursal_controller/select?buscar=" + search;
       axios
         .get(url)
         .then(resp => {
