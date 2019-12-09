@@ -25,7 +25,7 @@
                         <div class="col-md-10">
                           <div class="input-group">
                             <select class="form-control col-md-3">
-                              <option value="nombre">Nombre</option>
+                              <option value="usuario">Usuario</option>
                             </select>
                             <input type="text" class="form-control" @input="listar(1,buscar)" v-model="buscar" placeholder="Buscar...." />
                             <span class="input-group-append">
