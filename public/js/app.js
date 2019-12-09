@@ -2031,7 +2031,7 @@ __webpack_require__.r(__webpack_exports__);
       nombre: "",
       url_ctrl: "departamento_controller",
       array_data: [],
-      tituloModal: "",
+      titulo_modal: "",
       tipoAccion: 0,
       pagination: {
         total: 0,
@@ -2221,7 +2221,7 @@ __webpack_require__.r(__webpack_exports__);
       switch (accion) {
         case "registrar":
           {
-            this.tituloModal = "Registrar Departamento";
+            this.titulo_modal = "Registrar Departamento";
             this.limpiar();
             this.tipoAccion = 1;
             break;
@@ -2229,7 +2229,7 @@ __webpack_require__.r(__webpack_exports__);
 
         case "actualizar":
           {
-            this.tituloModal = "Actualizar Departamento";
+            this.titulo_modal = "Actualizar Departamento";
             this.tipoAccion = 2;
             this.id = data.id;
             this.nombre = data.nombre;
@@ -2458,7 +2458,7 @@ __webpack_require__.r(__webpack_exports__);
       nombre: "",
       url_ctrl: "sucursal_controller",
       array_data: [],
-      tituloModal: "",
+      titulo_modal: "",
       tipoAccion: 0,
       pagination: {
         total: 0,
@@ -2648,7 +2648,7 @@ __webpack_require__.r(__webpack_exports__);
       switch (accion) {
         case "registrar":
           {
-            this.tituloModal = "Registrar Sucursal";
+            this.titulo_modal = "Registrar Sucursal";
             this.limpiar();
             this.tipoAccion = 1;
             break;
@@ -2656,7 +2656,7 @@ __webpack_require__.r(__webpack_exports__);
 
         case "actualizar":
           {
-            this.tituloModal = "Actualizar Sucursal";
+            this.titulo_modal = "Actualizar Sucursal";
             this.tipoAccion = 2;
             this.id = data.id;
             this.nombre = data.nombre;
@@ -3008,6 +3008,59 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3019,28 +3072,31 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
     return {
       id: 0,
       direccion_ip: "",
-      usuario: '',
-      usuario_sap: '',
-      usuario_ad: '',
-      password_ad: '',
-      email_office: '',
-      password_office: '',
-      telefono_ip: '',
+      usuario: "",
+      usuario_sap: "",
+      usuario_ad: "",
+      password_ad: "",
+      email_office: "",
+      password_office: "",
+      telefono_interno: '',
+      telefono_ip: "",
+      celular: '',
+      celular_corto: '',
       departamento_id: 0,
       array_departamento: [],
       vue_departamento: {
         id: 0,
-        nombre: ''
+        nombre: ""
       },
       sucursal_id: 0,
       array_sucursal: [],
       vue_sucursal: {
         id: 0,
-        nombre: ''
+        nombre: ""
       },
       url_ctrl: "usuario_controller",
       array_data: [],
-      tituloModal: "",
+      titulo_modal: "",
       tipoAccion: 0,
       pagination: {
         total: 0,
@@ -3137,11 +3193,14 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
         password_ad: this.password_ad,
         email_office: this.email_office,
         password_office: this.password_office,
-        telefono_ip: this.telefono_ip
+        telefono_interno: this.telefono_interno,
+        telefono_ip: this.telefono_ip,
+        celular: this.celular,
+        celular_corto: this.celular_corto
       }).then(function (resp) {
         _this2.eventoAlerta("success", "Guardado Exitosamente");
 
-        $('#ModalLong').modal('hide'); // $('.modal-backdrop').remove();
+        $("#ModalLong").modal("hide"); // $('.modal-backdrop').remove();
 
         _this2.listar(1, "");
 
@@ -3170,11 +3229,14 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
         password_ad: this.password_ad,
         email_office: this.email_office,
         password_office: this.password_office,
-        telefono_ip: this.telefono_ip
+        telefono_interno: this.telefono_interno,
+        telefono_ip: this.telefono_ip,
+        celular: this.celular,
+        celular_corto: this.celular_corto
       }).then(function (resp) {
         _this3.eventoAlerta("success", "Actualizado Exitosamente");
 
-        $('#ModalLong').modal('hide'); // $('.modal-backdrop').remove();
+        $("#ModalLong").modal("hide"); // $('.modal-backdrop').remove();
         // console.log($("#ModalLong").modal("hide"));
 
         _this3.listar(1, "");
@@ -3245,7 +3307,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
         this.departamento_id = 0;
         this.vue_departamento = {
           id: 0,
-          nombre: ''
+          nombre: ""
         };
       }
     },
@@ -3276,7 +3338,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
         this.sucursal_id = 0;
         this.vue_sucursal = {
           id: 0,
-          nombre: ''
+          nombre: ""
         };
       }
     },
@@ -3287,7 +3349,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
       switch (accion) {
         case "registrar":
           {
-            this.tituloModal = "Registrar Usuario";
+            this.titulo_modal = "Registrar Usuario";
             this.limpiar();
             this.tipoAccion = 1;
             break;
@@ -3295,7 +3357,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
 
         case "actualizar":
           {
-            this.tituloModal = "Actualizar Usuario";
+            this.titulo_modal = "Actualizar Usuario";
             this.tipoAccion = 2;
             this.id = data.id;
             this.sucursal_id = data.sucursal_id;
@@ -3303,10 +3365,14 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
             this.direccion_ip = data.direccion_ip;
             this.usuario = data.usuario;
             this.usuario_sap = data.usuario_sap;
-            this.usuario_ad = data.usuario_ad, this.password_ad = data.password_ad;
+            this.usuario_ad = data.usuario_ad;
+            this.password_ad = data.password_ad;
             this.email_office = data.email_office;
             this.password_office = data.password_office;
+            this.telefono_interno = data.telefono_interno;
             this.telefono_ip = data.telefono_ip;
+            this.celular = data.celular;
+            this.celular_corto = celular_corto;
             this.vue_departamento = {
               id: data.departamento_id,
               nombre: data.departamento
@@ -3322,23 +3388,26 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
     limpiar: function limpiar() {
       this.id = 0;
       this.buscar = "";
-      this.sucursal_id = '';
-      this.departamento_id = '';
-      this.direccion_ip = '';
-      this.usuario = '';
-      this.usuario_ad = '';
-      this.usuario_sap = '';
-      this.password_ad = '';
-      this.email_office = '';
-      this.password_office = '';
-      this.telefono_ip = '';
+      this.sucursal_id = "";
+      this.departamento_id = "";
+      this.direccion_ip = "";
+      this.usuario = "";
+      this.usuario_ad = "";
+      this.usuario_sap = "";
+      this.password_ad = "";
+      this.email_office = "";
+      this.password_office = "";
+      this.telefono_interno = '';
+      this.telefono_ip = "";
+      this.celular = "";
+      this.celular_corto = '';
       this.vue_departamento = {
         id: 0,
-        nombre: ''
+        nombre: ""
       };
       this.vue_sucursal = {
         id: 0,
-        nombre: ''
+        nombre: ""
       };
       this.array_departamento = [];
       this.array_sucursal = [];
@@ -38156,7 +38225,13 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(2),
+              _c("div", { staticClass: "modal-header" }, [
+                _c("h4", { staticClass: "modal-title" }, [
+                  _vm._v(_vm._s(_vm.titulo_modal))
+                ]),
+                _vm._v(" "),
+                _vm._m(2)
+              ]),
               _vm._v(" "),
               _c("div", { class: "modal-body " + _vm.activarValidate }, [
                 _c("div", { staticClass: "form-group row" }, [
@@ -38271,22 +38346,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c("h4", { staticClass: "modal-title" }, [_vm._v("Modal title")]),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-label": "Close"
-          }
-        },
-        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
-    ])
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
   }
 ]
 render._withStripped = true
@@ -38580,7 +38651,13 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(2),
+              _c("div", { staticClass: "modal-header" }, [
+                _c("h4", { staticClass: "modal-title" }, [
+                  _vm._v(_vm._s(_vm.titulo_modal))
+                ]),
+                _vm._v(" "),
+                _vm._m(2)
+              ]),
               _vm._v(" "),
               _c("div", { class: "modal-body " + _vm.activarValidate }, [
                 _c("div", { staticClass: "form-group row" }, [
@@ -38695,22 +38772,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c("h4", { staticClass: "modal-title" }, [_vm._v("Modal title")]),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-label": "Close"
-          }
-        },
-        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
-    ])
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
   }
 ]
 render._withStripped = true
@@ -38843,27 +38916,17 @@ var render = function() {
                         "tbody",
                         _vm._l(_vm.array_data, function(data) {
                           return _c("tr", { key: data.id }, [
-                            _c("td", [
-                              _c(
-                                "span",
-                                { staticClass: "badge badge-success" },
-                                [
-                                  _vm._v(
-                                    "\n                          " +
-                                      _vm._s(data.id) +
-                                      "\n                        "
-                                  )
-                                ]
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(data.sucursal))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(data.departamento))]),
-                            _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(data.direccion_ip))]),
                             _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(data.usuario))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(data.telefono_interno))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(data.sucursal))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(data.celular_corto))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(data.celular))]),
                             _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(data.usuario_sap))]),
                             _vm._v(" "),
@@ -38876,6 +38939,8 @@ var render = function() {
                             _c("td", [_vm._v(_vm._s(data.password_office))]),
                             _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(data.telefono_ip))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(data.departamento))]),
                             _vm._v(" "),
                             _c("td", [
                               _c(
@@ -39024,7 +39089,13 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(2),
+              _c("div", { staticClass: "modal-header" }, [
+                _c("h4", { staticClass: "modal-title" }, [
+                  _vm._v(_vm._s(_vm.titulo_modal))
+                ]),
+                _vm._v(" "),
+                _vm._m(2)
+              ]),
               _vm._v(" "),
               _c("div", { class: "modal-body " + _vm.activarValidate }, [
                 _c(
@@ -39318,6 +39389,45 @@ var render = function() {
                           staticClass: "col-md-3 form-control-label",
                           attrs: { for: "text-input" }
                         },
+                        [_vm._v("Telefono_Interno")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.telefono_interno,
+                              expression: "telefono_interno"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Telefono Interno......",
+                            required: ""
+                          },
+                          domProps: { value: _vm.telefono_interno },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.telefono_interno = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "text-input" }
+                        },
                         [_vm._v("Telefono_IP")]
                       ),
                       _vm._v(" "),
@@ -39344,6 +39454,84 @@ var render = function() {
                                 return
                               }
                               _vm.telefono_ip = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [_vm._v("Celular")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.celular,
+                              expression: "celular"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Celular......",
+                            required: ""
+                          },
+                          domProps: { value: _vm.celular },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.celular = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [_vm._v("Celular Corto")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.celular_corto,
+                              expression: "celular_corto"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Celular Corto......",
+                            required: ""
+                          },
+                          domProps: { value: _vm.celular_corto },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.celular_corto = $event.target.value
                             }
                           }
                         })
@@ -39478,7 +39666,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("select", { staticClass: "form-control col-md-3" }, [
-      _c("option", { attrs: { value: "nombre" } }, [_vm._v("Nombre")])
+      _c("option", { attrs: { value: "usuario" } }, [_vm._v("Usuario")])
     ])
   },
   function() {
@@ -39487,15 +39675,17 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("ID")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Sucursal")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Departamento")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Direccion IP")]),
         _vm._v(" "),
         _c("th", [_vm._v("Usuario")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Interno")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Sucursal")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Celular Corto")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Celular")]),
         _vm._v(" "),
         _c("th", [_vm._v("Usuario SAP")]),
         _vm._v(" "),
@@ -39509,6 +39699,8 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Telefono IP")]),
         _vm._v(" "),
+        _c("th", [_vm._v("Departamento")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Opciones")])
       ])
     ])
@@ -39517,22 +39709,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c("h4", { staticClass: "modal-title" }, [_vm._v("Modal title")]),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-label": "Close"
-          }
-        },
-        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
-    ])
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
   }
 ]
 render._withStripped = true

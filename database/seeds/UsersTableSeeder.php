@@ -12,10 +12,10 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        ser::create([
+        User::create([
             'name'=>'Soporte Sistemas',
             'email'=>'soporte.sistemas@ag.com.bo',
-            'password'=>bcrypt('12345678')
+            'password'=>bcrypt('Sistemas1')
             ]);
     }
 }

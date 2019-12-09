@@ -141,7 +141,7 @@
       <div class="modal-dialog modal-primary modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title">Modal title</h4>
+            <h4 class="modal-title">{{ titulo_modal }}</h4>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
@@ -186,7 +186,7 @@ export default {
       nombre: "",
       url_ctrl: "sucursal_controller",
       array_data: [],
-      tituloModal: "",
+      titulo_modal: "",
       tipoAccion: 0,
       pagination: {
         total: 0,
@@ -367,13 +367,13 @@ export default {
       // $("#ModalLong").modal('show')
       switch (accion) {
         case "registrar": {
-          this.tituloModal = "Registrar Sucursal";
+          this.titulo_modal = "Registrar Sucursal";
           this.limpiar();
           this.tipoAccion = 1;
           break;
         }
         case "actualizar": {
-          this.tituloModal = "Actualizar Sucursal";
+          this.titulo_modal = "Actualizar Sucursal";
           this.tipoAccion = 2;
           this.id = data.id;
           this.nombre = data.nombre;

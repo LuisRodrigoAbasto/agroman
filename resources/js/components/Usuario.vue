@@ -27,9 +27,19 @@
                             <select class="form-control col-md-3">
                               <option value="usuario">Usuario</option>
                             </select>
-                            <input type="text" class="form-control" @input="listar(1,buscar)" v-model="buscar" placeholder="Buscar...." />
+                            <input
+                              type="text"
+                              class="form-control"
+                              @input="listar(1,buscar)"
+                              v-model="buscar"
+                              placeholder="Buscar...."
+                            />
                             <span class="input-group-append">
-                              <button type="submit" class="btn btn-primary" @click="listar(1,buscar)">
+                              <button
+                                type="submit"
+                                class="btn btn-primary"
+                                @click="listar(1,buscar)"
+                              >
                                 <i class="fa fa-search"></i>
                                 Buscar
                               </button>
@@ -42,39 +52,37 @@
                   <table class="table table-responsive table-bordered table-striped table-sm">
                     <thead>
                       <tr>
-                        <th>ID</th>
-                        <th>Sucursal</th>
-                        <th>Departamento</th>
                         <th>Direccion IP</th>
                         <th>Usuario</th>
+                        <th>Interno</th>
+                        <th>Sucursal</th>
+                        <th>Celular Corto</th>
+                        <th>Celular</th>
                         <th>Usuario SAP</th>
                         <th>Usuario AD</th>
                         <th>Password AD</th>
                         <th>Email Office</th>
                         <th>Password Office</th>
                         <th>Telefono IP</th>
+                        <th>Departamento</th>
                         <th>Opciones</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr v-for="data in array_data" :key="data.id">
-                        <td>
-                          <span class="badge badge-success">
-                            {{
-                            data.id
-                            }}
-                          </span>
-                        </td>
-                        <td>{{ data.sucursal }}</td>
-                        <td>{{ data.departamento }}</td>
                         <td>{{ data.direccion_ip }}</td>
                         <td>{{ data.usuario }}</td>
+                        <td>{{ data.telefono_interno }}</td>
+                        <td>{{ data.sucursal }}</td>
+                        <td>{{ data.celular_corto }}</td>
+                        <td>{{ data.celular }}</td>
                         <td>{{ data.usuario_sap }}</td>
                         <td>{{ data.usuario_ad }}</td>
                         <td>{{ data.password_ad }}</td>
                         <td>{{ data.email_office }}</td>
                         <td>{{ data.password_office }}</td>
                         <td>{{ data.telefono_ip }}</td>
+                        <td>{{ data.departamento }}</td>
                         <td>
                           <button
                             type="button"
@@ -159,15 +167,14 @@
       <div class="modal-dialog modal-primary modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title">Modal title</h4>
+            <h4 class="modal-title">{{ titulo_modal }}</h4>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
           </div>
           <div :class="'modal-body '+activarValidate">
             <form action method="post" enctype="multipart/form-data" class="form-horizontal">
-             
-               <div class="form-group row">
+              <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Direccion IP</label>
                 <div class="col-md-9">
                   <input
@@ -179,7 +186,7 @@
                   />
                 </div>
               </div>
-               <div class="form-group row">
+              <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Usuario</label>
                 <div class="col-md-9">
                   <input
@@ -191,7 +198,7 @@
                   />
                 </div>
               </div>
-               <div class="form-group row">
+              <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Usuario_Sap</label>
                 <div class="col-md-9">
                   <input
@@ -203,7 +210,7 @@
                   />
                 </div>
               </div>
-               <div class="form-group row">
+              <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Usuario_AD</label>
                 <div class="col-md-9">
                   <input
@@ -215,7 +222,7 @@
                   />
                 </div>
               </div>
-               <div class="form-group row">
+              <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Password_AD</label>
                 <div class="col-md-9">
                   <input
@@ -227,7 +234,7 @@
                   />
                 </div>
               </div>
-               <div class="form-group row">
+              <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Email_Office</label>
                 <div class="col-md-9">
                   <input
@@ -239,7 +246,7 @@
                   />
                 </div>
               </div>
-               <div class="form-group row">
+              <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Password_Office</label>
                 <div class="col-md-9">
                   <input
@@ -252,12 +259,48 @@
                 </div>
               </div>
                <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Telefono_Interno</label>
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    v-model="telefono_interno"
+                    placeholder="Telefono Interno......"
+                    class="form-control"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Telefono_IP</label>
                 <div class="col-md-9">
                   <input
                     type="text"
                     v-model="telefono_ip"
                     placeholder="Telefono_IP......"
+                    class="form-control"
+                    required
+                  />
+                </div>
+              </div>
+               <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Celular</label>
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    v-model="celular"
+                    placeholder="Celular......"
+                    class="form-control"
+                    required
+                  />
+                </div>
+              </div>
+               <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Celular Corto</label>
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    v-model="celular_corto"
+                    placeholder="Celular Corto......"
                     class="form-control"
                     required
                   />
@@ -276,7 +319,7 @@
                   />
                 </div>
               </div>
-               <div class="form-group row">
+              <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Sucursal</label>
                 <div class="col-md-9">
                   <v-select
@@ -293,8 +336,18 @@
           </div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
-            <button class="btn btn-primary" type="button" v-if="tipoAccion==1" @click="registrar()">Save changes</button>
-            <button class="btn btn-primary" type="button" v-else @click="actualizar()">Update changes</button>
+            <button
+              class="btn btn-primary"
+              type="button"
+              v-if="tipoAccion==1"
+              @click="registrar()"
+            >Save changes</button>
+            <button
+              class="btn btn-primary"
+              type="button"
+              v-else
+              @click="actualizar()"
+            >Update changes</button>
           </div>
         </div>
         <!-- /.modal-content-->
@@ -317,28 +370,31 @@ export default {
     return {
       id: 0,
       direccion_ip: "",
-      usuario:'',
-      usuario_sap:'',
-      usuario_ad:'',
-      password_ad:'',
-      email_office:'',
-      password_office:'',
-      telefono_ip:'',
-      departamento_id:0,
-      array_departamento:[],
-      vue_departamento:{
-        id:0,
-        nombre:''
+      usuario: "",
+      usuario_sap: "",
+      usuario_ad: "",
+      password_ad: "",
+      email_office: "",
+      password_office: "",
+      telefono_interno:'',
+      telefono_ip: "",
+      celular:'',
+      celular_corto:'',
+      departamento_id: 0,
+      array_departamento: [],
+      vue_departamento: {
+        id: 0,
+        nombre: ""
       },
-      sucursal_id:0,
-      array_sucursal:[],
-      vue_sucursal:{
-        id:0,
-        nombre:''
+      sucursal_id: 0,
+      array_sucursal: [],
+      vue_sucursal: {
+        id: 0,
+        nombre: ""
       },
       url_ctrl: "usuario_controller",
       array_data: [],
-      tituloModal: "",
+      titulo_modal: "",
       tipoAccion: 0,
       pagination: {
         total: 0,
@@ -420,19 +476,22 @@ export default {
       axios
         .post(this.url_ctrl + "/registrar", {
           sucursal_id: this.sucursal_id,
-          departamento_id:this.departamento_id,
-          direccion_ip:this.direccion_ip,
-          usuario:this.usuario,
-          usuario_sap:this.usuario_sap,
-          usuario_ad:this.usuario_ad,
-          password_ad:this.password_ad,
-          email_office:this.email_office,
-          password_office:this.password_office,
-          telefono_ip:this.telefono_ip
+          departamento_id: this.departamento_id,
+          direccion_ip: this.direccion_ip,
+          usuario: this.usuario,
+          usuario_sap: this.usuario_sap,
+          usuario_ad: this.usuario_ad,
+          password_ad: this.password_ad,
+          email_office: this.email_office,
+          password_office: this.password_office,
+          telefono_interno:this.telefono_interno,
+          telefono_ip: this.telefono_ip,
+          celular:this.celular,
+          celular_corto:this.celular_corto
         })
         .then(resp => {
           this.eventoAlerta("success", "Guardado Exitosamente");
-           $('#ModalLong').modal('hide');
+          $("#ModalLong").modal("hide");
           // $('.modal-backdrop').remove();
           this.listar(1, "");
           this.limpiar();
@@ -451,19 +510,22 @@ export default {
         .put(this.url_ctrl + "/actualizar", {
           id: this.id,
           sucursal_id: this.sucursal_id,
-          departamento_id:this.departamento_id,
-          direccion_ip:this.direccion_ip,
-          usuario:this.usuario,
-          usuario_sap:this.usuario_sap,
-          usuario_ad:this.usuario_ad,
-          password_ad:this.password_ad,
-          email_office:this.email_office,
-          password_office:this.password_office,
-          telefono_ip:this.telefono_ip
+          departamento_id: this.departamento_id,
+          direccion_ip: this.direccion_ip,
+          usuario: this.usuario,
+          usuario_sap: this.usuario_sap,
+          usuario_ad: this.usuario_ad,
+          password_ad: this.password_ad,
+          email_office: this.email_office,
+          password_office: this.password_office,
+          telefono_interno:this.telefono_interno,
+          telefono_ip: this.telefono_ip,
+          celular:this.celular,
+          celular_corto:this.celular_corto
         })
         .then(resp => {
           this.eventoAlerta("success", "Actualizado Exitosamente");
-          $('#ModalLong').modal('hide');
+          $("#ModalLong").modal("hide");
           // $('.modal-backdrop').remove();
           // console.log($("#ModalLong").modal("hide"));
           this.listar(1, "");
@@ -528,19 +590,19 @@ export default {
     get_departamento(val1) {
       try {
         this.departamento_id = val1.id;
-      this.vue_departamento={
-        id:val1.id,
-        nombre:val1.nombre
-      };
-      } catch{
+        this.vue_departamento = {
+          id: val1.id,
+          nombre: val1.nombre
+        };
+      } catch {
         this.departamento_id = 0;
-      this.vue_departamento={
-        id:0,
-        nombre:''
-      };
+        this.vue_departamento = {
+          id: 0,
+          nombre: ""
+        };
       }
     },
-      select_sucursal(search, loading) {
+    select_sucursal(search, loading) {
       loading(true);
       var url = "sucursal_controller/select?buscar=" + search;
       axios
@@ -558,49 +620,52 @@ export default {
     get_sucursal(val1) {
       try {
         this.sucursal_id = val1.id;
-      this.vue_sucursal={
-        id:val1.id,
-        nombre:val1.nombre
-      };
-      } catch{
+        this.vue_sucursal = {
+          id: val1.id,
+          nombre: val1.nombre
+        };
+      } catch {
         this.sucursal_id = 0;
-      this.vue_sucursal={
-        id:0,
-        nombre:''
-      };
+        this.vue_sucursal = {
+          id: 0,
+          nombre: ""
+        };
       }
     },
     abrirModal(accion, data = []) {
       // $("#ModalLong").modal('show')
       switch (accion) {
         case "registrar": {
-          this.tituloModal = "Registrar Usuario";
+          this.titulo_modal = "Registrar Usuario";
           this.limpiar();
           this.tipoAccion = 1;
           break;
         }
         case "actualizar": {
-          this.tituloModal = "Actualizar Usuario";
+          this.titulo_modal = "Actualizar Usuario";
           this.tipoAccion = 2;
           this.id = data.id;
-          this.sucursal_id= data.sucursal_id;
-          this.departamento_id=data.departamento_id;
-          this.direccion_ip=data.direccion_ip;
-          this.usuario=data.usuario;
-          this.usuario_sap=data.usuario_sap;
-          this.usuario_ad=data.usuario_ad,
-          this.password_ad=data.password_ad;
-          this.email_office=data.email_office;
-          this.password_office=data.password_office;
-          this.telefono_ip=data.telefono_ip;
-          this.vue_departamento={
-            id:data.departamento_id,
-            nombre:data.departamento
-          }
-          this.vue_sucursal={
-            id:data.sucursal_id,
-            nombre:data.sucursal
-          }
+          this.sucursal_id = data.sucursal_id;
+          this.departamento_id = data.departamento_id;
+          this.direccion_ip = data.direccion_ip;
+          this.usuario = data.usuario;
+          this.usuario_sap = data.usuario_sap;
+          this.usuario_ad = data.usuario_ad;
+          this.password_ad = data.password_ad;
+          this.email_office = data.email_office;
+          this.password_office = data.password_office;
+          this.telefono_interno=data.telefono_interno;
+          this.telefono_ip = data.telefono_ip;
+          this.celular=data.celular;
+          this.celular_corto=celular_corto;
+          this.vue_departamento = {
+            id: data.departamento_id,
+            nombre: data.departamento
+          };
+          this.vue_sucursal = {
+            id: data.sucursal_id,
+            nombre: data.sucursal
+          };
           break;
         }
       }
@@ -608,26 +673,29 @@ export default {
     limpiar() {
       this.id = 0;
       this.buscar = "";
-      this.sucursal_id= '';
-      this.departamento_id='';
-      this.direccion_ip='';
-      this.usuario='';
-      this.usuario_ad='';
-      this.usuario_sap='';
-      this.password_ad='';
-      this.email_office='';
-      this.password_office='';
-      this.telefono_ip='';
-      this.vue_departamento={
-        id:0,
-        nombre:''
+      this.sucursal_id = "";
+      this.departamento_id = "";
+      this.direccion_ip = "";
+      this.usuario = "";
+      this.usuario_ad = "";
+      this.usuario_sap = "";
+      this.password_ad = "";
+      this.email_office = "";
+      this.password_office ="";
+      this.telefono_interno='';
+      this.telefono_ip = "";
+      this.celular="";
+      this.celular_corto='';
+      this.vue_departamento = {
+        id: 0,
+        nombre: ""
       };
-      this.vue_sucursal={
-        id:0,
-        nombre:''
+      this.vue_sucursal = {
+        id: 0,
+        nombre: ""
       };
-      this.array_departamento=[];
-      this.array_sucursal=[];
+      this.array_departamento = [];
+      this.array_sucursal = [];
       this.activarValidate = "";
     },
     validar() {
