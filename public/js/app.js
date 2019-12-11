@@ -3088,6 +3088,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3105,10 +3117,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
       password_ad: "",
       email_office: "",
       password_office: "",
-      telefono_interno: '',
+      telefono_interno: "",
       telefono_ip: "",
-      celular: '',
-      celular_corto: '',
+      celular: "",
+      celular_corto: "",
+      empresa: "",
       departamento_id: 0,
       array_departamento: [],
       vue_departamento: {
@@ -3213,6 +3226,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
       axios.post(this.url_ctrl + "/registrar", {
         sucursal_id: this.sucursal_id,
         departamento_id: this.departamento_id,
+        empresa: this.empresa,
         direccion_ip: this.direccion_ip,
         usuario: this.usuario,
         usuario_sap: this.usuario_sap,
@@ -3249,6 +3263,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
         id: this.id,
         sucursal_id: this.sucursal_id,
         departamento_id: this.departamento_id,
+        empresa: this.empresa,
         direccion_ip: this.direccion_ip,
         usuario: this.usuario,
         usuario_sap: this.usuario_sap,
@@ -3396,6 +3411,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
             this.id = data.id;
             this.sucursal_id = data.sucursal_id;
             this.departamento_id = data.departamento_id;
+            this.empresa = data.empresa;
             this.direccion_ip = data.direccion_ip;
             this.usuario = data.usuario;
             this.usuario_sap = data.usuario_sap;
@@ -3406,7 +3422,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
             this.telefono_interno = data.telefono_interno;
             this.telefono_ip = data.telefono_ip;
             this.celular = data.celular;
-            this.celular_corto = celular_corto;
+            this.celular_corto = data.celular_corto;
             this.vue_departamento = {
               id: data.departamento_id,
               nombre: data.departamento
@@ -3424,6 +3440,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
       this.buscar = "";
       this.sucursal_id = "";
       this.departamento_id = "";
+      this.empresa = "";
       this.direccion_ip = "";
       this.usuario = "";
       this.usuario_ad = "";
@@ -3431,10 +3448,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
       this.password_ad = "";
       this.email_office = "";
       this.password_office = "";
-      this.telefono_interno = '';
+      this.telefono_interno = "";
       this.telefono_ip = "";
       this.celular = "";
-      this.celular_corto = '';
+      this.celular_corto = "";
       this.vue_departamento = {
         id: 0,
         nombre: ""
@@ -3460,6 +3477,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
 
       if (!this.sucursal_id) {
         this.mensaje = "Seleccione la Sucursal";
+        return true;
+      }
+
+      if (!this.empresa) {
+        this.mensaje = "Seleccione la Empresa";
         return true;
       }
 
@@ -38996,6 +39018,8 @@ var render = function() {
                             _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(data.telefono_interno))]),
                             _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(data.empresa))]),
+                            _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(data.sucursal))]),
                             _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(data.celular_corto))]),
@@ -39849,6 +39873,62 @@ var render = function() {
                         ],
                         1
                       )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [_vm._v("Empresa")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.empresa,
+                                expression: "empresa"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.empresa = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              }
+                            }
+                          },
+                          [
+                            _c("option", { attrs: { value: "" } }, [
+                              _vm._v("Seleccione")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "AGROMAN" } }, [
+                              _vm._v("AGROMAN")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "AGROGENTE" } }, [
+                              _vm._v("AGROGENTE")
+                            ])
+                          ]
+                        )
+                      ])
                     ])
                   ]
                 )
@@ -39919,6 +39999,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Usuario")]),
         _vm._v(" "),
         _c("th", [_vm._v("Interno")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Empresa")]),
         _vm._v(" "),
         _c("th", [_vm._v("Sucursal")]),
         _vm._v(" "),

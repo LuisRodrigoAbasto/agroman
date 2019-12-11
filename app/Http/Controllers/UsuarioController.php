@@ -43,6 +43,7 @@ class UsuarioController extends Controller
         $table= new Usuario();
         $table->sucursal_id=$request->sucursal_id;
         $table->departamento_id=$request->departamento_id;
+        $table->empresa=$request->empresa;
         $table->direccion_ip=$request->direccion_ip;
         $table->usuario=$request->usuario;
         $table->usuario_sap=$request->usuario_sap;
@@ -70,6 +71,7 @@ class UsuarioController extends Controller
         $table= Usuario::findOrfail($request->id);
         $table->sucursal_id=$request->sucursal_id;
         $table->departamento_id=$request->departamento_id;
+        $table->empresa=$request->empresa;
         $table->direccion_ip=$request->direccion_ip;
         $table->usuario=$request->usuario;
         $table->usuario_sap=$request->usuario_sap;

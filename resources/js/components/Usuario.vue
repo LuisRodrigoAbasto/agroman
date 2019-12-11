@@ -55,6 +55,7 @@
                         <th>Direccion IP</th>
                         <th>Usuario</th>
                         <th>Interno</th>
+                        <th>Empresa</th>
                         <th>Sucursal</th>
                         <th>Celular Corto</th>
                         <th>Celular</th>
@@ -73,6 +74,7 @@
                         <td>{{ data.direccion_ip }}</td>
                         <td>{{ data.usuario }}</td>
                         <td>{{ data.telefono_interno }}</td>
+                        <td>{{ data.empresa }}</td>
                         <td>{{ data.sucursal }}</td>
                         <td>{{ data.celular_corto }}</td>
                         <td>{{ data.celular }}</td>
@@ -265,7 +267,7 @@
                   />
                 </div>
               </div>
-               <div class="form-group row">
+              <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Telefono_Interno</label>
                 <div class="col-md-9">
                   <input
@@ -291,7 +293,7 @@
                   />
                 </div>
               </div>
-               <div class="form-group row">
+              <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Celular</label>
                 <div class="col-md-9">
                   <input
@@ -304,7 +306,7 @@
                   />
                 </div>
               </div>
-               <div class="form-group row">
+              <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Celular Corto</label>
                 <div class="col-md-9">
                   <input
@@ -341,6 +343,16 @@
                     @input="get_sucursal"
                     v-model="vue_sucursal"
                   />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Empresa</label>
+                <div class="col-md-9">
+                  <select class="form-control" v-model="empresa">
+                    <option value="">Seleccione</option>
+                    <option value="AGROMAN">AGROMAN</option>
+                    <option value="AGROGENTE">AGROGENTE</option>
+                  </select>
                 </div>
               </div>
             </form>
@@ -387,10 +399,11 @@ export default {
       password_ad: "",
       email_office: "",
       password_office: "",
-      telefono_interno:'',
+      telefono_interno: "",
       telefono_ip: "",
-      celular:'',
-      celular_corto:'',
+      celular: "",
+      celular_corto: "",
+      empresa: "",
       departamento_id: 0,
       array_departamento: [],
       vue_departamento: {
@@ -488,6 +501,7 @@ export default {
         .post(this.url_ctrl + "/registrar", {
           sucursal_id: this.sucursal_id,
           departamento_id: this.departamento_id,
+          empresa:this.empresa,
           direccion_ip: this.direccion_ip,
           usuario: this.usuario,
           usuario_sap: this.usuario_sap,
@@ -495,10 +509,10 @@ export default {
           password_ad: this.password_ad,
           email_office: this.email_office,
           password_office: this.password_office,
-          telefono_interno:this.telefono_interno,
+          telefono_interno: this.telefono_interno,
           telefono_ip: this.telefono_ip,
-          celular:this.celular,
-          celular_corto:this.celular_corto
+          celular: this.celular,
+          celular_corto: this.celular_corto
         })
         .then(resp => {
           this.eventoAlerta("success", "Guardado Exitosamente");
@@ -522,6 +536,7 @@ export default {
           id: this.id,
           sucursal_id: this.sucursal_id,
           departamento_id: this.departamento_id,
+          empresa:this.empresa,
           direccion_ip: this.direccion_ip,
           usuario: this.usuario,
           usuario_sap: this.usuario_sap,
@@ -529,10 +544,10 @@ export default {
           password_ad: this.password_ad,
           email_office: this.email_office,
           password_office: this.password_office,
-          telefono_interno:this.telefono_interno,
+          telefono_interno: this.telefono_interno,
           telefono_ip: this.telefono_ip,
-          celular:this.celular,
-          celular_corto:this.celular_corto
+          celular: this.celular,
+          celular_corto: this.celular_corto
         })
         .then(resp => {
           this.eventoAlerta("success", "Actualizado Exitosamente");
@@ -583,12 +598,10 @@ export default {
           }
         });
     },
-        insertar(){
-      if(this.tipoAccion==1)
-      {
+    insertar() {
+      if (this.tipoAccion == 1) {
         this.registrar();
-      }
-      else{
+      } else {
         this.actualizar();
       }
     },
@@ -667,6 +680,7 @@ export default {
           this.id = data.id;
           this.sucursal_id = data.sucursal_id;
           this.departamento_id = data.departamento_id;
+          this.empresa = data.empresa;
           this.direccion_ip = data.direccion_ip;
           this.usuario = data.usuario;
           this.usuario_sap = data.usuario_sap;
@@ -674,10 +688,10 @@ export default {
           this.password_ad = data.password_ad;
           this.email_office = data.email_office;
           this.password_office = data.password_office;
-          this.telefono_interno=data.telefono_interno;
+          this.telefono_interno = data.telefono_interno;
           this.telefono_ip = data.telefono_ip;
-          this.celular=data.celular;
-          this.celular_corto=celular_corto;
+          this.celular = data.celular;
+          this.celular_corto = data.celular_corto;
           this.vue_departamento = {
             id: data.departamento_id,
             nombre: data.departamento
@@ -695,17 +709,18 @@ export default {
       this.buscar = "";
       this.sucursal_id = "";
       this.departamento_id = "";
+      this.empresa = "";
       this.direccion_ip = "";
       this.usuario = "";
       this.usuario_ad = "";
       this.usuario_sap = "";
       this.password_ad = "";
       this.email_office = "";
-      this.password_office ="";
-      this.telefono_interno='';
+      this.password_office = "";
+      this.telefono_interno = "";
       this.telefono_ip = "";
-      this.celular="";
-      this.celular_corto='';
+      this.celular = "";
+      this.celular_corto = "";
       this.vue_departamento = {
         id: 0,
         nombre: ""
@@ -729,6 +744,10 @@ export default {
       }
       if (!this.sucursal_id) {
         this.mensaje = "Seleccione la Sucursal";
+        return true;
+      }
+      if (!this.empresa) {
+        this.mensaje = "Seleccione la Empresa";
         return true;
       }
       return false;

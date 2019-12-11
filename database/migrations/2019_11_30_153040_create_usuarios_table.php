@@ -17,6 +17,7 @@ class CreateUsuariosTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('sucursal_id')->nullable();
             $table->unsignedBigInteger('departamento_id')->nullable();
+            $table->string('empresa',20)->nullable();
             $table->string('direccion_ip',20)->nullable();
             $table->string('usuario',50)->nullable();
             $table->string('usuario_sap',50)->nullable();
