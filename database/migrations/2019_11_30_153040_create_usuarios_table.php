@@ -29,7 +29,7 @@ class CreateUsuariosTable extends Migration
             $table->string('celular',50)->nullable();
             $table->string('celular_corto',50)->nullable();
             $table->boolean('estado')->default(1);
-            $table->foreign('sucursal_id')->references('id')->on('sucursal');
+            $table->foreign('sucursal_id')->references('id')->on('sucursals');
             $table->foreign('departamento_id')->references('id')->on('departamentos');
             $table->timestamps();
         });

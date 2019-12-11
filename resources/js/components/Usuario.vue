@@ -15,7 +15,7 @@
                     class="btn btn-secondary"
                     @click="abrirModal('registrar')"
                   >
-                    <i class="icon-plus"></i>&nbsp;Nuevo
+                    <i class="cil-plus"></i>&nbsp;Nuevo
                   </button>
                 </div>
                 <div class="card-body">
@@ -40,7 +40,7 @@
                                 class="btn btn-primary"
                                 @click="listar(1,buscar)"
                               >
-                                <i class="fa fa-search"></i>
+                                <i class="cil-search"></i>
                                 Buscar
                               </button>
                             </span>
@@ -182,6 +182,7 @@
                     v-model="direccion_ip"
                     placeholder="Direccion IP......"
                     class="form-control"
+                    @keyup.enter="insertar()"
                     required
                   />
                 </div>
@@ -194,6 +195,7 @@
                     v-model="usuario"
                     placeholder="Usuario......"
                     class="form-control"
+                    @keyup.enter="insertar()"
                     required
                   />
                 </div>
@@ -206,6 +208,7 @@
                     v-model="usuario_sap"
                     placeholder="Usuario_Sap......"
                     class="form-control"
+                    @keyup.enter="insertar()"
                     required
                   />
                 </div>
@@ -218,6 +221,7 @@
                     v-model="usuario_ad"
                     placeholder="Usuario_AD......"
                     class="form-control"
+                    @keyup.enter="insertar()"
                     required
                   />
                 </div>
@@ -230,6 +234,7 @@
                     v-model="password_ad"
                     placeholder="Password_AD......"
                     class="form-control"
+                    @keyup.enter="insertar()"
                     required
                   />
                 </div>
@@ -242,6 +247,7 @@
                     v-model="email_office"
                     placeholder="Email_Office......"
                     class="form-control"
+                    @keyup.enter="insertar()"
                     required
                   />
                 </div>
@@ -254,6 +260,7 @@
                     v-model="password_office"
                     placeholder="Password_Office......"
                     class="form-control"
+                    @keyup.enter="insertar()"
                     required
                   />
                 </div>
@@ -266,6 +273,7 @@
                     v-model="telefono_interno"
                     placeholder="Telefono Interno......"
                     class="form-control"
+                    @keyup.enter="insertar()"
                     required
                   />
                 </div>
@@ -278,6 +286,7 @@
                     v-model="telefono_ip"
                     placeholder="Telefono_IP......"
                     class="form-control"
+                    @keyup.enter="insertar()"
                     required
                   />
                 </div>
@@ -290,6 +299,7 @@
                     v-model="celular"
                     placeholder="Celular......"
                     class="form-control"
+                    @keyup.enter="insertar()"
                     required
                   />
                 </div>
@@ -302,6 +312,7 @@
                     v-model="celular_corto"
                     placeholder="Celular Corto......"
                     class="form-control"
+                    @keyup.enter="insertar()"
                     required
                   />
                 </div>
@@ -572,6 +583,15 @@ export default {
           }
         });
     },
+        insertar(){
+      if(this.tipoAccion==1)
+      {
+        this.registrar();
+      }
+      else{
+        this.actualizar();
+      }
+    },
     select_departamento(search, loading) {
       loading(true);
       var url = "departamento_controller/select?buscar=" + search;
@@ -703,7 +723,14 @@ export default {
         this.mensaje = "Ingrese el Nombre";
         return true;
       }
-
+      if (!this.departamento_id) {
+        this.mensaje = "Seleccione el Departamento";
+        return true;
+      }
+      if (!this.sucursal_id) {
+        this.mensaje = "Seleccione la Sucursal";
+        return true;
+      }
       return false;
     }
   }

@@ -5,16 +5,16 @@
               <svg class="c-sidebar-nav-icon">
                 <use xlink:href="coreui/vendors/@coreui/icons/svg/free.svg#cil-speedometer"></use>
               </svg> Dashboard<span class="badge badge-info">NEW</span></a></li> --}}
-          <li class="c-sidebar-nav-title">sISTEMAS</li>
-          <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="usuarios"  @click="menu=0">
+          <li class="c-sidebar-nav-title">SISTEMAS</li>
+          <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="usuarios">
               <svg class="c-sidebar-nav-icon">
                 <use xlink:href="coreui/vendors/@coreui/icons/svg/free.svg#cil-drop1"></use>
               </svg> USUARIOS</a></li>
-          <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="departamentos" @click="menu=1">
+          <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="departamentos">
               <svg class="c-sidebar-nav-icon">
                 <use xlink:href="coreui/vendors/@coreui/icons/svg/free.svg#cil-pencil"></use>
               </svg> DEPARTAMENTOS</a></li>
-              <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="sucursal" @click="menu=2">
+              <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="sucursal">
                 <svg class="c-sidebar-nav-icon">
                   <use xlink:href="coreui/vendors/@coreui/icons/svg/free.svg#cil-pencil"></use>
                 </svg> SUCURSAL</a></li>

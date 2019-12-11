@@ -15,7 +15,7 @@
                     class="btn btn-secondary"
                     @click="abrirModal('registrar')"
                   >
-                    <i class="icon-plus"></i>&nbsp;Nuevo
+                    <i class="cil-plus"></i>&nbsp;Nuevo
                   </button>
                 </div>
                 <div class="card-body">
@@ -30,7 +30,7 @@
                             <input type="text" class="form-control" @keyup="listar(1,buscar)" v-model="buscar" placeholder="Buscar...." />
                             <span class="input-group-append">
                               <button type="submit" class="btn btn-primary" @click="listar(1,buscar)">
-                                <i class="fa fa-search"></i>
+                                <i class="cil-search"></i>
                                 Buscar
                               </button>
                             </span>
@@ -155,6 +155,7 @@
                     type="text"
                     v-model="nombre"
                     placeholder="Nombre......"
+                    @keyup.enter="insertar()"
                     class="form-control"
                     required
                   />
@@ -339,6 +340,15 @@ export default {
             this.eventoAlerta("error", "Cancelado");
           }
         });
+    },
+        insertar(){
+      if(this.tipoAccion==1)
+      {
+        this.registrar();
+      }
+      else{
+        this.actualizar();
+      }
     },
     // selectCategoria(search, loading) {
     //   loading(true);

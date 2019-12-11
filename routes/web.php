@@ -14,8 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
 Auth::routes();
+Route::group(['middleware'=>['auth']],function(){
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -45,3 +45,5 @@ Route::get('/usuario_controller', 'UsuarioController@index');
 Route::post('/usuario_controller/registrar', 'UsuarioController@store');
 Route::put('/usuario_controller/actualizar', 'UsuarioController@update');
 Route::delete('/usuario_controller/eliminar_{id}', 'UsuarioController@destroy');
+
+});

@@ -9,7 +9,7 @@ class Usuario extends Model
     protected $appends = ['sucursal','departamento'];
 
     public function sucursal (){
-    return $this->belongsTo('App\sucursal','sucursal_id');
+    return $this->belongsTo('App\Sucursal','sucursal_id');
     }
 
     public function getSucursalAttribute(){

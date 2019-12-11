@@ -2021,6 +2021,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -2191,6 +2192,13 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
+    insertar: function insertar() {
+      if (this.tipoAccion == 1) {
+        this.registrar();
+      } else {
+        this.actualizar();
+      }
+    },
     // selectCategoria(search, loading) {
     //   loading(true);
     //   var url = "categoria/select?buscar=" + search;
@@ -2271,6 +2279,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var sweetalert2_src_sweetalert2_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sweetalert2/src/sweetalert2.scss */ "./node_modules/sweetalert2/src/sweetalert2.scss");
 /* harmony import */ var sweetalert2_src_sweetalert2_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_src_sweetalert2_scss__WEBPACK_IMPORTED_MODULE_2__);
+//
 //
 //
 //
@@ -2618,6 +2627,13 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
+    insertar: function insertar() {
+      if (this.tipoAccion == 1) {
+        this.registrar();
+      } else {
+        this.actualizar();
+      }
+    },
     // selectCategoria(search, loading) {
     //   loading(true);
     //   var url = "categoria/select?buscar=" + search;
@@ -2702,6 +2718,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var sweetalert2_src_sweetalert2_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2/src/sweetalert2.scss */ "./node_modules/sweetalert2/src/sweetalert2.scss");
 /* harmony import */ var sweetalert2_src_sweetalert2_scss__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_src_sweetalert2_scss__WEBPACK_IMPORTED_MODULE_4__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3280,6 +3307,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
         }
       });
     },
+    insertar: function insertar() {
+      if (this.tipoAccion == 1) {
+        this.registrar();
+      } else {
+        this.actualizar();
+      }
+    },
     select_departamento: function select_departamento(search, loading) {
       var _this5 = this;
 
@@ -3416,6 +3450,16 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
     validar: function validar() {
       if (!this.usuario) {
         this.mensaje = "Ingrese el Nombre";
+        return true;
+      }
+
+      if (!this.departamento_id) {
+        this.mensaje = "Seleccione el Departamento";
+        return true;
+      }
+
+      if (!this.sucursal_id) {
+        this.mensaje = "Seleccione la Sucursal";
         return true;
       }
 
@@ -37981,7 +38025,7 @@ var render = function() {
                       }
                     },
                     [
-                      _c("i", { staticClass: "icon-plus" }),
+                      _c("i", { staticClass: "cil-plus" }),
                       _vm._v(" Nuevo\n                ")
                     ]
                   )
@@ -38036,7 +38080,7 @@ var render = function() {
                                   }
                                 },
                                 [
-                                  _c("i", { staticClass: "fa fa-search" }),
+                                  _c("i", { staticClass: "cil-search" }),
                                   _vm._v(
                                     "\n                              Buscar\n                            "
                                   )
@@ -38262,6 +38306,21 @@ var render = function() {
                       },
                       domProps: { value: _vm.nombre },
                       on: {
+                        keyup: function($event) {
+                          if (
+                            !$event.type.indexOf("key") &&
+                            _vm._k(
+                              $event.keyCode,
+                              "enter",
+                              13,
+                              $event.key,
+                              "Enter"
+                            )
+                          ) {
+                            return null
+                          }
+                          return _vm.insertar()
+                        },
                         input: function($event) {
                           if ($event.target.composing) {
                             return
@@ -38407,7 +38466,7 @@ var render = function() {
                       }
                     },
                     [
-                      _c("i", { staticClass: "icon-plus" }),
+                      _c("i", { staticClass: "cil-plus" }),
                       _vm._v(" Nuevo\n                ")
                     ]
                   )
@@ -38462,7 +38521,7 @@ var render = function() {
                                   }
                                 },
                                 [
-                                  _c("i", { staticClass: "fa fa-search" }),
+                                  _c("i", { staticClass: "cil-search" }),
                                   _vm._v(
                                     "\n                              Buscar\n                            "
                                   )
@@ -38688,6 +38747,21 @@ var render = function() {
                       },
                       domProps: { value: _vm.nombre },
                       on: {
+                        keyup: function($event) {
+                          if (
+                            !$event.type.indexOf("key") &&
+                            _vm._k(
+                              $event.keyCode,
+                              "enter",
+                              13,
+                              $event.key,
+                              "Enter"
+                            )
+                          ) {
+                            return null
+                          }
+                          return _vm.insertar()
+                        },
                         input: function($event) {
                           if ($event.target.composing) {
                             return
@@ -38833,7 +38907,7 @@ var render = function() {
                       }
                     },
                     [
-                      _c("i", { staticClass: "icon-plus" }),
+                      _c("i", { staticClass: "cil-plus" }),
                       _vm._v(" Nuevo\n                ")
                     ]
                   )
@@ -38890,7 +38964,7 @@ var render = function() {
                                   }
                                 },
                                 [
-                                  _c("i", { staticClass: "fa fa-search" }),
+                                  _c("i", { staticClass: "cil-search" }),
                                   _vm._v(
                                     "\n                              Buscar\n                            "
                                   )
@@ -39137,6 +39211,21 @@ var render = function() {
                           },
                           domProps: { value: _vm.direccion_ip },
                           on: {
+                            keyup: function($event) {
+                              if (
+                                !$event.type.indexOf("key") &&
+                                _vm._k(
+                                  $event.keyCode,
+                                  "enter",
+                                  13,
+                                  $event.key,
+                                  "Enter"
+                                )
+                              ) {
+                                return null
+                              }
+                              return _vm.insertar()
+                            },
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -39176,6 +39265,21 @@ var render = function() {
                           },
                           domProps: { value: _vm.usuario },
                           on: {
+                            keyup: function($event) {
+                              if (
+                                !$event.type.indexOf("key") &&
+                                _vm._k(
+                                  $event.keyCode,
+                                  "enter",
+                                  13,
+                                  $event.key,
+                                  "Enter"
+                                )
+                              ) {
+                                return null
+                              }
+                              return _vm.insertar()
+                            },
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -39215,6 +39319,21 @@ var render = function() {
                           },
                           domProps: { value: _vm.usuario_sap },
                           on: {
+                            keyup: function($event) {
+                              if (
+                                !$event.type.indexOf("key") &&
+                                _vm._k(
+                                  $event.keyCode,
+                                  "enter",
+                                  13,
+                                  $event.key,
+                                  "Enter"
+                                )
+                              ) {
+                                return null
+                              }
+                              return _vm.insertar()
+                            },
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -39254,6 +39373,21 @@ var render = function() {
                           },
                           domProps: { value: _vm.usuario_ad },
                           on: {
+                            keyup: function($event) {
+                              if (
+                                !$event.type.indexOf("key") &&
+                                _vm._k(
+                                  $event.keyCode,
+                                  "enter",
+                                  13,
+                                  $event.key,
+                                  "Enter"
+                                )
+                              ) {
+                                return null
+                              }
+                              return _vm.insertar()
+                            },
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -39293,6 +39427,21 @@ var render = function() {
                           },
                           domProps: { value: _vm.password_ad },
                           on: {
+                            keyup: function($event) {
+                              if (
+                                !$event.type.indexOf("key") &&
+                                _vm._k(
+                                  $event.keyCode,
+                                  "enter",
+                                  13,
+                                  $event.key,
+                                  "Enter"
+                                )
+                              ) {
+                                return null
+                              }
+                              return _vm.insertar()
+                            },
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -39332,6 +39481,21 @@ var render = function() {
                           },
                           domProps: { value: _vm.email_office },
                           on: {
+                            keyup: function($event) {
+                              if (
+                                !$event.type.indexOf("key") &&
+                                _vm._k(
+                                  $event.keyCode,
+                                  "enter",
+                                  13,
+                                  $event.key,
+                                  "Enter"
+                                )
+                              ) {
+                                return null
+                              }
+                              return _vm.insertar()
+                            },
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -39371,6 +39535,21 @@ var render = function() {
                           },
                           domProps: { value: _vm.password_office },
                           on: {
+                            keyup: function($event) {
+                              if (
+                                !$event.type.indexOf("key") &&
+                                _vm._k(
+                                  $event.keyCode,
+                                  "enter",
+                                  13,
+                                  $event.key,
+                                  "Enter"
+                                )
+                              ) {
+                                return null
+                              }
+                              return _vm.insertar()
+                            },
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -39410,6 +39589,21 @@ var render = function() {
                           },
                           domProps: { value: _vm.telefono_interno },
                           on: {
+                            keyup: function($event) {
+                              if (
+                                !$event.type.indexOf("key") &&
+                                _vm._k(
+                                  $event.keyCode,
+                                  "enter",
+                                  13,
+                                  $event.key,
+                                  "Enter"
+                                )
+                              ) {
+                                return null
+                              }
+                              return _vm.insertar()
+                            },
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -39449,6 +39643,21 @@ var render = function() {
                           },
                           domProps: { value: _vm.telefono_ip },
                           on: {
+                            keyup: function($event) {
+                              if (
+                                !$event.type.indexOf("key") &&
+                                _vm._k(
+                                  $event.keyCode,
+                                  "enter",
+                                  13,
+                                  $event.key,
+                                  "Enter"
+                                )
+                              ) {
+                                return null
+                              }
+                              return _vm.insertar()
+                            },
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -39488,6 +39697,21 @@ var render = function() {
                           },
                           domProps: { value: _vm.celular },
                           on: {
+                            keyup: function($event) {
+                              if (
+                                !$event.type.indexOf("key") &&
+                                _vm._k(
+                                  $event.keyCode,
+                                  "enter",
+                                  13,
+                                  $event.key,
+                                  "Enter"
+                                )
+                              ) {
+                                return null
+                              }
+                              return _vm.insertar()
+                            },
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -39527,6 +39751,21 @@ var render = function() {
                           },
                           domProps: { value: _vm.celular_corto },
                           on: {
+                            keyup: function($event) {
+                              if (
+                                !$event.type.indexOf("key") &&
+                                _vm._k(
+                                  $event.keyCode,
+                                  "enter",
+                                  13,
+                                  $event.key,
+                                  "Enter"
+                                )
+                              ) {
+                                return null
+                              }
+                              return _vm.insertar()
+                            },
                             input: function($event) {
                               if ($event.target.composing) {
                                 return

@@ -11,6 +11,8 @@ class UsuarioController extends Controller
     {
         $buscar=$request->buscar;
         $table=Usuario::where('usuario','like','%'.$buscar.'%')
+        // ->with('departamento')
+        // ->with('sucursal')
         ->where('estado','=','1')
         ->orderBy('id','desc')
         // ->with('categoria')
