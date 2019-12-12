@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Usuario;
+use App\Departamento;
 
 class UsuarioController extends Controller
 {
@@ -16,13 +17,17 @@ class UsuarioController extends Controller
         {
             $table=Usuario::where('estado','=','1')
             ->orderBy('id','desc')
-             ->paginate($pagina);
+            ->with('sucursal')
+            ->with('departamento')
+            ->paginate($pagina);
         }
         else
         {
             $table=Usuario::where($opcion,'like','%'.$buscar.'%')
         // ->with('sucursal')
         ->where('estado','=','1')
+        ->with('sucursal')
+            ->with('departamento')
          ->paginate($pagina);
         }
         
@@ -38,6 +43,33 @@ class UsuarioController extends Controller
             'table' => $table
         ];
     
+    }
+    public function orden(Request $request)
+    {
+        $opcion=$request->opcion;
+        if($opcion=="empresa")
+        {
+            $table=Usuario::groupBy('empresa')
+            ->get('empresa');
+
+            foreach ($table as $fila) {
+                $departamento=Usuario::join('departamentos','usuarios.departamento_id','=','departamentos.id')
+                ->groupBy('departamentos.id','departamentos.nombre')
+                ->select('departamentos.id','departamentos.nombre')
+                ->where('usuarios.estado','=','1')
+                ->where('empresa','=',$fila->empresa)
+                ->get();
+
+                $fila->departamento=$departamento;
+                foreach ($fila->departamento as $val) {
+                    $val->data=Usuario::where('departamento_id','=',$val->id)
+                    ->where('empresa','=',$fila->empresa)
+                    ->get();
+                }
+            }
+            return $table;
+        }
+        
     }
 
     /**

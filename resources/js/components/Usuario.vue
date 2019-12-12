@@ -86,7 +86,7 @@
                         <td>{{ data.usuario }}</td>
                         <td>{{ data.telefono_interno }}</td>
                         <td>{{ data.empresa }}</td>
-                        <td>{{ data.sucursal }}</td>
+                        <td>{{ data.sucursal.nombre }}</td>
                         <td>{{ data.celular_corto }}</td>
                         <td>{{ data.celular }}</td>
                         <td>{{ data.usuario_sap }}</td>
@@ -95,7 +95,7 @@
                         <td>{{ data.email_office }}</td>
                         <td>{{ data.password_office }}</td>
                         <td>{{ data.telefono_ip }}</td>
-                        <td>{{ data.departamento }}</td>
+                        <td>{{ data.departamento.nombre }}</td>
                         <td>
                           <button
                             type="button"
@@ -706,14 +706,8 @@ export default {
           this.telefono_ip = data.telefono_ip;
           this.celular = data.celular;
           this.celular_corto = data.celular_corto;
-          this.vue_departamento = {
-            id: data.departamento_id,
-            nombre: data.departamento
-          };
-          this.vue_sucursal = {
-            id: data.sucursal_id,
-            nombre: data.sucursal
-          };
+          this.vue_departamento = data.departamento;
+          this.vue_sucursal = data.sucursal;
           break;
         }
       }

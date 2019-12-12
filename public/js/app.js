@@ -3437,14 +3437,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
             this.telefono_ip = data.telefono_ip;
             this.celular = data.celular;
             this.celular_corto = data.celular_corto;
-            this.vue_departamento = {
-              id: data.departamento_id,
-              nombre: data.departamento
-            };
-            this.vue_sucursal = {
-              id: data.sucursal_id,
-              nombre: data.sucursal
-            };
+            this.vue_departamento = data.departamento;
+            this.vue_sucursal = data.sucursal;
             break;
           }
       }
@@ -39133,7 +39127,7 @@ var render = function() {
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(data.empresa))]),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(data.sucursal))]),
+                              _c("td", [_vm._v(_vm._s(data.sucursal.nombre))]),
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(data.celular_corto))]),
                               _vm._v(" "),
@@ -39151,7 +39145,9 @@ var render = function() {
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(data.telefono_ip))]),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(data.departamento))]),
+                              _c("td", [
+                                _vm._v(_vm._s(data.departamento.nombre))
+                              ]),
                               _vm._v(" "),
                               _c("td", [
                                 _c(

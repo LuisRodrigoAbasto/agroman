@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" href="img/ag.jpg">
+        <link rel="icon" href="img/ag.png">
         <title>agroman</title>
 
         <!-- Fonts -->
@@ -81,10 +81,11 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    AGROMAN
+                <img src="img/logo.png" height="100" width="300" alt="agrogente">
+                <img src="img/imagen.gif" height="200" width="320" alt="agrogente">
                 </div>
 
-                <div class="links">
+                {{-- <div class="links">
                     <a href="https://laravel.com/docs">Docs</a>
                     <a href="https://laracasts.com">Laracasts</a>
                     <a href="https://laravel-news.com">News</a>
@@ -93,7 +94,7 @@
                     <a href="https://forge.laravel.com">Forge</a>
                     <a href="https://vapor.laravel.com">Vapor</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+                </div> --}}
             </div>
         </div>
     </body>

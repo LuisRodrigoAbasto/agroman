@@ -1,5 +1,5 @@
 <div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar">
-        <div class="c-sidebar-brand"><img class="c-sidebar-brand-full" src="img/logo.png" width="118" height="46" alt="CoreUI Logo"><img class="c-sidebar-brand-minimized" src="img/ag.jpg" width="50" height="46" alt="CoreUI Logo"></div>
+        <div class="c-sidebar-brand"><img class="c-sidebar-brand-full" src="img/ag.png" width="50" height="46"  alt="CoreUI Logo"><img class="c-sidebar-brand-minimized" src="img/ag.png" width="50" height="46" alt="CoreUI Logo"></div>
         <ul class="c-sidebar-nav">
           {{-- <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="#" @click="menu=1">
               <svg class="c-sidebar-nav-icon">

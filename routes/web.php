@@ -46,4 +46,6 @@ Route::post('/usuario_controller/registrar', 'UsuarioController@store');
 Route::put('/usuario_controller/actualizar', 'UsuarioController@update');
 Route::delete('/usuario_controller/eliminar_{id}', 'UsuarioController@destroy');
 
+Route::get('/usuario_controller/orden', 'UsuarioController@orden');
+
 });

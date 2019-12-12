@@ -11,7 +11,7 @@
                         <form method="POST" action="{{ route('login') }}">
                                 @csrf
                   <h1>Login</h1>
-                  <p class="text-muted">Sign In to your account</p>
+                  <p class="text-muted">Iniciar sesión en su cuenta</p>
                   <div class="input-group mb-3">
                     <div class="input-group-prepend"><span class="input-group-text">
                         <svg class="c-icon">
@@ -51,9 +51,9 @@
               <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
                 <div class="card-body text-center">
                   <div>
-                    <h2>Sign up</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <button class="btn btn-lg btn-outline-light mt-3" type="button">Register Now!</button>
+                    <h2><img src="img/ag.png" alt=""></h2>
+                    {{-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <button class="btn btn-lg btn-outline-light mt-3" type="button">Register Now!</button> --}}
                   </div>
                 </div>
               </div>
