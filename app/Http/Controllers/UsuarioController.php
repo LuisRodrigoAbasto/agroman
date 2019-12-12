@@ -10,13 +10,22 @@ class UsuarioController extends Controller
     public function index(Request $request)
     {
         $buscar=$request->buscar;
-        $table=Usuario::where('usuario','like','%'.$buscar.'%')
-        // ->with('departamento')
+        $opcion=$request->opcion;
+        $pagina=$request->pagina;
+        if($buscar=='')
+        {
+            $table=Usuario::where('estado','=','1')
+            ->orderBy('id','desc')
+             ->paginate($pagina);
+        }
+        else
+        {
+            $table=Usuario::where($opcion,'like','%'.$buscar.'%')
         // ->with('sucursal')
         ->where('estado','=','1')
-        ->orderBy('id','desc')
-        // ->with('categoria')
-         ->paginate(10);
+         ->paginate($pagina);
+        }
+        
         return [
             'pagination' => [
                 'total'        => $table->total(),

@@ -23,14 +23,24 @@
                     <div class="col-md-12">
                       <div class="input-group">
                         <div class="col-md-10">
+                          <select class="form-control col-2" v-model="pagina">
+                              <option value="5">5</option>
+                              <option value="10">10</option>
+                              <option value="25">25</option>
+                              <option value="50">50</option>
+                              <option value="100">100</option>
+                              <option value="250">250</option>
+                              <option value="500">500</option>
+                            </select>
                           <div class="input-group">
-                            <select class="form-control col-md-3">
+                            <select class="form-control col-md-3" v-model="opcion">
                               <option value="usuario">Usuario</option>
+                              <option value="direccion_ip">Direccion_IP</option>
                             </select>
                             <input
                               type="text"
                               class="form-control"
-                              @input="listar(1,buscar)"
+                              @keyup="listar(1,buscar)"
                               v-model="buscar"
                               placeholder="Buscar...."
                             />
@@ -49,7 +59,8 @@
                       </div>
                     </div>
                   </div>
-                  <table class="table table-responsive table-bordered table-striped table-sm">
+                  <div class="table-responsive">
+            <table class="table table-bordered table-striped table-sm">
                     <thead>
                       <tr>
                         <th>Direccion IP</th>
@@ -107,6 +118,7 @@
                       </tr>
                     </tbody>
                   </table>
+                  </div>
                   <nav>
                     <ul class="pagination">
                       <li class="page-item" v-if="pagination.current_page > 1">
@@ -349,7 +361,7 @@
                 <label class="col-md-3 form-control-label" for="text-input">Empresa</label>
                 <div class="col-md-9">
                   <select class="form-control" v-model="empresa">
-                    <option value="">Seleccione</option>
+                    <option value>Seleccione</option>
                     <option value="AGROMAN">AGROMAN</option>
                     <option value="AGROGENTE">AGROGENTE</option>
                   </select>
@@ -405,6 +417,7 @@ export default {
       celular_corto: "",
       empresa: "",
       departamento_id: 0,
+      opcion: "usuario",
       array_departamento: [],
       vue_departamento: {
         id: 0,
@@ -420,6 +433,7 @@ export default {
       array_data: [],
       titulo_modal: "",
       tipoAccion: 0,
+      pagina:5,
       pagination: {
         total: 0,
         current_page: 0,
@@ -467,10 +481,10 @@ export default {
       // actualizar la Pagina
       me.pagination.current_page = page;
       // enviar la peticion para visualizar la data de esta pagina
-      listar(page, buscar);
+      this.listar(page,buscar);
     },
     listar(page, buscar) {
-      var url = this.url_ctrl + "?page=" + page + "&buscar=" + buscar;
+      var url = this.url_ctrl + "?page=" + page +"&opcion="+this.opcion+"&pagina="+this.pagina+ "&buscar=" + buscar;
       axios
         .get(url)
         .then(resp => {
@@ -501,7 +515,7 @@ export default {
         .post(this.url_ctrl + "/registrar", {
           sucursal_id: this.sucursal_id,
           departamento_id: this.departamento_id,
-          empresa:this.empresa,
+          empresa: this.empresa,
           direccion_ip: this.direccion_ip,
           usuario: this.usuario,
           usuario_sap: this.usuario_sap,
@@ -536,7 +550,7 @@ export default {
           id: this.id,
           sucursal_id: this.sucursal_id,
           departamento_id: this.departamento_id,
-          empresa:this.empresa,
+          empresa: this.empresa,
           direccion_ip: this.direccion_ip,
           usuario: this.usuario,
           usuario_sap: this.usuario_sap,
