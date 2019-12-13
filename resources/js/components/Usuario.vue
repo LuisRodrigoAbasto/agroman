@@ -23,7 +23,7 @@
                     <div class="col-md-12">
                       <div class="input-group">
                         <div class="col-md-10">
-                          <select class="form-control col-2" v-model="pagina">
+                          <select class="form-control col-2" v-model="pagina" @click="listar(1,buscar)">
                               <option value="5">5</option>
                               <option value="10">10</option>
                               <option value="25">25</option>
@@ -36,6 +36,8 @@
                             <select class="form-control col-md-3" v-model="opcion">
                               <option value="usuario">Usuario</option>
                               <option value="direccion_ip">Direccion_IP</option>
+                              <option value="sucursal">Sucursal</option>
+                              <option value="departamentos">Departamentos</option>
                             </select>
                             <input
                               type="text"
@@ -63,6 +65,7 @@
             <table class="table table-bordered table-striped table-sm">
                     <thead>
                       <tr>
+                        <th>Nº</th>
                         <th>Direccion IP</th>
                         <th>Usuario</th>
                         <th>Interno</th>
@@ -81,7 +84,8 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="data in array_data" :key="data.id">
+                      <tr v-for="(data,index) in array_data" :key="data.id">
+                        <td>{{ index+1 }}</td>
                         <td>{{ data.direccion_ip }}</td>
                         <td>{{ data.usuario }}</td>
                         <td>{{ data.telefono_interno }}</td>

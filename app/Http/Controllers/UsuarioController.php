@@ -13,6 +13,8 @@ class UsuarioController extends Controller
         $buscar=$request->buscar;
         $opcion=$request->opcion;
         $pagina=$request->pagina;
+
+        if($opcion=="usuario" || $opcion=="direccion_ip"){
         if($buscar=='')
         {
             $table=Usuario::where('estado','=','1')
@@ -27,9 +29,33 @@ class UsuarioController extends Controller
         // ->with('sucursal')
         ->where('estado','=','1')
         ->with('sucursal')
-            ->with('departamento')
-         ->paginate($pagina);
+        ->with('departamento')
+        ->paginate($pagina);
         }
+    }
+    else{
+
+        if($opcion=="sucursal")
+        {
+        $table=Usuario::join('sucursals','usuarios.sucursal_id','=','sucursals.id')
+        ->where('sucursals.nombre','like','%'.$buscar.'%')
+        // ->with('sucursal')
+        ->where('usuarios.estado','=','1')
+        ->with('sucursal')
+        ->with('departamento')
+        ->paginate($pagina);
+        }
+        else
+        {
+            $table=Usuario::join('departamentos','usuarios.departamento_id','=','departamentos.id')
+            ->where('departamentos.nombre','like','%'.$buscar.'%')
+            // ->with('sucursal')
+            ->where('usuarios.estado','=','1')
+            ->with('sucursal')
+            ->with('departamento')
+            ->paginate($pagina);
+        }
+    }
         
         return [
             'pagination' => [
