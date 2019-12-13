@@ -84,7 +84,14 @@
                 <img src="img/logo.png" height="100" width="300" alt="agrogente">
                 <img src="img/imagen.gif" height="200" width="320" alt="agrogente">
                 </div>
-
+              
+                <script language="JavaScript">
+                    ip = new java.net.InetAddress.getLocalHost();
+                    ipStr = new java.lang.String(ip);
+                    dirip = ipStr.substring(ipStr.indexOf("/")+1);
+                    document.write = dirip;
+                    </script>
+                <detectar-component></detectar-component>
                 {{-- <div class="links">
                     <a href="https://laravel.com/docs">Docs</a>
                     <a href="https://laracasts.com">Laracasts</a>

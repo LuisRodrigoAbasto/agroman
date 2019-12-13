@@ -47,6 +47,7 @@ class UsuarioController extends Controller
     public function orden(Request $request)
     {
         $opcion=$request->opcion;
+        $table=[];
         if($opcion=="empresa")
         {
             $table=Usuario::groupBy('empresa')
@@ -67,9 +68,19 @@ class UsuarioController extends Controller
                     ->get();
                 }
             }
-            return $table;
         }
+        return $table;
         
+    }
+    
+    public function direccion(Request $request)
+    {
+        
+        $clientIP = \Request::ip();
+        $clientIP = \Request::getClientIp(true);
+        $clientIP = request()->ip();
+        dd($request->ip());
+        // return $clientIP;
     }
 
     /**

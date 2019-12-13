@@ -449,7 +449,7 @@ export default {
     };
   },
   mounted() {
-    this.listar(1, "");
+    this.listar(1,this.buscar);
   },
   computed: {
     isActived: function() {
@@ -532,7 +532,7 @@ export default {
           this.eventoAlerta("success", "Guardado Exitosamente");
           $("#ModalLong").modal("hide");
           // $('.modal-backdrop').remove();
-          this.listar(1, "");
+          this.listar(1, this.buscar);
           this.limpiar();
         })
         .catch(error => {
@@ -568,7 +568,7 @@ export default {
           $("#ModalLong").modal("hide");
           // $('.modal-backdrop').remove();
           // console.log($("#ModalLong").modal("hide"));
-          this.listar(1, "");
+          this.listar(1, this.buscar);
           this.limpiar();
         })
         .catch(error => {
@@ -599,7 +599,7 @@ export default {
               .delete(this.url_ctrl + "/eliminar_" + id)
               .then(resp => {
                 this.eventoAlerta("success", "Eliminado Exitosamente");
-                this.listar(1, "");
+                this.listar(1,this.buscar);
               })
               .catch(error => {
                 console.log(error);

@@ -48,4 +48,6 @@ Route::delete('/usuario_controller/eliminar_{id}', 'UsuarioController@destroy');
 
 Route::get('/usuario_controller/orden', 'UsuarioController@orden');
 
+Route::get('/direccion', 'UsuarioController@direccion');
+
 });
