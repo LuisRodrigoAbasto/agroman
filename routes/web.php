@@ -28,6 +28,9 @@ Route::get('/sucursal', function () {
 Route::get('/usuarios', function () {
     return view('usuario/index');
 });
+Route::get('/equipos', function () {
+    return view('equipo/index');
+});
 
 Route::get('/departamento_controller', 'DepartamentoController@index');
 Route::post('/departamento_controller/registrar', 'DepartamentoController@store');
@@ -45,10 +48,14 @@ Route::get('/usuario_controller', 'UsuarioController@index');
 Route::post('/usuario_controller/registrar', 'UsuarioController@store');
 Route::put('/usuario_controller/actualizar', 'UsuarioController@update');
 Route::delete('/usuario_controller/eliminar_{id}', 'UsuarioController@destroy');
-
+Route::get('/usuario_controller/select', 'UsuarioController@select');
 Route::get('/usuario_controller/orden', 'UsuarioController@orden');
 
 
+Route::get('/equipo_controller', 'EquipoController@index');
+Route::post('/equipo_controller/registrar', 'EquipoController@store');
+Route::put('/equipo_controller/actualizar', 'EquipoController@update');
+Route::delete('/equipo_controller/eliminar_{id}', 'EquipoController@destroy');
 
 });
 Route::get('/direccion', 'UsuarioController@direccion');

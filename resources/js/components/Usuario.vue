@@ -34,10 +34,9 @@
                             </select>
                           <div class="input-group">
                             <select class="form-control col-md-3" v-model="opcion">
-                              <option value="usuario">Usuario</option>
-                              <option value="direccion_ip">Direccion_IP</option>
-                              <option value="sucursal">Sucursal</option>
-                              <option value="departamentos">Departamentos</option>
+                              <option value="nombre">Nombre</option>
+                              <option value="email">Email</option>
+                              <option value="celular">Celular</option>
                             </select>
                             <input
                               type="text"
@@ -66,40 +65,22 @@
                     <thead>
                       <tr>
                         <th>Nº</th>
-                        <th>Direccion IP</th>
-                        <th>Usuario</th>
-                        <th>Interno</th>
-                        <th>Empresa</th>
-                        <th>Sucursal</th>
-                        <th>Celular Corto</th>
-                        <th>Celular</th>
-                        <th>Usuario SAP</th>
-                        <th>Usuario AD</th>
-                        <th>Password AD</th>
+                        <th>Nombre</th>
                         <th>Email Office</th>
                         <th>Password Office</th>
-                        <th>Telefono IP</th>
-                        <th>Departamento</th>
+                        <th>Celular</th>
+                        <th>Cel Corto</th>
                         <th>Opciones</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr v-for="(data,index) in array_data" :key="data.id">
                         <td>{{ index+1 }}</td>
-                        <td>{{ data.direccion_ip }}</td>
-                        <td>{{ data.usuario }}</td>
-                        <td>{{ data.telefono_interno }}</td>
-                        <td>{{ data.empresa }}</td>
-                        <td>{{ data.sucursal.nombre }}</td>
-                        <td>{{ data.celular_corto }}</td>
+                        <td>{{ data.nombre }}</td>
+                        <td>{{ data.email }}</td>
+                        <td>{{ data.password }}</td>
                         <td>{{ data.celular }}</td>
-                        <td>{{ data.usuario_sap }}</td>
-                        <td>{{ data.usuario_ad }}</td>
-                        <td>{{ data.password_ad }}</td>
-                        <td>{{ data.email_office }}</td>
-                        <td>{{ data.password_office }}</td>
-                        <td>{{ data.telefono_ip }}</td>
-                        <td>{{ data.departamento.nombre }}</td>
+                        <td>{{ data.celular_corto }}</td>
                         <td>
                           <button
                             type="button"
@@ -192,25 +173,13 @@
           </div>
           <div :class="'modal-body '+activarValidate">
             <form action method="post" enctype="multipart/form-data" class="form-horizontal">
+            
               <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Direccion IP</label>
+                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                 <div class="col-md-9">
                   <input
                     type="text"
-                    v-model="direccion_ip"
-                    placeholder="Direccion IP......"
-                    class="form-control"
-                    @keyup.enter="insertar()"
-                    required
-                  />
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Usuario</label>
-                <div class="col-md-9">
-                  <input
-                    type="text"
-                    v-model="usuario"
+                    v-model="nombre"
                     placeholder="Usuario......"
                     class="form-control"
                     @keyup.enter="insertar()"
@@ -218,13 +187,16 @@
                   />
                 </div>
               </div>
+              
+             
+            
               <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Usuario_Sap</label>
+                <label class="col-md-3 form-control-label" for="text-input">Email</label>
                 <div class="col-md-9">
                   <input
                     type="text"
-                    v-model="usuario_sap"
-                    placeholder="Usuario_Sap......"
+                    v-model="email"
+                    placeholder="Email......"
                     class="form-control"
                     @keyup.enter="insertar()"
                     required
@@ -232,83 +204,20 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Usuario_AD</label>
+                <label class="col-md-3 form-control-label" for="text-input">Password</label>
                 <div class="col-md-9">
                   <input
                     type="text"
-                    v-model="usuario_ad"
-                    placeholder="Usuario_AD......"
+                    v-model="password"
+                    placeholder="Password......"
                     class="form-control"
                     @keyup.enter="insertar()"
                     required
                   />
                 </div>
               </div>
-              <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Password_AD</label>
-                <div class="col-md-9">
-                  <input
-                    type="text"
-                    v-model="password_ad"
-                    placeholder="Password_AD......"
-                    class="form-control"
-                    @keyup.enter="insertar()"
-                    required
-                  />
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Email_Office</label>
-                <div class="col-md-9">
-                  <input
-                    type="text"
-                    v-model="email_office"
-                    placeholder="Email_Office......"
-                    class="form-control"
-                    @keyup.enter="insertar()"
-                    required
-                  />
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Password_Office</label>
-                <div class="col-md-9">
-                  <input
-                    type="text"
-                    v-model="password_office"
-                    placeholder="Password_Office......"
-                    class="form-control"
-                    @keyup.enter="insertar()"
-                    required
-                  />
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Telefono_Interno</label>
-                <div class="col-md-9">
-                  <input
-                    type="text"
-                    v-model="telefono_interno"
-                    placeholder="Telefono Interno......"
-                    class="form-control"
-                    @keyup.enter="insertar()"
-                    required
-                  />
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Telefono_IP</label>
-                <div class="col-md-9">
-                  <input
-                    type="text"
-                    v-model="telefono_ip"
-                    placeholder="Telefono_IP......"
-                    class="form-control"
-                    @keyup.enter="insertar()"
-                    required
-                  />
-                </div>
-              </div>
+   
+              
               <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Celular</label>
                 <div class="col-md-9">
@@ -333,42 +242,6 @@
                     @keyup.enter="insertar()"
                     required
                   />
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Departamento</label>
-                <div class="col-md-9">
-                  <v-select
-                    @search="select_departamento"
-                    label="nombre"
-                    :options="array_departamento"
-                    placeholder="Departamento..."
-                    @input="get_departamento"
-                    v-model="vue_departamento"
-                  />
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Sucursal</label>
-                <div class="col-md-9">
-                  <v-select
-                    @search="select_sucursal"
-                    label="nombre"
-                    :options="array_sucursal"
-                    placeholder="Sucursal..."
-                    @input="get_sucursal"
-                    v-model="vue_sucursal"
-                  />
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Empresa</label>
-                <div class="col-md-9">
-                  <select class="form-control" v-model="empresa">
-                    <option value>Seleccione</option>
-                    <option value="AGROMAN">AGROMAN</option>
-                    <option value="AGROGENTE">AGROGENTE</option>
-                  </select>
                 </div>
               </div>
             </form>
@@ -409,30 +282,14 @@ export default {
     return {
       id: 0,
       direccion_ip: "",
-      usuario: "",
-      usuario_sap: "",
-      usuario_ad: "",
-      password_ad: "",
-      email_office: "",
-      password_office: "",
-      telefono_interno: "",
-      telefono_ip: "",
+      nombre: "",
+      email: "",
+      password: "",
       celular: "",
       celular_corto: "",
       empresa: "",
       departamento_id: 0,
-      opcion: "usuario",
-      array_departamento: [],
-      vue_departamento: {
-        id: 0,
-        nombre: ""
-      },
-      sucursal_id: 0,
-      array_sucursal: [],
-      vue_sucursal: {
-        id: 0,
-        nombre: ""
-      },
+      opcion: "nombre",
       url_ctrl: "usuario_controller",
       array_data: [],
       titulo_modal: "",
@@ -517,18 +374,9 @@ export default {
       }
       axios
         .post(this.url_ctrl + "/registrar", {
-          sucursal_id: this.sucursal_id,
-          departamento_id: this.departamento_id,
-          empresa: this.empresa,
-          direccion_ip: this.direccion_ip,
-          usuario: this.usuario,
-          usuario_sap: this.usuario_sap,
-          usuario_ad: this.usuario_ad,
-          password_ad: this.password_ad,
-          email_office: this.email_office,
-          password_office: this.password_office,
-          telefono_interno: this.telefono_interno,
-          telefono_ip: this.telefono_ip,
+          nombre: this.nombre,
+          email: this.email,
+          password: this.password,
           celular: this.celular,
           celular_corto: this.celular_corto
         })
@@ -552,18 +400,9 @@ export default {
       axios
         .put(this.url_ctrl + "/actualizar", {
           id: this.id,
-          sucursal_id: this.sucursal_id,
-          departamento_id: this.departamento_id,
-          empresa: this.empresa,
-          direccion_ip: this.direccion_ip,
-          usuario: this.usuario,
-          usuario_sap: this.usuario_sap,
-          usuario_ad: this.usuario_ad,
-          password_ad: this.password_ad,
-          email_office: this.email_office,
-          password_office: this.password_office,
-          telefono_interno: this.telefono_interno,
-          telefono_ip: this.telefono_ip,
+           nombre: this.nombre,
+          email: this.email,
+          password: this.password,
           celular: this.celular,
           celular_corto: this.celular_corto
         })
@@ -623,66 +462,6 @@ export default {
         this.actualizar();
       }
     },
-    select_departamento(search, loading) {
-      loading(true);
-      var url = "departamento_controller/select?buscar=" + search;
-      axios
-        .get(url)
-        .then(resp => {
-          let respuesta = resp.data;
-          q: search;
-          this.array_departamento = respuesta.table;
-          loading(false);
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    },
-    get_departamento(val1) {
-      try {
-        this.departamento_id = val1.id;
-        this.vue_departamento = {
-          id: val1.id,
-          nombre: val1.nombre
-        };
-      } catch {
-        this.departamento_id = 0;
-        this.vue_departamento = {
-          id: 0,
-          nombre: ""
-        };
-      }
-    },
-    select_sucursal(search, loading) {
-      loading(true);
-      var url = "sucursal_controller/select?buscar=" + search;
-      axios
-        .get(url)
-        .then(resp => {
-          let respuesta = resp.data;
-          q: search;
-          this.array_sucursal = respuesta.table;
-          loading(false);
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    },
-    get_sucursal(val1) {
-      try {
-        this.sucursal_id = val1.id;
-        this.vue_sucursal = {
-          id: val1.id,
-          nombre: val1.nombre
-        };
-      } catch {
-        this.sucursal_id = 0;
-        this.vue_sucursal = {
-          id: 0,
-          nombre: ""
-        };
-      }
-    },
     abrirModal(accion, data = []) {
       // $("#ModalLong").modal('show')
       switch (accion) {
@@ -696,22 +475,11 @@ export default {
           this.titulo_modal = "Actualizar Usuario";
           this.tipoAccion = 2;
           this.id = data.id;
-          this.sucursal_id = data.sucursal_id;
-          this.departamento_id = data.departamento_id;
-          this.empresa = data.empresa;
-          this.direccion_ip = data.direccion_ip;
-          this.usuario = data.usuario;
-          this.usuario_sap = data.usuario_sap;
-          this.usuario_ad = data.usuario_ad;
-          this.password_ad = data.password_ad;
-          this.email_office = data.email_office;
-          this.password_office = data.password_office;
-          this.telefono_interno = data.telefono_interno;
-          this.telefono_ip = data.telefono_ip;
+          this.nombre = data.nombre;
+          this.email = data.email;
+          this.password = data.password;
           this.celular = data.celular;
           this.celular_corto = data.celular_corto;
-          this.vue_departamento = data.departamento;
-          this.vue_sucursal = data.sucursal;
           break;
         }
       }
@@ -719,49 +487,29 @@ export default {
     limpiar() {
       this.id = 0;
       this.buscar = "";
-      this.sucursal_id = "";
-      this.departamento_id = "";
-      this.empresa = "";
-      this.direccion_ip = "";
-      this.usuario = "";
-      this.usuario_ad = "";
-      this.usuario_sap = "";
-      this.password_ad = "";
-      this.email_office = "";
-      this.password_office = "";
-      this.telefono_interno = "";
-      this.telefono_ip = "";
-      this.celular = "";
+      this.nombre = "";
+      this.email = "";
+      this.password = "";
       this.celular_corto = "";
-      this.vue_departamento = {
-        id: 0,
-        nombre: ""
-      };
-      this.vue_sucursal = {
-        id: 0,
-        nombre: ""
-      };
-      this.array_departamento = [];
-      this.array_sucursal = [];
       this.activarValidate = "";
     },
     validar() {
-      if (!this.usuario) {
+      if (!this.nombre) {
         this.mensaje = "Ingrese el Nombre";
         return true;
       }
-      if (!this.departamento_id) {
-        this.mensaje = "Seleccione el Departamento";
-        return true;
-      }
-      if (!this.sucursal_id) {
-        this.mensaje = "Seleccione la Sucursal";
-        return true;
-      }
-      if (!this.empresa) {
-        this.mensaje = "Seleccione la Empresa";
-        return true;
-      }
+      // if (!this.departamento_id) {
+      //   this.mensaje = "Seleccione el Departamento";
+      //   return true;
+      // }
+      // if (!this.sucursal_id) {
+      //   this.mensaje = "Seleccione la Sucursal";
+      //   return true;
+      // }
+      // if (!this.empresa) {
+      //   this.mensaje = "Seleccione la Empresa";
+      //   return true;
+      // }
       return false;
     }
   }

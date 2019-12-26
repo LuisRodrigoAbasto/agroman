@@ -1,1 +1,1 @@
-@include('usuario.index')
+@include('equipo.index')

@@ -11,16 +11,12 @@ class UsuarioController extends Controller
     public function index(Request $request)
     {
         $buscar=$request->buscar;
-        $opcion=$request->opcion;
         $pagina=$request->pagina;
-
-        if($opcion=="usuario" || $opcion=="direccion_ip"){
+        $opcion=$request->opcion;
         if($buscar=='')
         {
             $table=Usuario::where('estado','=','1')
             ->orderBy('id','desc')
-            ->with('sucursal')
-            ->with('departamento')
             ->paginate($pagina);
         }
         else
@@ -28,34 +24,8 @@ class UsuarioController extends Controller
             $table=Usuario::where($opcion,'like','%'.$buscar.'%')
         // ->with('sucursal')
         ->where('estado','=','1')
-        ->with('sucursal')
-        ->with('departamento')
         ->paginate($pagina);
         }
-    }
-    else{
-
-        if($opcion=="sucursal")
-        {
-        $table=Usuario::join('sucursals','usuarios.sucursal_id','=','sucursals.id')
-        ->where('sucursals.nombre','like','%'.$buscar.'%')
-        // ->with('sucursal')
-        ->where('usuarios.estado','=','1')
-        ->with('sucursal')
-        ->with('departamento')
-        ->paginate($pagina);
-        }
-        else
-        {
-            $table=Usuario::join('departamentos','usuarios.departamento_id','=','departamentos.id')
-            ->where('departamentos.nombre','like','%'.$buscar.'%')
-            // ->with('sucursal')
-            ->where('usuarios.estado','=','1')
-            ->with('sucursal')
-            ->with('departamento')
-            ->paginate($pagina);
-        }
-    }
         
         return [
             'pagination' => [
@@ -70,34 +40,7 @@ class UsuarioController extends Controller
         ];
     
     }
-    public function orden(Request $request)
-    {
-        $opcion=$request->opcion;
-        $table=[];
-        if($opcion=="empresa")
-        {
-            $table=Usuario::groupBy('empresa')
-            ->get('empresa');
-
-            foreach ($table as $fila) {
-                $departamento=Usuario::join('departamentos','usuarios.departamento_id','=','departamentos.id')
-                ->groupBy('departamentos.id','departamentos.nombre')
-                ->select('departamentos.id','departamentos.nombre')
-                ->where('usuarios.estado','=','1')
-                ->where('empresa','=',$fila->empresa)
-                ->get();
-
-                $fila->departamento=$departamento;
-                foreach ($fila->departamento as $val) {
-                    $val->data=Usuario::where('departamento_id','=',$val->id)
-                    ->where('empresa','=',$fila->empresa)
-                    ->get();
-                }
-            }
-        }
-        return $table;
-        
-    }
+   
     
     public function direccion(Request $request)
     {
@@ -109,6 +52,15 @@ class UsuarioController extends Controller
         // return $clientIP;
     }
 
+    public function select(Request $request)
+    {
+        // if(!$request->ajax()) return redirect('/');
+        $buscar=$request->buscar;
+        $table=Usuario::where('nombre','like','%'.$buscar.'%')
+        ->take(10)
+        ->get();
+        return ['table' => $table];
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -119,18 +71,9 @@ class UsuarioController extends Controller
     {
         // if(!$request->ajax()) return redirect('/');
         $table= new Usuario();
-        $table->sucursal_id=$request->sucursal_id;
-        $table->departamento_id=$request->departamento_id;
-        $table->empresa=$request->empresa;
-        $table->direccion_ip=$request->direccion_ip;
-        $table->usuario=$request->usuario;
-        $table->usuario_sap=$request->usuario_sap;
-        $table->usuario_ad=$request->usuario_ad;
-        $table->password_ad=$request->password_ad;
-        $table->email_office=$request->email_office;
-        $table->password_office=$request->password_office;
-        $table->telefono_interno=$request->telefono_interno;
-        $table->telefono_ip=$request->telefono_ip;
+        $table->nombre=$request->nombre;
+        $table->email=$request->email;
+        $table->password=$request->password;
         $table->celular=$request->celular;
         $table->celular_corto=$request->celular_corto;
         $table->estado='1';
@@ -147,18 +90,9 @@ class UsuarioController extends Controller
     public function update(Request $request)
     {
         $table= Usuario::findOrfail($request->id);
-        $table->sucursal_id=$request->sucursal_id;
-        $table->departamento_id=$request->departamento_id;
-        $table->empresa=$request->empresa;
-        $table->direccion_ip=$request->direccion_ip;
-        $table->usuario=$request->usuario;
-        $table->usuario_sap=$request->usuario_sap;
-        $table->usuario_ad=$request->usuario_ad;
-        $table->password_ad=$request->password_ad;
-        $table->email_office=$request->email_office;
-        $table->password_office=$request->password_office;
-        $table->telefono_interno=$request->telefono_interno;
-        $table->telefono_ip=$request->telefono_ip;
+        $table->nombre=$request->nombre;
+        $table->email=$request->email;
+        $table->password=$request->password;
         $table->celular=$request->celular;
         $table->celular_corto=$request->celular_corto;
         $table->estado='1';
