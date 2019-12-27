@@ -64,7 +64,7 @@
             <table class="table table-bordered table-striped table-sm">
                     <thead>
                       <tr>
-                        <th>Nº</th>
+                       
                         <th>Nombre</th>
                         <th>Email Office</th>
                         <th>Password Office</th>
@@ -74,8 +74,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(data,index) in array_data" :key="data.id">
-                        <td>{{ index+1 }}</td>
+                      <tr v-for="data in array_data" :key="data.id">
                         <td>{{ data.nombre }}</td>
                         <td>{{ data.email }}</td>
                         <td>{{ data.password }}</td>
@@ -490,6 +489,7 @@ export default {
       this.nombre = "";
       this.email = "";
       this.password = "";
+      this.celular='';
       this.celular_corto = "";
       this.activarValidate = "";
     },

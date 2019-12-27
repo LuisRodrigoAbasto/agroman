@@ -6,8 +6,9 @@
           <div class="row">
             <div class="col-lg-12">
               <div class="card">
+                <template v-if="user.tipo=='ADMINISTRADOR'">
                 <div class="card-header">
-                  <i class="fa fa-align-justify"></i> Usuario
+                  <i class="fa fa-align-justify"></i> Equipo
                   <button
                     type="button"
                     data-toggle="modal"
@@ -18,6 +19,7 @@
                     <i class="cil-plus"></i>&nbsp;Nuevo
                   </button>
                 </div>
+                </template>
                 <div class="card-body">
                   <div class="form-group row">
                     <div class="col-md-12">
@@ -75,16 +77,19 @@
                           <th>Interno</th>
                           <th>Empresa</th>
                           <th>Sucursal</th>
+                          <th>Departamento</th>
                           <th>Celular Corto</th>
                           <th>Celular</th>
+                          <th>Email Office</th>
+                      <template v-if="user.tipo=='ADMINISTRADOR'">
+                          <th>Password Office</th>
                           <th>Usuario SAP</th>
                           <th>Usuario AD</th>
                           <th>Password AD</th>
-                          <th>Email Office</th>
-                          <th>Password Office</th>
+                          
                           <th>Telefono IP</th>
-                          <th>Departamento</th>
                           <th>Opciones</th>
+                          </template>
                         </tr>
                       </thead>
                       <tbody>
@@ -95,15 +100,16 @@
                           <td>{{ data.telefono_interno }}</td>
                           <td>{{ data.empresa }}</td>
                           <td>{{ data.sucursal.nombre }}</td>
+                          <td>{{ data.departamento.nombre }}</td>
                           <td>{{ data.usuario.celular_corto }}</td>
                           <td>{{ data.usuario.celular }}</td>
+                          <td>{{ data.usuario.email }}</td>
+                          <template v-if="user.tipo=='ADMINISTRADOR'">
+                          <td>{{ data.usuario._office }}</td>
                           <td>{{ data.usuario_sap }}</td>
                           <td>{{ data.usuario_ad }}</td>
                           <td>{{ data.password_ad }}</td>
-                          <td>{{ data.usuario.email }}</td>
-                          <td>{{ data.usuario.password }}</td>
                           <td>{{ data.telefono_ip }}</td>
-                          <td>{{ data.departamento.nombre }}</td>
                           <td>
                             <button
                               type="button"
@@ -123,6 +129,7 @@
                               <i class="cil-trash"></i>
                             </button>
                           </td>
+                          </template>
                         </tr>
                       </tbody>
                     </table>
@@ -196,6 +203,19 @@
           </div>
           <div :class="'modal-body '+activarValidate">
             <form action method="post" enctype="multipart/form-data" class="form-horizontal">
+             <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Usuario</label>
+                <div class="col-md-9">
+                  <v-select
+                    @search="select_usuario"
+                    label="nombre"
+                    :options="array_usuario"
+                    placeholder="Usuario..."
+                    @input="get_usuario"
+                    v-model="vue_usuario"
+                  />
+                </div>
+              </div>
               <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Direccion IP</label>
                 <div class="col-md-9">
@@ -209,19 +229,7 @@
                   />
                 </div>
               </div>
-              <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Usuario</label>
-                <div class="col-md-9">
-                  <v-select
-                    @search="select_usuario"
-                    label="nombre"
-                    :options="array_usuario"
-                    placeholder="Usuario..."
-                    @input="get_usuario"
-                    v-model="vue_usuario"
-                  />
-                </div>
-              </div>
+             
               <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Usuario_Sap</label>
                 <div class="col-md-9">
@@ -359,6 +367,9 @@ Vue.component("v-select", vSelect);
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 export default {
+  props:{
+user:Object
+  },
   data() {
     return {
       id: 0,

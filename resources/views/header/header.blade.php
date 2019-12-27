@@ -20,7 +20,7 @@
                 <use xlink:href="coreui/vendors/@coreui/icons/svg/free.svg#cil-envelope-open"></use>
               </svg></a></li>
           <li class="c-header-nav-item dropdown"><a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-            {{ Auth::user()->name }}  <div class="c-avatar"><img class="c-avatar-img" src="img/ag.png" alt="user@email.com"></div>
+            {{ Auth::user()->nombre }}  <div class="c-avatar"><img class="c-avatar-img" src="img/ag.png" alt="user@email.com"></div>
             </a>
             <div class="dropdown-menu dropdown-menu-right pt-0">
               <div class="dropdown-header bg-light py-2"><strong>Account</strong></div><a class="dropdown-item" href="#">

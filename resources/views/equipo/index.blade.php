@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('content')
+@section('contenido')
 <template>
-<equipo-component></equipo-component>
+<equipo-component :user="{{ Auth::user() }}"></equipo-component>
 </template>
 @endsection

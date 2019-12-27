@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
+// use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Support\Facades\Hash;
 use App\Usuario;
 use App\Departamento;
 
@@ -16,6 +19,7 @@ class UsuarioController extends Controller
         if($buscar=='')
         {
             $table=Usuario::where('estado','=','1')
+            ->select('id','email','nombre','password_office as password','celular','celular_corto','tipo','tipo')
             ->orderBy('id','desc')
             ->paginate($pagina);
         }
@@ -23,10 +27,11 @@ class UsuarioController extends Controller
         {
             $table=Usuario::where($opcion,'like','%'.$buscar.'%')
         // ->with('sucursal')
+        ->select('id','email','nombre','password_office as password','celular','celular_corto','tipo','tipo')
         ->where('estado','=','1')
         ->paginate($pagina);
+
         }
-        
         return [
             'pagination' => [
                 'total'        => $table->total(),
@@ -73,9 +78,11 @@ class UsuarioController extends Controller
         $table= new Usuario();
         $table->nombre=$request->nombre;
         $table->email=$request->email;
-        $table->password=$request->password;
+        $table->password=Hash::make($request->password);
+        $table->password_office=$request->password;
         $table->celular=$request->celular;
         $table->celular_corto=$request->celular_corto;
+        $table->tipo='USUARIO';
         $table->estado='1';
         $table->save();
     }
@@ -92,7 +99,8 @@ class UsuarioController extends Controller
         $table= Usuario::findOrfail($request->id);
         $table->nombre=$request->nombre;
         $table->email=$request->email;
-        $table->password=$request->password;
+        $table->password=Hash::make($request->password);
+        $table->password_office=$request->password;
         $table->celular=$request->celular;
         $table->celular_corto=$request->celular_corto;
         $table->estado='1';

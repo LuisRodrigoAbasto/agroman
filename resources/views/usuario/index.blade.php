@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('content')
+@section('contenido')
 <template>
 <usuario-component></usuario-component>
 </template>

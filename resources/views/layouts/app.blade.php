@@ -25,13 +25,16 @@
             @guest
             
             @else
+            @if (Auth::user()->tipo=='ADMINISTRADOR')
             @include('sidebar.sidebar')
+            @endif
             <div class="c-wrapper">
-            @include('header.header')
+                @include('header.header')
+            
             @endguest
-
+            
      
-            @yield('content')
+            @yield('contenido')
 
             
             @guest
