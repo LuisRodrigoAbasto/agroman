@@ -6,19 +6,19 @@
           <div class="row">
             <div class="col-lg-12">
               <div class="card">
-                <template v-if="user.tipo=='ADMINISTRADOR'">
-                <div class="card-header">
-                  <i class="fa fa-align-justify"></i> Equipo
-                  <button
-                    type="button"
-                    data-toggle="modal"
-                    data-target="#ModalLong"
-                    class="btn btn-secondary"
-                    @click="abrirModal('registrar')"
-                  >
-                    <i class="cil-plus"></i>&nbsp;Nuevo
-                  </button>
-                </div>
+                <template v-if="user.mostrar">
+                  <div class="card-header">
+                    <i class="fa fa-align-justify"></i> Equipo
+                    <button
+                      type="button"
+                      data-toggle="modal"
+                      data-target="#ModalLong"
+                      class="btn btn-secondary"
+                      @click="abrirModal('registrar')"
+                    >
+                      <i class="cil-plus"></i>&nbsp;Nuevo
+                    </button>
+                  </div>
                 </template>
                 <div class="card-body">
                   <div class="form-group row">
@@ -38,12 +38,16 @@
                             <option value="250">250</option>
                             <option value="500">500</option>
                           </select>
+
+                          <button type="button" class="btn btn-success" @click="descargar_excel()"> 
+                            <i class="cil-grid"></i>&nbsp;
+                          </button>
                           <div class="input-group">
                             <select class="form-control col-md-3" v-model="opcion">
                               <option value="usuarios.nombre">Usuario</option>
-                              <option value="equipos.ip">IP</option>
-                              <option value="sucursals.nombre">Sucursal</option>
+                              <option value="equipos.ip" v-if="user.mostrar">IP</option>
                               <option value="departamentos.nombre">Departamentos</option>
+                              <option value="sucursals.nombre">Sucursal</option>
                             </select>
                             <input
                               type="text"
@@ -71,8 +75,9 @@
                     <table class="table table-bordered table-striped table-sm">
                       <thead>
                         <tr>
-                          <th>Nº</th>
-                          <th>Direccion IP</th>
+                          <th v-if="!user.mostrar">Nº</th>
+                          <th v-if="user.mostrar">ID</th>
+                          <th v-if="user.mostrar">Direccion IP</th>
                           <th>Usuario</th>
                           <th>Interno</th>
                           <th>Empresa</th>
@@ -81,21 +86,23 @@
                           <th>Celular Corto</th>
                           <th>Celular</th>
                           <th>Email Office</th>
-                      <template v-if="user.tipo=='ADMINISTRADOR'">
-                          <th>Password Office</th>
-                          <th>Usuario SAP</th>
-                          <th>Usuario AD</th>
-                          <th>Password AD</th>
-                          
-                          <th>Telefono IP</th>
-                          <th>Opciones</th>
+                          <template v-if="user.mostrar">
+                            <th>Password Office</th>
+                            <th>Usuario SAP</th>
+                            <th>Password SAP</th>
+                            <th>Usuario AD</th>
+                            <th>Password AD</th>
+
+                            <th>Telefono IP</th>
+                            <th>Opciones</th>
                           </template>
                         </tr>
                       </thead>
                       <tbody>
                         <tr v-for="(data,index) in array_data" :key="data.id">
-                          <td>{{ index+1 }}</td>
-                          <td>{{ data.ip }}</td>
+                          <td v-if="!user.mostrar">{{ index+1 }}</td>
+                          <td v-if="user.mostrar">{{ data.id }}</td>
+                          <td v-if="user.mostrar">{{ data.ip }}</td>
                           <td>{{ data.usuario.nombre }}</td>
                           <td>{{ data.telefono_interno }}</td>
                           <td>{{ data.empresa }}</td>
@@ -104,31 +111,32 @@
                           <td>{{ data.usuario.celular_corto }}</td>
                           <td>{{ data.usuario.celular }}</td>
                           <td>{{ data.usuario.email }}</td>
-                          <template v-if="user.tipo=='ADMINISTRADOR'">
-                          <td>{{ data.usuario._office }}</td>
-                          <td>{{ data.usuario_sap }}</td>
-                          <td>{{ data.usuario_ad }}</td>
-                          <td>{{ data.password_ad }}</td>
-                          <td>{{ data.telefono_ip }}</td>
-                          <td>
-                            <button
-                              type="button"
-                              data-toggle="modal"
-                              data-target="#ModalLong"
-                              class="btn btn-warning btn-sm"
-                              @click="abrirModal('actualizar',data)"
-                            >
-                              <i class="cil-pencil"></i>
-                            </button>
-                            &nbsp;
-                            <button
-                              type="button"
-                              class="btn btn-danger btn-sm"
-                              @click="eliminar(data.id)"
-                            >
-                              <i class="cil-trash"></i>
-                            </button>
-                          </td>
+                          <template v-if="user.mostrar">
+                            <td>{{ data.usuario.password }}</td>
+                            <td>{{ data.usuario_sap }}</td>
+                            <td>{{ data.password_sap }}</td>
+                            <td>{{ data.usuario_ad }}</td>
+                            <td>{{ data.password_ad }}</td>
+                            <td>{{ data.telefono_ip }}</td>
+                            <td>
+                              <button
+                                type="button"
+                                data-toggle="modal"
+                                data-target="#ModalLong"
+                                class="btn btn-warning btn-sm"
+                                @click="abrirModal('actualizar',data)"
+                              >
+                                <i class="cil-pencil"></i>
+                              </button>
+                              &nbsp;
+                              <button
+                                type="button"
+                                class="btn btn-danger btn-sm"
+                                @click="eliminar(data.id)"
+                              >
+                                <i class="cil-trash"></i>
+                              </button>
+                            </td>
                           </template>
                         </tr>
                       </tbody>
@@ -203,7 +211,7 @@
           </div>
           <div :class="'modal-body '+activarValidate">
             <form action method="post" enctype="multipart/form-data" class="form-horizontal">
-             <div class="form-group row">
+              <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Usuario</label>
                 <div class="col-md-9">
                   <v-select
@@ -229,7 +237,7 @@
                   />
                 </div>
               </div>
-             
+
               <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Usuario_Sap</label>
                 <div class="col-md-9">
@@ -237,6 +245,19 @@
                     type="text"
                     v-model="usuario_sap"
                     placeholder="Usuario_Sap......"
+                    class="form-control"
+                    @keyup.enter="insertar()"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Password_Sap</label>
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    v-model="password_sap"
+                    placeholder="Password_Sap......"
                     class="form-control"
                     @keyup.enter="insertar()"
                     required
@@ -367,8 +388,8 @@ Vue.component("v-select", vSelect);
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 export default {
-  props:{
-user:Object
+  props: {
+    user: Object
   },
   data() {
     return {
@@ -381,6 +402,7 @@ user:Object
         nombre: ""
       },
       usuario_sap: "",
+      password_sap: "",
       usuario_ad: "",
       password_ad: "",
 
@@ -471,11 +493,13 @@ user:Object
           // console.log(resp.data.data);
           this.array_data = resp.data.table.data;
           this.pagination = resp.data.pagination;
-          
         })
         .catch(error => {
           console.log(error);
         });
+    },
+    descargar_excel() {
+      window.open('reporte/equipo');
     },
     eventoAlerta(icono, mensaje) {
       Swal.fire({
@@ -500,6 +524,7 @@ user:Object
           usuario_id: this.usuario_id,
           ip: this.ip,
           usuario_sap: this.usuario_sap,
+          password_sap: this.password_sap,
           usuario_ad: this.usuario_ad,
           password_ad: this.password_ad,
           telefono_interno: this.telefono_interno,
@@ -531,6 +556,7 @@ user:Object
           usuario_id: this.usuario_id,
           ip: this.ip,
           usuario_sap: this.usuario_sap,
+          password_sap: this.password_sap,
           usuario_ad: this.usuario_ad,
           password_ad: this.password_ad,
           telefono_interno: this.telefono_interno,
@@ -714,7 +740,7 @@ user:Object
     },
     limpiar() {
       this.id = 0;
-      this.buscar = '';
+      this.buscar = "";
       this.sucursal_id = 0;
       this.departamento_id = 0;
       this.empresa = "";
@@ -724,15 +750,13 @@ user:Object
         nombre: ""
       };
       this.usuario_id = 0;
-      this.usuario_ad = "";
+
       this.usuario_sap = "";
+      this.password_sap = "";
+      this.usuario_ad = "";
       this.password_ad = "";
-      this.email_office = "";
-      this.password_office = "";
       this.telefono_interno = "";
       this.telefono_ip = "";
-      this.celular = "";
-      this.celular_corto = "";
       this.vue_departamento = {
         id: 0,
         nombre: ""

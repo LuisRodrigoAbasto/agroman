@@ -19,7 +19,7 @@ class UsuarioController extends Controller
         if($buscar=='')
         {
             $table=Usuario::where('estado','=','1')
-            ->select('id','email','nombre','password_office as password','celular','celular_corto','tipo','tipo')
+            // ->select('id','email','nombre','password','celular','celular_corto','tipo','tipo')
             ->orderBy('id','desc')
             ->paginate($pagina);
         }
@@ -27,7 +27,7 @@ class UsuarioController extends Controller
         {
             $table=Usuario::where($opcion,'like','%'.$buscar.'%')
         // ->with('sucursal')
-        ->select('id','email','nombre','password_office as password','celular','celular_corto','tipo','tipo')
+        // ->select('id','email','nombre','password','celular','celular_corto','tipo','tipo')
         ->where('estado','=','1')
         ->paginate($pagina);
 
@@ -78,8 +78,8 @@ class UsuarioController extends Controller
         $table= new Usuario();
         $table->nombre=$request->nombre;
         $table->email=$request->email;
-        $table->password=Hash::make($request->password);
-        $table->password_office=$request->password;
+        // $table->password=Hash::make($request->password);
+        $table->password=$request->password;
         $table->celular=$request->celular;
         $table->celular_corto=$request->celular_corto;
         $table->tipo='USUARIO';
@@ -99,8 +99,8 @@ class UsuarioController extends Controller
         $table= Usuario::findOrfail($request->id);
         $table->nombre=$request->nombre;
         $table->email=$request->email;
-        $table->password=Hash::make($request->password);
-        $table->password_office=$request->password;
+        // $table->password=Hash::make($request->password);
+        $table->password=$request->password;
         $table->celular=$request->celular;
         $table->celular_corto=$request->celular_corto;
         $table->estado='1';

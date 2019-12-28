@@ -2,6 +2,6 @@
 
 @section('contenido')
 <template>
-<equipo-component :user="{{ Auth::user() }}"></equipo-component>
+<equipo-component :user="{mostrar:true}"></equipo-component>
 </template>
 @endsection

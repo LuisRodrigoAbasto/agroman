@@ -38,6 +38,17 @@
                             </span>
                         @enderror
                   </div>
+                  <div class="input-group mb-4">
+                    <div class="input-group-prepend">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                            <label class="form-check-label" for="remember">
+                                Mantener Session
+                            </label>
+                        </div>
+                    </div>
+                </div>
                   <div class="row">
                     <div class="col-6">
                       <button class="btn btn-primary px-4" type="submit">Login</button>

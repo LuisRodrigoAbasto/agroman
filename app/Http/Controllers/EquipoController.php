@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-// use App\Usuario;
-// use App\Departamento;
-// use App\Sucursal;
 use App\Equipo;
 
 
@@ -32,7 +29,7 @@ class EquipoController extends Controller
         $table=Equipo::join('usuarios','equipos.usuario_id','=','usuarios.id')
         ->join('departamentos','equipos.departamento_id','=','departamentos.id')
         ->join('sucursals','equipos.sucursal_id','=','sucursals.id')
-        ->where('usuarios.nombre','like','%'.$buscar.'%')
+        ->where($opcion,'like','%'.$buscar.'%')
         ->where('equipos.estado','=','1')
         ->select('equipos.id','equipos.sucursal_id','equipos.departamento_id','equipos.usuario_id',
         'equipos.empresa','equipos.ip','equipos.usuario_sap','equipos.password_sap','equipos.usuario_ad',

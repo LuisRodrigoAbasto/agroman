@@ -33,6 +33,6 @@ Vue.component('equipo-component', require('./components/Equipo.vue').default);
 const app = new Vue({
     el: "#app",
     data: {
-        menu: 0
+        menu: 0,
     }
 });

@@ -50,11 +50,11 @@
                     <tbody>
                       <tr v-for="data in array_data" :key="data.id">
                         <td>
-                          <span class="badge badge-success">
+                          <!-- <span class="badge badge-success"> -->
                             {{
                             data.id
                             }}
-                          </span>
+                          <!-- </span> -->
                         </td>
                         <td>{{ data.nombre }}</td>
                         <td>

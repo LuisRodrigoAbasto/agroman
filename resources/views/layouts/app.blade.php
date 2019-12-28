@@ -19,15 +19,15 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/lib.css') }}" rel="stylesheet">
 </head>
-<body class="c-app">
+<body class="c-app" >
     <div id="app">
 
             @guest
             
             @else
-            @if (Auth::user()->tipo=='ADMINISTRADOR')
+            {{-- @if (Auth::user()->tipo=='ADMINISTRADOR') --}}
             @include('sidebar.sidebar')
-            @endif
+            {{-- @endif --}}
             <div class="c-wrapper">
                 @include('header.header')
             

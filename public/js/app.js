@@ -2020,8 +2020,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 
@@ -2643,6 +2641,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2664,6 +2683,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
         nombre: ""
       },
       usuario_sap: "",
+      password_sap: "",
       usuario_ad: "",
       password_ad: "",
       telefono_interno: "",
@@ -2755,6 +2775,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
         console.log(error);
       });
     },
+    descargar_excel: function descargar_excel() {
+      window.open('reporte/equipo');
+    },
     eventoAlerta: function eventoAlerta(icono, mensaje) {
       sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_3___default.a.fire({
         position: "center",
@@ -2780,6 +2803,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
         usuario_id: this.usuario_id,
         ip: this.ip,
         usuario_sap: this.usuario_sap,
+        password_sap: this.password_sap,
         usuario_ad: this.usuario_ad,
         password_ad: this.password_ad,
         telefono_interno: this.telefono_interno,
@@ -2813,6 +2837,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
         usuario_id: this.usuario_id,
         ip: this.ip,
         usuario_sap: this.usuario_sap,
+        password_sap: this.password_sap,
         usuario_ad: this.usuario_ad,
         password_ad: this.password_ad,
         telefono_interno: this.telefono_interno,
@@ -3001,7 +3026,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
     },
     limpiar: function limpiar() {
       this.id = 0;
-      this.buscar = '';
+      this.buscar = "";
       this.sucursal_id = 0;
       this.departamento_id = 0;
       this.empresa = "";
@@ -3011,15 +3036,12 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
         nombre: ""
       };
       this.usuario_id = 0;
-      this.usuario_ad = "";
       this.usuario_sap = "";
+      this.password_sap = "";
+      this.usuario_ad = "";
       this.password_ad = "";
-      this.email_office = "";
-      this.password_office = "";
       this.telefono_interno = "";
       this.telefono_ip = "";
-      this.celular = "";
-      this.celular_corto = "";
       this.vue_departamento = {
         id: 0,
         nombre: ""
@@ -3784,6 +3806,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -3904,9 +3927,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
 
         $("#ModalLong").modal("hide"); // $('.modal-backdrop').remove();
 
-        _this2.listar(1, _this2.buscar);
-
         _this2.limpiar();
+
+        _this2.listar(1, _this2.buscar);
       })["catch"](function (error) {
         console.log(error);
       });
@@ -3933,9 +3956,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
         $("#ModalLong").modal("hide"); // $('.modal-backdrop').remove();
         // console.log($("#ModalLong").modal("hide"));
 
-        _this3.listar(1, _this3.buscar);
-
         _this3.limpiar();
+
+        _this3.listar(1, _this3.buscar);
       })["catch"](function (error) {
         console.log(error);
       });
@@ -38680,16 +38703,10 @@ var render = function() {
                         _vm._l(_vm.array_data, function(data) {
                           return _c("tr", { key: data.id }, [
                             _c("td", [
-                              _c(
-                                "span",
-                                { staticClass: "badge badge-success" },
-                                [
-                                  _vm._v(
-                                    "\n                          " +
-                                      _vm._s(data.id) +
-                                      "\n                        "
-                                  )
-                                ]
+                              _vm._v(
+                                "\n                          " +
+                                  _vm._s(data.id) +
+                                  "\n                        "
                               )
                             ]),
                             _vm._v(" "),
@@ -39023,11 +39040,11 @@ var render = function() {
                 "div",
                 { staticClass: "card" },
                 [
-                  _vm.user.tipo == "ADMINISTRADOR"
+                  _vm.user.mostrar
                     ? [
                         _c("div", { staticClass: "card-header" }, [
                           _c("i", { staticClass: "fa fa-align-justify" }),
-                          _vm._v(" Equipo\n                "),
+                          _vm._v(" Equipo\n                  "),
                           _c(
                             "button",
                             {
@@ -39045,7 +39062,7 @@ var render = function() {
                             },
                             [
                               _c("i", { staticClass: "cil-plus" }),
-                              _vm._v(" Nuevo\n                ")
+                              _vm._v(" Nuevo\n                  ")
                             ]
                           )
                         ])
@@ -39120,6 +39137,23 @@ var render = function() {
                               ]
                             ),
                             _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-success",
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.descargar_excel()
+                                  }
+                                }
+                              },
+                              [
+                                _c("i", { staticClass: "cil-grid" }),
+                                _vm._v(" \n                        ")
+                              ]
+                            ),
+                            _vm._v(" "),
                             _c("div", { staticClass: "input-group" }, [
                               _c(
                                 "select",
@@ -39159,17 +39193,13 @@ var render = function() {
                                     [_vm._v("Usuario")]
                                   ),
                                   _vm._v(" "),
-                                  _c(
-                                    "option",
-                                    { attrs: { value: "equipos.ip" } },
-                                    [_vm._v("IP")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "option",
-                                    { attrs: { value: "sucursals.nombre" } },
-                                    [_vm._v("Sucursal")]
-                                  ),
+                                  _vm.user.mostrar
+                                    ? _c(
+                                        "option",
+                                        { attrs: { value: "equipos.ip" } },
+                                        [_vm._v("IP")]
+                                      )
+                                    : _vm._e(),
                                   _vm._v(" "),
                                   _c(
                                     "option",
@@ -39177,6 +39207,12 @@ var render = function() {
                                       attrs: { value: "departamentos.nombre" }
                                     },
                                     [_vm._v("Departamentos")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "option",
+                                    { attrs: { value: "sucursals.nombre" } },
+                                    [_vm._v("Sucursal")]
                                   )
                                 ]
                               ),
@@ -39251,9 +39287,17 @@ var render = function() {
                             _c(
                               "tr",
                               [
-                                _c("th", [_vm._v("Nº")]),
+                                !_vm.user.mostrar
+                                  ? _c("th", [_vm._v("Nº")])
+                                  : _vm._e(),
                                 _vm._v(" "),
-                                _c("th", [_vm._v("Direccion IP")]),
+                                _vm.user.mostrar
+                                  ? _c("th", [_vm._v("ID")])
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _vm.user.mostrar
+                                  ? _c("th", [_vm._v("Direccion IP")])
+                                  : _vm._e(),
                                 _vm._v(" "),
                                 _c("th", [_vm._v("Usuario")]),
                                 _vm._v(" "),
@@ -39271,11 +39315,13 @@ var render = function() {
                                 _vm._v(" "),
                                 _c("th", [_vm._v("Email Office")]),
                                 _vm._v(" "),
-                                _vm.user.tipo == "ADMINISTRADOR"
+                                _vm.user.mostrar
                                   ? [
                                       _c("th", [_vm._v("Password Office")]),
                                       _vm._v(" "),
                                       _c("th", [_vm._v("Usuario SAP")]),
+                                      _vm._v(" "),
+                                      _c("th", [_vm._v("Password SAP")]),
                                       _vm._v(" "),
                                       _c("th", [_vm._v("Usuario AD")]),
                                       _vm._v(" "),
@@ -39298,9 +39344,17 @@ var render = function() {
                                 "tr",
                                 { key: data.id },
                                 [
-                                  _c("td", [_vm._v(_vm._s(index + 1))]),
+                                  !_vm.user.mostrar
+                                    ? _c("td", [_vm._v(_vm._s(index + 1))])
+                                    : _vm._e(),
                                   _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(data.ip))]),
+                                  _vm.user.mostrar
+                                    ? _c("td", [_vm._v(_vm._s(data.id))])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _vm.user.mostrar
+                                    ? _c("td", [_vm._v(_vm._s(data.ip))])
+                                    : _vm._e(),
                                   _vm._v(" "),
                                   _c("td", [
                                     _vm._v(_vm._s(data.usuario.nombre))
@@ -39332,14 +39386,18 @@ var render = function() {
                                     _vm._v(_vm._s(data.usuario.email))
                                   ]),
                                   _vm._v(" "),
-                                  _vm.user.tipo == "ADMINISTRADOR"
+                                  _vm.user.mostrar
                                     ? [
                                         _c("td", [
-                                          _vm._v(_vm._s(data.usuario._office))
+                                          _vm._v(_vm._s(data.usuario.password))
                                         ]),
                                         _vm._v(" "),
                                         _c("td", [
                                           _vm._v(_vm._s(data.usuario_sap))
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(_vm._s(data.password_sap))
                                         ]),
                                         _vm._v(" "),
                                         _c("td", [
@@ -39381,7 +39439,7 @@ var render = function() {
                                             ]
                                           ),
                                           _vm._v(
-                                            "\n                           \n                          "
+                                            "\n                             \n                            "
                                           ),
                                           _c(
                                             "button",
@@ -39680,6 +39738,60 @@ var render = function() {
                                 return
                               }
                               _vm.usuario_sap = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [_vm._v("Password_Sap")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.password_sap,
+                              expression: "password_sap"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Password_Sap......",
+                            required: ""
+                          },
+                          domProps: { value: _vm.password_sap },
+                          on: {
+                            keyup: function($event) {
+                              if (
+                                !$event.type.indexOf("key") &&
+                                _vm._k(
+                                  $event.keyCode,
+                                  "enter",
+                                  13,
+                                  $event.key,
+                                  "Enter"
+                                )
+                              ) {
+                                return null
+                              }
+                              return _vm.insertar()
+                            },
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.password_sap = $event.target.value
                             }
                           }
                         })
@@ -40228,16 +40340,10 @@ var render = function() {
                         _vm._l(_vm.array_data, function(data) {
                           return _c("tr", { key: data.id }, [
                             _c("td", [
-                              _c(
-                                "span",
-                                { staticClass: "badge badge-success" },
-                                [
-                                  _vm._v(
-                                    "\n                          " +
-                                      _vm._s(data.id) +
-                                      "\n                        "
-                                  )
-                                ]
+                              _vm._v(
+                                "\n                          " +
+                                  _vm._s(data.id) +
+                                  "\n                        "
                               )
                             ]),
                             _vm._v(" "),
@@ -40774,6 +40880,8 @@ var render = function() {
                           "tbody",
                           _vm._l(_vm.array_data, function(data) {
                             return _c("tr", { key: data.id }, [
+                              _c("td", [_vm._v(_vm._s(data.id))]),
+                              _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(data.nombre))]),
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(data.email))]),
@@ -41280,6 +41388,8 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
+        _c("th", [_vm._v("ID")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Nombre")]),
         _vm._v(" "),
         _c("th", [_vm._v("Email Office")]),

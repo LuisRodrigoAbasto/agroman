@@ -64,7 +64,7 @@
             <table class="table table-bordered table-striped table-sm">
                     <thead>
                       <tr>
-                       
+                       <th>ID</th>
                         <th>Nombre</th>
                         <th>Email Office</th>
                         <th>Password Office</th>
@@ -75,6 +75,7 @@
                     </thead>
                     <tbody>
                       <tr v-for="data in array_data" :key="data.id">
+                        <td>{{ data.id }}</td>
                         <td>{{ data.nombre }}</td>
                         <td>{{ data.email }}</td>
                         <td>{{ data.password }}</td>
@@ -383,8 +384,8 @@ export default {
           this.eventoAlerta("success", "Guardado Exitosamente");
           $("#ModalLong").modal("hide");
           // $('.modal-backdrop').remove();
-          this.listar(1, this.buscar);
           this.limpiar();
+          this.listar(1, this.buscar);
         })
         .catch(error => {
           console.log(error);
@@ -410,8 +411,8 @@ export default {
           $("#ModalLong").modal("hide");
           // $('.modal-backdrop').remove();
           // console.log($("#ModalLong").modal("hide"));
-          this.listar(1, this.buscar);
           this.limpiar();
+          this.listar(1, this.buscar);
         })
         .catch(error => {
           console.log(error);

@@ -18,7 +18,7 @@ class CreateUsuariosTable extends Migration
             $table->string('nombre',50)->nullable();
             $table->string('email')->nullable();
             $table->string('password')->nullable();
-            $table->string('password_office')->nullable();
+            // $table->string('password_office')->nullable();
             $table->string('celular',50)->nullable();
             $table->string('celular_corto',50)->nullable();
             $table->string('tipo',20)->nullable();
