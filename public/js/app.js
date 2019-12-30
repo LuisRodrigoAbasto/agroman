@@ -39149,6 +39149,7 @@ var render = function() {
                                 }
                               },
                               [
+                                _vm._v(" \n                         Excel "),
                                 _c("i", { staticClass: "cil-grid" }),
                                 _vm._v(" \n                        ")
                               ]

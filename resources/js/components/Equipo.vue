@@ -40,7 +40,7 @@
                           </select>
 
                           <button type="button" class="btn btn-success" @click="descargar_excel()"> 
-                            <i class="cil-grid"></i>&nbsp;
+                           Excel <i class="cil-grid"></i>&nbsp;
                           </button>
                           <div class="input-group">
                             <select class="form-control col-md-3" v-model="opcion">
