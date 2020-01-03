@@ -9,6 +9,7 @@ class SucursalController extends Controller
 {
     public function index(Request $request)
     {
+        if(!$request->ajax()) return redirect('/');
         $buscar=$request->buscar;
         $table=Sucursal::where('nombre','like','%'.$buscar.'%')
         ->where('estado','=','1')
@@ -31,7 +32,7 @@ class SucursalController extends Controller
 
     public function select(Request $request)
     {
-        // if(!$request->ajax()) return redirect('/');
+        if(!$request->ajax()) return redirect('/');
         $buscar=$request->buscar;
         $table=Sucursal::where('nombre','like','%'.$buscar.'%')
         ->take(10)
@@ -46,7 +47,7 @@ class SucursalController extends Controller
      */
     public function store(Request $request)
     {
-        // if(!$request->ajax()) return redirect('/');
+        if(!$request->ajax()) return redirect('/');
         $table= new Sucursal();
         $table->nombre=$request->nombre;
         $table->estado='1';
@@ -62,6 +63,7 @@ class SucursalController extends Controller
      */
     public function update(Request $request)
     {
+        if(!$request->ajax()) return redirect('/');
         $table= Sucursal::findOrfail($request->id);
         $table->nombre=$request->nombre;
         $table->estado='1';
@@ -76,7 +78,7 @@ class SucursalController extends Controller
      */
     public function destroy($id)
     {
-        // if(!$request->ajax()) return redirect('/');
+        if(!$request->ajax()) return redirect('/');
         $table=Sucursal::find($id);
         $table->estado='0';
         $table->save();

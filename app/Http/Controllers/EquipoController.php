@@ -11,6 +11,7 @@ class EquipoController extends Controller
 {
     public function index(Request $request)
     {
+        if(!$request->ajax()) return redirect('/');
         $buscar=$request->buscar;
         $opcion=$request->opcion;
         $pagina=$request->pagina;
@@ -55,6 +56,7 @@ class EquipoController extends Controller
     }
     public function orden(Request $request)
     {
+        if(!$request->ajax()) return redirect('/');
         $opcion=$request->opcion;
         $table=[];
         if($opcion=="empresa")
@@ -84,7 +86,7 @@ class EquipoController extends Controller
     
     public function direccion(Request $request)
     {
-        
+        if(!$request->ajax()) return redirect('/');
         $clientIP = \Request::ip();
         $clientIP = \Request::getClientIp(true);
         $clientIP = request()->ip();
@@ -100,7 +102,7 @@ class EquipoController extends Controller
      */
     public function store(Request $request)
     {
-        // if(!$request->ajax()) return redirect('/');
+        if(!$request->ajax()) return redirect('/');
         $table= new Equipo();
         $table->sucursal_id=$request->sucursal_id;
         $table->departamento_id=$request->departamento_id;
@@ -126,6 +128,7 @@ class EquipoController extends Controller
      */
     public function update(Request $request)
     {
+        if(!$request->ajax()) return redirect('/');
         $table= Equipo::findOrfail($request->id);
         $table->sucursal_id=$request->sucursal_id;
         $table->departamento_id=$request->departamento_id;
@@ -150,7 +153,7 @@ class EquipoController extends Controller
      */
     public function destroy($id)
     {
-        // if(!$request->ajax()) return redirect('/');
+        if(!$request->ajax()) return redirect('/');
         $table=Equipo::findOrfail($id);
         $table->estado='0';
         $table->save();
