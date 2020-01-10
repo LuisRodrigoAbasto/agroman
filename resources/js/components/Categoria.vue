@@ -51,7 +51,9 @@
                       <tr v-for="data in array_data" :key="data.id">
                         <td>
                           <!-- <span class="badge badge-success"> -->
-                            {{ data.id }}
+                            {{
+                            data.id
+                            }}
                           <!-- </span> -->
                         </td>
                         <td>{{ data.nombre }}</td>
@@ -153,8 +155,8 @@
                     type="text"
                     v-model="nombre"
                     placeholder="Nombre......"
-                    @keyup.enter="insertar()"
                     class="form-control"
+                    @keyup.enter="insertar()"
                     required
                   />
                 </div>
@@ -183,7 +185,7 @@ export default {
     return {
       id: 0,
       nombre: "",
-      url_ctrl: "departamento_controller",
+      url_ctrl: "categoria_controller",
       array_data: [],
       titulo_modal: "",
       tipoAccion: 0,
@@ -199,7 +201,7 @@ export default {
       buscar: "",
       activarValidate: "",
       mensaje: "",
-      nombre_vista:'Departamento'
+      nombre_vista:"Categoria"
     };
   },
   mounted() {
@@ -340,7 +342,7 @@ export default {
           }
         });
     },
-        insertar(){
+    insertar(){
       if(this.tipoAccion==1)
       {
         this.registrar();
@@ -376,13 +378,13 @@ export default {
       // $("#ModalLong").modal('show')
       switch (accion) {
         case "registrar": {
-          this.titulo_modal = "Registrar "+this.nombre_vista;
+          this.titulo_modal = "Registrar "+ this.nombre_vista;
           this.limpiar();
           this.tipoAccion = 1;
           break;
         }
         case "actualizar": {
-          this.titulo_modal = "Actualizar "+this.nombre_vista;
+          this.titulo_modal = "Actualizar "+ this.nombre_vista;
           this.tipoAccion = 2;
           this.id = data.id;
           this.nombre = data.nombre;

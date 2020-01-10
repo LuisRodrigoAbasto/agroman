@@ -7,7 +7,8 @@
             <div class="col-lg-12">
               <div class="card">
                 <div class="card-header">
-                  <i class="fa fa-align-justify"></i> Usuario
+                  <i class="fa fa-align-justify"></i>
+                  {{ nombre_vista }}
                   <button
                     type="button"
                     data-toggle="modal"
@@ -23,20 +24,26 @@
                     <div class="col-md-12">
                       <div class="input-group">
                         <div class="col-md-10">
-                          <select class="form-control col-2" v-model="pagina" @click="listar(1,buscar)">
-                              <option value="5">5</option>
-                              <option value="10">10</option>
-                              <option value="25">25</option>
-                              <option value="50">50</option>
-                              <option value="100">100</option>
-                              <option value="250">250</option>
-                              <option value="500">500</option>
-                            </select>
+                          <select
+                            class="form-control col-2"
+                            v-model="pagina"
+                            @click="listar(1,buscar)"
+                          >
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="250">250</option>
+                            <option value="500">500</option>
+                          </select>
                           <div class="input-group">
                             <select class="form-control col-md-3" v-model="opcion">
                               <option value="nombre">Nombre</option>
                               <option value="email">Email</option>
                               <option value="celular">Celular</option>
+                              <option value="corto">Corto</option>
+                              <option value="interno">Interno</option>
                             </select>
                             <input
                               type="text"
@@ -61,48 +68,57 @@
                     </div>
                   </div>
                   <div class="table-responsive">
-            <table class="table table-bordered table-striped table-sm">
-                    <thead>
-                      <tr>
-                       <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Email Office</th>
-                        <th>Password Office</th>
-                        <th>Celular</th>
-                        <th>Cel Corto</th>
-                        <th>Opciones</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="data in array_data" :key="data.id">
-                        <td>{{ data.id }}</td>
-                        <td>{{ data.nombre }}</td>
-                        <td>{{ data.email }}</td>
-                        <td>{{ data.password }}</td>
-                        <td>{{ data.celular }}</td>
-                        <td>{{ data.celular_corto }}</td>
-                        <td>
-                          <button
-                            type="button"
-                            data-toggle="modal"
-                            data-target="#ModalLong"
-                            class="btn btn-warning btn-sm"
-                            @click="abrirModal('actualizar',data)"
-                          >
-                            <i class="cil-pencil"></i>
-                          </button>
-                          &nbsp;
-                          <button
-                            type="button"
-                            class="btn btn-danger btn-sm"
-                            @click="eliminar(data.id)"
-                          >
-                            <i class="cil-trash"></i>
-                          </button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                    <table class="table table-bordered table-striped table-sm">
+                      <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>Nombre</th>
+                          <th>Email Office</th>
+                          <th>Password Office</th>
+                          <th>Interno</th>
+                          <th>Celular</th>
+                          <th>Corto</th>
+
+                          <th>Empresa</th>
+                          <th>Sucursal</th>
+                          <th>Departamento</th>
+                          <th>Opciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="data in array_data" :key="data.id">
+                          <td>{{ data.id }}</td>
+                          <td>{{ data.nombre }}</td>
+                          <td>{{ data.email }}</td>
+                          <td>{{ data.password }}</td>
+                          <td>{{ data.interno }}</td>
+                          <td>{{ data.celular }}</td>
+                          <td>{{ data.corto }}</td>
+                          <td>{{ data.empresa.nombre }}</td>
+                          <td>{{ data.sucursal.nombre }}</td>
+                          <td>{{ data.departamento.nombre }}</td>
+                          <td>
+                            <button
+                              type="button"
+                              data-toggle="modal"
+                              data-target="#ModalLong"
+                              class="btn btn-warning btn-sm"
+                              @click="abrirModal('actualizar',data)"
+                            >
+                              <i class="cil-pencil"></i>
+                            </button>
+                            &nbsp;
+                            <button
+                              type="button"
+                              class="btn btn-danger btn-sm"
+                              @click="eliminar(data.id)"
+                            >
+                              <i class="cil-trash"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                   <nav>
                     <ul class="pagination">
@@ -173,7 +189,6 @@
           </div>
           <div :class="'modal-body '+activarValidate">
             <form action method="post" enctype="multipart/form-data" class="form-horizontal">
-            
               <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                 <div class="col-md-9">
@@ -187,9 +202,7 @@
                   />
                 </div>
               </div>
-              
-             
-            
+
               <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Email</label>
                 <div class="col-md-9">
@@ -216,8 +229,20 @@
                   />
                 </div>
               </div>
-   
-              
+              <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Telefono Interno</label>
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    v-model="interno"
+                    placeholder="Telefono Interno......"
+                    class="form-control"
+                    @keyup.enter="insertar()"
+                    required
+                  />
+                </div>
+              </div>
+
               <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Celular</label>
                 <div class="col-md-9">
@@ -236,12 +261,50 @@
                 <div class="col-md-9">
                   <input
                     type="text"
-                    v-model="celular_corto"
+                    v-model="corto"
                     placeholder="Celular Corto......"
                     class="form-control"
                     @keyup.enter="insertar()"
                     required
                   />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Departamento</label>
+                <div class="col-md-9">
+                  <v-select
+                    @search="select_departamento"
+                    label="nombre"
+                    :options="array_departamento"
+                    placeholder="Departamento..."
+                    @input="get_departamento"
+                    v-model="vue_departamento"
+                  />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Sucursal</label>
+                <div class="col-md-9">
+                  <v-select
+                    @search="select_sucursal"
+                    label="nombre"
+                    :options="array_sucursal"
+                    placeholder="Sucursal..."
+                    @input="get_sucursal"
+                    v-model="vue_sucursal"
+                  />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Empresa</label>
+                <div class="col-md-9">
+                  <select class="form-control" m="listar_empresa()" v-model="empresa_id">
+                    <option value="0">Seleccione</option>
+                    <template v-for="data in array_empresa">
+                    <option :value="data.id">{{data.nombre}}</option>
+                    </template>
+                  </select>
                 </div>
               </div>
             </form>
@@ -286,15 +349,28 @@ export default {
       email: "",
       password: "",
       celular: "",
-      celular_corto: "",
-      empresa: "",
+      corto: "",
+      interno: "",
+      empresa_id: 0,
+      array_empresa:[],
       departamento_id: 0,
       opcion: "nombre",
       url_ctrl: "usuario_controller",
       array_data: [],
       titulo_modal: "",
+      array_departamento: [],
+      vue_departamento: {
+        id: 0,
+        nombre: ""
+      },
+      sucursal_id: 0,
+      array_sucursal: [],
+      vue_sucursal: {
+        id: 0,
+        nombre: ""
+      },
       tipoAccion: 0,
-      pagina:5,
+      pagina: 5,
       pagination: {
         total: 0,
         current_page: 0,
@@ -306,11 +382,13 @@ export default {
       offset: 3,
       buscar: "",
       activarValidate: "",
-      mensaje: ""
+      mensaje: "",
+      nombre_vista: "Usuario"
     };
   },
   mounted() {
-    this.listar(1,this.buscar);
+    this.listar_empresa();
+    this.listar(1, this.buscar);
   },
   computed: {
     isActived: function() {
@@ -342,10 +420,31 @@ export default {
       // actualizar la Pagina
       me.pagination.current_page = page;
       // enviar la peticion para visualizar la data de esta pagina
-      this.listar(page,buscar);
+      this.listar(page, buscar);
+    },
+    listar_empresa(){
+var url ="empresa_controller/select"
+      axios
+        .get(url)
+        .then(resp => {
+          this.array_empresa = resp.data.table;
+          // console.log(resp);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     },
     listar(page, buscar) {
-      var url = this.url_ctrl + "?page=" + page +"&opcion="+this.opcion+"&pagina="+this.pagina+ "&buscar=" + buscar;
+      var url =
+        this.url_ctrl +
+        "?page=" +
+        page +
+        "&opcion=" +
+        this.opcion +
+        "&pagina=" +
+        this.pagina +
+        "&buscar=" +
+        buscar;
       axios
         .get(url)
         .then(resp => {
@@ -366,6 +465,66 @@ export default {
         timer: 1500
       });
     },
+    select_departamento(search, loading) {
+      loading(true);
+      var url = "departamento_controller/select?buscar=" + search;
+      axios
+        .get(url)
+        .then(resp => {
+          let respuesta = resp.data;
+          q: search;
+          this.array_departamento = respuesta.table;
+          loading(false);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    get_departamento(val1) {
+      try {
+        this.departamento_id = val1.id;
+        this.vue_departamento = {
+          id: val1.id,
+          nombre: val1.nombre
+        };
+      } catch {
+        this.departamento_id = 0;
+        this.vue_departamento = {
+          id: 0,
+          nombre: ""
+        };
+      }
+    },
+    select_sucursal(search, loading) {
+      loading(true);
+      var url = "sucursal_controller/select?buscar=" + search;
+      axios
+        .get(url)
+        .then(resp => {
+          let respuesta = resp.data;
+          q: search;
+          this.array_sucursal = respuesta.table;
+          loading(false);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    get_sucursal(val1) {
+      try {
+        this.sucursal_id = val1.id;
+        this.vue_sucursal = {
+          id: val1.id,
+          nombre: val1.nombre
+        };
+      } catch {
+        this.sucursal_id = 0;
+        this.vue_sucursal = {
+          id: 0,
+          nombre: ""
+        };
+      }
+    },
     registrar() {
       if (this.validar()) {
         this.activarValidate = "was-validated";
@@ -374,11 +533,15 @@ export default {
       }
       axios
         .post(this.url_ctrl + "/registrar", {
+          sucursal_id:this.sucursal_id,
+          departamento_id:this.departamento_id,
+          empresa_id:this.empresa_id,
           nombre: this.nombre,
           email: this.email,
           password: this.password,
           celular: this.celular,
-          celular_corto: this.celular_corto
+          corto: this.corto,
+          interno: this.interno
         })
         .then(resp => {
           this.eventoAlerta("success", "Guardado Exitosamente");
@@ -400,11 +563,15 @@ export default {
       axios
         .put(this.url_ctrl + "/actualizar", {
           id: this.id,
-           nombre: this.nombre,
+          sucursal_id:this.sucursal_id,
+          departamento_id:this.departamento_id,
+          empresa_id:this.empresa_id,
+          nombre: this.nombre,
           email: this.email,
           password: this.password,
           celular: this.celular,
-          celular_corto: this.celular_corto
+          corto: this.corto,
+          interno: this.interno
         })
         .then(resp => {
           this.eventoAlerta("success", "Actualizado Exitosamente");
@@ -442,7 +609,7 @@ export default {
               .delete(this.url_ctrl + "/eliminar_" + id)
               .then(resp => {
                 this.eventoAlerta("success", "Eliminado Exitosamente");
-                this.listar(1,this.buscar);
+                this.listar(1, this.buscar);
               })
               .catch(error => {
                 console.log(error);
@@ -466,20 +633,26 @@ export default {
       // $("#ModalLong").modal('show')
       switch (accion) {
         case "registrar": {
-          this.titulo_modal = "Registrar Usuario";
+          this.titulo_modal = "Registrar " + this.nombre_vista;
           this.limpiar();
           this.tipoAccion = 1;
           break;
         }
         case "actualizar": {
-          this.titulo_modal = "Actualizar Usuario";
+          this.titulo_modal = "Actualizar " + this.nombre_vista;
           this.tipoAccion = 2;
           this.id = data.id;
           this.nombre = data.nombre;
           this.email = data.email;
           this.password = data.password;
           this.celular = data.celular;
-          this.celular_corto = data.celular_corto;
+          this.corto = data.corto;
+          this.interno = data.interno;
+          this.vue_departamento=data.departamento;
+          this.vue_sucursal=data.sucursal;
+          this.departamento_id=data.departamento_id;
+          this.sucursal_id=data.sucursal_id;
+          this.empresa_id=data.empresa_id;
           break;
         }
       }
@@ -490,27 +663,41 @@ export default {
       this.nombre = "";
       this.email = "";
       this.password = "";
-      this.celular='';
-      this.celular_corto = "";
+      this.celular = "";
+      this.corto = "";
+      this.interno = "";
       this.activarValidate = "";
+      this.sucursal_id = 0;
+      this.departamento_id = 0;
+      this.empresa_id = 0;
+      this.vue_departamento = {
+        id: 0,
+        nombre: ""
+      };
+      this.vue_sucursal = {
+        id: 0,
+        nombre: ""
+      };
+      this.array_departamento = [];
+      this.array_sucursal = [];
     },
     validar() {
       if (!this.nombre) {
         this.mensaje = "Ingrese el Nombre";
         return true;
       }
-      // if (!this.departamento_id) {
-      //   this.mensaje = "Seleccione el Departamento";
-      //   return true;
-      // }
-      // if (!this.sucursal_id) {
-      //   this.mensaje = "Seleccione la Sucursal";
-      //   return true;
-      // }
-      // if (!this.empresa) {
-      //   this.mensaje = "Seleccione la Empresa";
-      //   return true;
-      // }
+      if (!this.departamento_id) {
+        this.mensaje = "Seleccione el Departamento";
+        return true;
+      }
+      if (!this.sucursal_id) {
+        this.mensaje = "Seleccione la Sucursal";
+        return true;
+      }
+      if (!this.empresa_id) {
+        this.mensaje = "Seleccione la Empresa";
+        return true;
+      }
       return false;
     }
   }

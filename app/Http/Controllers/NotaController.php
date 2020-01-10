@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Departamento;
+use App\Nota;
 
-class DepartamentoController extends Controller
+class NotaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,13 +14,22 @@ class DepartamentoController extends Controller
      */
     public function index(Request $request)
     {
-        if(!$request->ajax()) return redirect('/');
+        // if(!$request->ajax()) return redirect('/');
         $buscar=$request->buscar;
-        $table=Departamento::where('nombre','like','%'.$buscar.'%')
-        ->where('estado','=','1')
-        ->orderBy('id','desc')
-        // ->with('categoria')
-         ->paginate(10);
+        $opcion=$request->opcion;
+        $pagina=$request->pagina;
+
+        if($buscar=='')
+        {
+            $table=Nota::where('notas.estado','=','1')
+            ->paginate($pagina);
+        }
+        else
+        {
+        $table=Cuenta::where('notas.estado','=','1')
+        ->paginate($pagina);
+        }
+        
         return [
             'pagination' => [
                 'total'        => $table->total(),
@@ -34,16 +43,7 @@ class DepartamentoController extends Controller
         ];
     
     }
-    public function select(Request $request)
-    {
-        if(!$request->ajax()) return redirect('/');
-        $buscar=$request->buscar;
-        $table=Departamento::where('nombre','like','%'.$buscar.'%')
-        ->where('estado','=','1')
-        ->take(10)
-        ->get();
-        return ['table' => $table];
-    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -52,11 +52,9 @@ class DepartamentoController extends Controller
      */
     public function store(Request $request)
     {
-        if(!$request->ajax()) return redirect('/');
-        $table= new Departamento();
-        $table->nombre=$request->nombre;
-        $table->estado='1';
-        $table->save();
+        //if(!$request->ajax()) return redirect('/');
+        $table=new Nota();
+        // $table->cuenta_id
     }
 
     /**
@@ -66,13 +64,9 @@ class DepartamentoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        if(!$request->ajax()) return redirect('/');
-        $table= Departamento::findOrfail($request->id);
-        $table->nombre=$request->nombre;
-        $table->estado='1';
-        $table->save();
+        //
     }
 
     /**
@@ -83,9 +77,6 @@ class DepartamentoController extends Controller
      */
     public function destroy($id)
     {
-        // if(!$request->ajax()) return redirect('/');
-        $table=Departamento::find($id);
-        $table->estado='0';
-        $table->save();
+        //
     }
 }

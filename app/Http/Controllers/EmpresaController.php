@@ -3,36 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Equipo;
+use App\Empresa;
 
-
-
-class EquipoController extends Controller
+class EmpresaController extends Controller
 {
     public function index(Request $request)
     {
         if(!$request->ajax()) return redirect('/');
         $buscar=$request->buscar;
-        $opcion=$request->opcion;
-        $pagina=$request->pagina;
-
-        if($buscar=='')
-        {
-            $table=Equipo::where('equipos.estado','=','1')
-            ->orderBy('equipos.id','desc')
-            ->with('categoria')
-            ->paginate($pagina);
-        }
-        else
-        {
-            $table=Equipo::join('categorias','equipos.categoria_id','=','categorias.id')
-            ->where($opcion,'like','%'.$buscar.'%')
-            ->where('equipos.estado','=','1')
-            ->orderBy('equipos.id','desc')
-            ->with('categoria')
-            ->paginate($pagina);
-        }
-        
+        $table=Empresa::where('nombre','like','%'.$buscar.'%')
+        ->where('estado','=','1')
+        ->orderBy('id','desc')
+        // ->with('categoria')
+         ->paginate(10);
         return [
             'pagination' => [
                 'total'        => $table->total(),
@@ -46,17 +29,15 @@ class EquipoController extends Controller
         ];
     
     }
-    
-    public function direccion(Request $request)
+
+    public function select(Request $request)
     {
         if(!$request->ajax()) return redirect('/');
-        $clientIP = \Request::ip();
-        $clientIP = \Request::getClientIp(true);
-        $clientIP = request()->ip();
-        dd($request->ip());
-        // return $clientIP;
+        $buscar=$request->buscar;
+        $table=Empresa::where('estado','=','1')
+        ->get();
+        return ['table' => $table];
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -66,13 +47,8 @@ class EquipoController extends Controller
     public function store(Request $request)
     {
         if(!$request->ajax()) return redirect('/');
-        $table= new Equipo();
-        $table->categoria_id=$request->categoria_id;
-        $table->serie=$request->serie;
-        $table->descripcion=$request->descripcion;
-        $table->stock=$request->stock;
-        $table->tipo=$request->tipo;
-        $table->status=$request->status;
+        $table= new Empresa();
+        $table->nombre=$request->nombre;
         $table->estado='1';
         $table->save();
     }
@@ -87,13 +63,8 @@ class EquipoController extends Controller
     public function update(Request $request)
     {
         if(!$request->ajax()) return redirect('/');
-        $table= Equipo::findOrfail($request->id);
-        $table->categoria_id=$request->categoria_id;
-        $table->serie=$request->serie;
-        $table->descripcion=$request->descripcion;
-        $table->stock=$request->stock;
-        $table->tipo=$request->tipo;
-        $table->status=$request->status;
+        $table= Empresa::findOrfail($request->id);
+        $table->nombre=$request->nombre;
         $table->estado='1';
         $table->save();
     }
@@ -107,7 +78,7 @@ class EquipoController extends Controller
     public function destroy($id)
     {
         // if(!$request->ajax()) return redirect('/');
-        $table=Equipo::findOrfail($id);
+        $table=Empresa::find($id);
         $table->estado='0';
         $table->save();
     }

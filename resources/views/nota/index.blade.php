@@ -2,6 +2,6 @@
 
 @section('contenido')
 <template>
-<equipo-component></equipo-component>
+<nota-component></nota-component>
 </template>
 @endsection

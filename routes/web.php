@@ -25,6 +25,9 @@ Route::get('/departamentos', function () {
 Route::get('/sucursal', function () {
     return view('sucursal/index');
 });
+Route::get('/empresas', function () {
+    return view('empresa/index');
+});
 Route::get('/usuarios', function () {
     return view('usuario/index');
 });
@@ -32,6 +35,13 @@ Route::get('/equipos', function () {
     return view('equipo/index');
 });
 
+Route::get('/cuentas', function () {
+    return view('cuenta/index');
+});
+
+Route::get('/categorias', function () {
+    return view('categoria/index');
+});
 Route::get('/departamento_controller', 'DepartamentoController@index');
 Route::post('/departamento_controller/registrar', 'DepartamentoController@store');
 Route::put('/departamento_controller/actualizar', 'DepartamentoController@update');
@@ -51,13 +61,34 @@ Route::delete('/usuario_controller/eliminar_{id}', 'UsuarioController@destroy');
 Route::get('/usuario_controller/select', 'UsuarioController@select');
 Route::get('/usuario_controller/orden', 'UsuarioController@orden');
 
-
-// Route::get('/equipo_controller', 'EquipoController@index');
+Route::get('/equipo_controller', 'EquipoController@index');
 Route::post('/equipo_controller/registrar', 'EquipoController@store');
 Route::put('/equipo_controller/actualizar', 'EquipoController@update');
 Route::delete('/equipo_controller/eliminar_{id}', 'EquipoController@destroy');
 
+Route::get('/categoria_controller', 'CategoriaController@index');
+Route::post('/categoria_controller/registrar', 'CategoriaController@store');
+Route::put('/categoria_controller/actualizar', 'CategoriaController@update');
+Route::delete('/categoria_controller/eliminar_{id}', 'CategoriaController@destroy');
+Route::get('/categoria_controller/select', 'CategoriaController@select');
+
+Route::get('/empresa_controller', 'EmpresaController@index');
+Route::post('/empresa_controller/registrar', 'EmpresaController@store');
+Route::put('/empresa_controller/actualizar', 'EmpresaController@update');
+Route::delete('/empresa_controller/eliminar_{id}', 'EmpresaController@destroy');
+Route::get('/empresa_controller/select', 'EmpresaController@select');
+
+Route::get('/nota_controller', 'NotaController@index');
+Route::post('/nota_controller/registrar', 'NotaController@store');
+Route::put('/nota_controller/actualizar', 'NotaController@update');
+Route::delete('/nota_controller/eliminar_{id}', 'NotaController@destroy');
+
+// Route::get('/cuenta_controller', 'CuentaController@index');
+Route::post('/cuenta_controller/registrar', 'CuentaController@store');
+Route::put('/cuenta_controller/actualizar', 'CuentaController@update');
+Route::delete('/cuenta_controller/eliminar_{id}', 'CuentaController@destroy');
+
 });
 Route::get('/direccion', 'UsuarioController@direccion');
-Route::get('/equipo_controller', 'EquipoController@index');
-Route::get('/reporte/equipo','ReporteController@index');
+Route::get('/cuenta_controller', 'CuentaController@index');
+Route::get('/reporte/usuario','ReporteController@index');

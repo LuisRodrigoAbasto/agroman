@@ -35,6 +35,7 @@ class SucursalController extends Controller
         if(!$request->ajax()) return redirect('/');
         $buscar=$request->buscar;
         $table=Sucursal::where('nombre','like','%'.$buscar.'%')
+        ->where('estado','=','1')
         ->take(10)
         ->get();
         return ['table' => $table];
@@ -78,7 +79,7 @@ class SucursalController extends Controller
      */
     public function destroy($id)
     {
-        if(!$request->ajax()) return redirect('/');
+        // if(!$request->ajax()) return redirect('/');
         $table=Sucursal::find($id);
         $table->estado='0';
         $table->save();

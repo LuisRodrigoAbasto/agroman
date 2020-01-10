@@ -53,7 +53,7 @@
      
             
                 <template>
-                    <equipo-component :user="{mostrar:false}"></equipo-component>
+                    <principal-component></principal-component>
                 </template>
             
 

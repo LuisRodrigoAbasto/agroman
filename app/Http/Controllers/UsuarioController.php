@@ -22,6 +22,9 @@ class UsuarioController extends Controller
             $table=Usuario::where('estado','=','1')
             // ->select('id','email','nombre','password','celular','celular_corto','tipo','tipo')
             ->orderBy('id','desc')
+            ->with('sucursal')
+            ->with('departamento')
+            ->with('empresa')
             ->paginate($pagina);
         }
         else
@@ -30,6 +33,9 @@ class UsuarioController extends Controller
         // ->with('sucursal')
         // ->select('id','email','nombre','password','celular','celular_corto','tipo','tipo')
         ->where('estado','=','1')
+        ->with('sucursal')
+        ->with('departamento')
+        ->with('empresa')
         ->paginate($pagina);
 
         }
@@ -60,9 +66,10 @@ class UsuarioController extends Controller
 
     public function select(Request $request)
     {
-        if(!$request->ajax()) return redirect('/');
+        // if(!$request->ajax()) return redirect('/');
         $buscar=$request->buscar;
         $table=Usuario::where('nombre','like','%'.$buscar.'%')
+        ->where('estado','=','1')
         ->take(10)
         ->get();
         return ['table' => $table];
@@ -77,13 +84,16 @@ class UsuarioController extends Controller
     {
         if(!$request->ajax()) return redirect('/');
         $table= new Usuario();
+        $table->sucursal_id=$request->sucursal_id;
+        $table->departamento_id=$request->departamento_id;
+        $table->empresa_id=$request->empresa_id;
         $table->nombre=$request->nombre;
         $table->email=$request->email;
         // $table->password=Hash::make($request->password);
         $table->password=$request->password;
         $table->celular=$request->celular;
-        $table->celular_corto=$request->celular_corto;
-        $table->tipo='USUARIO';
+        $table->corto=$request->corto;
+        $table->interno=$request->interno;
         $table->estado='1';
         $table->save();
     }
@@ -99,12 +109,16 @@ class UsuarioController extends Controller
     {
         if(!$request->ajax()) return redirect('/');
         $table= Usuario::findOrfail($request->id);
+        $table->sucursal_id=$request->sucursal_id;
+        $table->departamento_id=$request->departamento_id;
+        $table->empresa_id=$request->empresa_id;
         $table->nombre=$request->nombre;
         $table->email=$request->email;
         // $table->password=Hash::make($request->password);
         $table->password=$request->password;
         $table->celular=$request->celular;
-        $table->celular_corto=$request->celular_corto;
+        $table->corto=$request->corto;
+        $table->interno=$request->interno;
         $table->estado='1';
         $table->save();
     }
@@ -117,7 +131,7 @@ class UsuarioController extends Controller
      */
     public function destroy($id)
     {
-        if(!$request->ajax()) return redirect('/');
+        // if(!$request->ajax()) return redirect('/');
         $table=Usuario::findOrfail($id);
         $table->estado='0';
         $table->save();

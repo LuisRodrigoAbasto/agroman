@@ -7,7 +7,7 @@
             <div class="col-lg-12">
               <div class="card">
                 <div class="card-header">
-                  <i class="fa fa-align-justify"></i> Sucursal
+                  <i class="fa fa-align-justify"></i> {{ nombre_vista }}
                   <button
                     type="button"
                     data-toggle="modal"
@@ -200,7 +200,8 @@ export default {
       offset: 3,
       buscar: "",
       activarValidate: "",
-      mensaje: ""
+      mensaje: "",
+      nombre_vista:"Sucursal"
     };
   },
   mounted() {
@@ -377,13 +378,13 @@ export default {
       // $("#ModalLong").modal('show')
       switch (accion) {
         case "registrar": {
-          this.titulo_modal = "Registrar Sucursal";
+          this.titulo_modal = "Registrar "+ this.nombre_vista;
           this.limpiar();
           this.tipoAccion = 1;
           break;
         }
         case "actualizar": {
-          this.titulo_modal = "Actualizar Sucursal";
+          this.titulo_modal = "Actualizar "+ this.nombre_vista;
           this.tipoAccion = 2;
           this.id = data.id;
           this.nombre = data.nombre;

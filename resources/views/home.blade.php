@@ -1,4 +1,4 @@
-@include('equipo.index')
+@include('cuenta.index')
 {{-- @extends('layouts.app')
 
 @section('content')
