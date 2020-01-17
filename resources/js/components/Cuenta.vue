@@ -78,7 +78,6 @@
                     <table class="table table-bordered table-striped table-sm">
                       <thead>
                         <tr>
-                          <th >Nº</th>
                           <th >ID</th>
                           <th >Direccion IP</th>
                           <th>Usuario</th>
@@ -89,32 +88,28 @@
                           <th>Celular Corto</th>
                           <th>Celular</th>
                           <th>Email Office</th>
-
-                            <th>Password Office</th>
-                            <th>Usuario SAP</th>
-                            <th>Password SAP</th>
-                            <th>Usuario AD</th>
-                            <th>Password AD</th>
-
-                            <th>Telefono IP</th>
-                            <th>Opciones</th>
-                         
+                          <th>Password Office</th>
+                          <th>Usuario SAP</th>
+                          <th>Password SAP</th>
+                          <th>Usuario AD</th>
+                          <th>Password AD</th>
+                          <th>Telefono IP</th>
+                          <th>Opciones</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="(data,index) in array_data" :key="data.id">
-                          <td>{{ index+1 }}</td>
+                        <tr v-for="data in array_data" :key="data.id">
                           <td>{{ data.id }}</td>
                           <td>{{ data.ip }}</td>
-                          <td>{{ data.usuario.nombre }}</td>
-                          <td>{{ data.usuario.interno }}</td>
+                          <td>{{ data.nombre }}</td>
+                          <td>{{ data.interno }}</td>
                           <td>{{ data.empresa.nombre }}</td>
                           <td>{{ data.sucursal.nombre }}</td>
                           <td>{{ data.departamento.nombre }}</td>
-                          <td>{{ data.usuario.corto }}</td>
-                          <td>{{ data.usuario.celular }}</td>
-                          <td>{{ data.usuario.email }}</td>
-                          <td>{{ data.usuario.password }}</td>
+                          <td>{{ data.corto }}</td>
+                          <td>{{ data.celular }}</td>
+                          <td>{{ data.email }}</td>
+                          <td>{{ data.password }}</td>
                           <td>{{ data.usuario_sap }}</td>
                           <td>{{ data.password_sap }}</td>
                           <td>{{ data.usuario_ad }}</td>
@@ -291,20 +286,6 @@
                   />
                 </div>
               </div>
-
-              <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Telefono_Interno</label>
-                <div class="col-md-9">
-                  <input
-                    type="text"
-                    v-model="telefono_interno"
-                    placeholder="Telefono Interno......"
-                    class="form-control"
-                    @keyup.enter="insertar()"
-                    required
-                  />
-                </div>
-              </div>
               <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Telefono_IP</label>
                 <div class="col-md-9">
@@ -371,11 +352,7 @@ export default {
       password_sap: "",
       usuario_ad: "",
       password_ad: "",
-
-      telefono_interno: "",
       telefono_ip: "",
-      empresa: "",
-      departamento_id: 0,
       opcion: "usuarios.nombre",
       url_ctrl: "cuenta_controller",
       array_data: [],
@@ -474,16 +451,12 @@ export default {
       }
       axios
         .post(this.url_ctrl + "/registrar", {
-          sucursal_id: this.sucursal_id,
-          departamento_id: this.departamento_id,
-          empresa: this.empresa,
           usuario_id: this.usuario_id,
           ip: this.ip,
           usuario_sap: this.usuario_sap,
           password_sap: this.password_sap,
           usuario_ad: this.usuario_ad,
           password_ad: this.password_ad,
-          telefono_interno: this.telefono_interno,
           telefono_ip: this.telefono_ip
         })
         .then(resp => {
@@ -506,16 +479,12 @@ export default {
       axios
         .put(this.url_ctrl + "/actualizar", {
           id: this.id,
-          sucursal_id: this.sucursal_id,
-          departamento_id: this.departamento_id,
-          empresa: this.empresa,
           usuario_id: this.usuario_id,
           ip: this.ip,
           usuario_sap: this.usuario_sap,
           password_sap: this.password_sap,
           usuario_ad: this.usuario_ad,
           password_ad: this.password_ad,
-          telefono_interno: this.telefono_interno,
           telefono_ip: this.telefono_ip
         })
         .then(resp => {
@@ -583,7 +552,6 @@ export default {
           let respuesta = resp.data;
           q: search;
           this.array_usuario = respuesta.table;
-          console.log(respuesta.table);
           loading(false);
         })
         .catch(error => {
@@ -627,7 +595,7 @@ export default {
           this.usuario_ad = data.usuario_ad;
           this.password_ad = data.password_ad;
           this.telefono_ip = data.telefono_ip;
-          this.vue_usuario = data.usuario;
+          this.vue_usuario = {id:data.usuario_id,nombre:data.nombre}
           break;
         }
       }
@@ -647,7 +615,6 @@ export default {
       this.password_sap = "";
       this.usuario_ad = "";
       this.password_ad = "";
-      this.telefono_interno = "";
       this.telefono_ip = "";
       
       this.activarValidate = "";

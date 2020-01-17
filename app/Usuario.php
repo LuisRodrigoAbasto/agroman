@@ -22,7 +22,7 @@ class Usuario extends Model
         return $this->belongsTo('App\Empresa','empresa_id');
     }
 
-    public function cuenta(){
-        return $this->hasOne('App\Cuenta');
-    }
+    // public function cuenta(){
+    //     return $this->hasOne('App\Cuenta');
+    // }
 }

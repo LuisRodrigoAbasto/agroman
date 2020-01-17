@@ -299,7 +299,7 @@
               <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Empresa</label>
                 <div class="col-md-9">
-                  <select class="form-control" m="listar_empresa()" v-model="empresa_id">
+                  <select class="form-control" @focus="listar_empresa()" v-model="empresa_id">
                     <option value="0">Seleccione</option>
                     <template v-for="data in array_empresa">
                     <option :value="data.id">{{data.nombre}}</option>

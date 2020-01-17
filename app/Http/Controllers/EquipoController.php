@@ -92,7 +92,7 @@ class EquipoController extends Controller
         $table->serie=$request->serie;
         $table->descripcion=$request->descripcion;
         $table->stock=$request->stock;
-        $table->tipo=$request->tipo;
+        $table->tipo=$request->tipo; 
         $table->status=$request->status;
         $table->estado='1';
         $table->save();

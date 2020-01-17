@@ -26,11 +26,12 @@ class CuentaController extends Controller
             ->join('departamentos','usuarios.departamento_id','=','departamentos.id')
             ->where('usuarios.estado','=','1')
             ->where('cuentas.estado','=','1')
-            ->select('usuarios.id','usuarios.sucursal_id','usuarios.departamento_id',
+            ->select('cuentas.id','usuarios.sucursal_id','usuarios.departamento_id',
             'usuarios.empresa_id','usuarios.nombre','usuarios.nombre','usuarios.email',
-            'usuarios.password','usuarios.celular','usuarios.corto','usuarios.interno')
-            ->orderBy('usuarios.id','desc')
-            ->with('cuenta')
+            'usuarios.password','usuarios.celular','usuarios.corto','usuarios.interno',
+            'cuentas.ip','cuentas.usuario_sap','cuentas.password_sap','cuentas.usuario_ad','cuentas.password_ad','cuentas.telefono_ip')
+            ->orderBy('cuentas.id','desc')
+            // ->with('cuenta')
             ->with('empresa')
             ->with('sucursal')
             ->with('departamento')
@@ -44,11 +45,13 @@ class CuentaController extends Controller
             ->join('departamentos','usuarios.departamento_id','=','departamentos.id')
             ->where($opcion,'like','%'.$buscar.'%')
             ->where('usuarios.estado','=','1')
-            ->select('usuarios.id','usuarios.sucursal_id','usuarios.departamento_id',
+            ->where('cuentas.estado','=','1')
+            ->select('cuentas.id','usuarios.sucursal_id','usuarios.departamento_id',
             'usuarios.empresa_id','usuarios.nombre','usuarios.nombre','usuarios.email',
-            'usuarios.password','usuarios.celular','usuarios.corto','usuarios.interno')
-            // ->orderBy('usuarios.id','desc')
-            ->with('cuenta')
+            'usuarios.password','usuarios.celular','usuarios.corto','usuarios.interno',
+            'cuentas.ip','cuentas.usuario_sap','cuentas.password_sap','cuentas.usuario_ad','cuentas.password_ad','cuentas.telefono_ip')
+            // ->orderBy('cuentas.id','desc')
+            // ->with('cuenta')
             ->with('empresa')
             ->with('sucursal')
             ->with('departamento')

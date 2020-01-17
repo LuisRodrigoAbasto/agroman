@@ -42,6 +42,11 @@ Route::get('/cuentas', function () {
 Route::get('/categorias', function () {
     return view('categoria/index');
 });
+
+Route::get('/administradores', function () {
+    return view('administradore/index');
+});
+
 Route::get('/departamento_controller', 'DepartamentoController@index');
 Route::post('/departamento_controller/registrar', 'DepartamentoController@store');
 Route::put('/departamento_controller/actualizar', 'DepartamentoController@update');
@@ -60,6 +65,11 @@ Route::put('/usuario_controller/actualizar', 'UsuarioController@update');
 Route::delete('/usuario_controller/eliminar_{id}', 'UsuarioController@destroy');
 Route::get('/usuario_controller/select', 'UsuarioController@select');
 Route::get('/usuario_controller/orden', 'UsuarioController@orden');
+
+Route::get('/user_controller', 'UserController@index');
+Route::post('/user_controller/registrar', 'UserController@store');
+Route::put('/user_controller/actualizar', 'UserController@update');
+Route::delete('/user_controller/eliminar_{id}', 'UserController@destroy');
 
 Route::get('/equipo_controller', 'EquipoController@index');
 Route::post('/equipo_controller/registrar', 'EquipoController@store');

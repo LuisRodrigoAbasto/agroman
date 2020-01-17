@@ -6,60 +6,30 @@
           <div class="row">
             <div class="col-lg-12">
               <div class="card">
-                
-                  <div class="card-header">
-                    <i class="fa fa-align-justify"></i> {{ nombre_vista }}
-                    <button
-                      type="button"
-                      data-toggle="modal"
-                      data-target="#ModalLong"
-                      class="btn btn-secondary"
-                      @click="abrirModal('registrar')"
-                    >
-                      <i class="cil-plus"></i>&nbsp;Nuevo
-                    </button>
-                  </div>
-        
+                <div class="card-header">
+                  <i class="fa fa-align-justify"></i> {{ nombre_vista }}
+                  <button
+                    type="button"
+                    data-toggle="modal"
+                    data-target="#ModalLong"
+                    class="btn btn-secondary"
+                    @click="abrirModal('registrar')"
+                  >
+                    <i class="cil-plus"></i>&nbsp;Nuevo
+                  </button>
+                </div>
                 <div class="card-body">
                   <div class="form-group row">
                     <div class="col-md-12">
                       <div class="input-group">
                         <div class="col-md-10">
-                          <select
-                            class="form-control col-2"
-                            v-model="pagina"
-                            @click="listar(1,buscar)"
-                          >
-                            <option value="5">5</option>
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                            <option value="250">250</option>
-                            <option value="500">500</option>
-                          </select>
-
-                          <button type="button" class="btn btn-success" @click="descargar_excel()"> 
-                           Excel <i class="cil-grid"></i>&nbsp;
-                          </button>
                           <div class="input-group">
-                            <select class="form-control col-md-3" v-model="opcion">
-                              <option value="categorias.nombre">Categoria</option>
-                              <option value="equipos.serie">Serie</option>
+                            <select class="form-control col-md-3">
+                              <option value="nombre">Nombre</option>
                             </select>
-                            <input
-                              type="text"
-                              class="form-control"
-                              @keyup="listar(1,buscar)"
-                              v-model="buscar"
-                              placeholder="Buscar...."
-                            />
+                            <input type="text" class="form-control" @keyup="listar(1,buscar)" v-model="buscar" placeholder="Buscar...." />
                             <span class="input-group-append">
-                              <button
-                                type="submit"
-                                class="btn btn-primary"
-                                @click="listar(1,buscar)"
-                              >
+                              <button type="submit" class="btn btn-primary" @click="listar(1,buscar)">
                                 <i class="cil-search"></i>
                                 Buscar
                               </button>
@@ -69,46 +39,48 @@
                       </div>
                     </div>
                   </div>
-                  <div class="table-responsive">
-                    <table class="table table-bordered table-striped table-sm">
-                      <thead>
-                        <tr>
-                          <th>ID</th>
-                          <th>Serie</th>
-                          <th>Descripcion</th>
-                          <th>Categoria</th>
-                          <th>Opciones</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr v-for="data in array_data" :key="data.id">
-                          <td>{{ data.id }}</td>
-                          <td>{{ data.serie }}</td>
-                          <td>{{ data.description }}</td>
-                          <td>{{ data.categoria.nombre }}</td>
-                          <td>
-                            <button
-                              type="button"
-                              data-toggle="modal"
-                              data-target="#ModalLong"
-                              class="btn btn-warning btn-sm"
-                              @click="abrirModal('actualizar',data)"
-                            >
-                              <i class="cil-pencil"></i>
-                            </button>
-                            &nbsp;
-                            <button
-                              type="button"
-                              class="btn btn-danger btn-sm"
-                              @click="eliminar(data.id)"
-                            >
-                              <i class="cil-trash"></i>
-                            </button>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+                  <table class="table table-responsive-sm table-bordered table-striped table-sm">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Opciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="data in array_data" :key="data.id">
+                        <td>
+                          <!-- <span class="badge badge-success"> -->
+                            {{
+                            data.id
+                            }}
+                          <!-- </span> -->
+                        </td>
+                        <td>{{ data.name }}</td>
+                        <td>{{ data.email }}</td>
+                        <td>
+                          <button
+                            type="button"
+                            data-toggle="modal"
+                            data-target="#ModalLong"
+                            class="btn btn-warning btn-sm"
+                            @click="abrirModal('actualizar',data)"
+                          >
+                            <i class="cil-pencil"></i>
+                          </button>
+                          &nbsp;
+                          <button
+                            type="button"
+                            class="btn btn-danger btn-sm"
+                            @click="eliminar(data.id)"
+                          >
+                            <i class="cil-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                   <nav>
                     <ul class="pagination">
                       <li class="page-item" v-if="pagination.current_page > 1">
@@ -177,14 +149,14 @@
             </button>
           </div>
           <div :class="'modal-body '+activarValidate">
-            <form action method="post" enctype="multipart/form-data" class="form-horizontal">
+            <!-- <form action method="post" enctype="multipart/form-data" class="form-horizontal"> -->
               <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Serie</label>
+                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                 <div class="col-md-9">
                   <input
                     type="text"
-                    v-model="serie"
-                    placeholder="Serie"
+                    v-model="name"
+                    placeholder="Nombre......"
                     class="form-control"
                     @keyup.enter="insertar()"
                     required
@@ -193,48 +165,38 @@
               </div>
 
               <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Descripcion</label>
+                <label class="col-md-3 form-control-label" for="text-input">Email</label>
                 <div class="col-md-9">
                   <input
                     type="text"
-                    v-model="descripcion"
-                    placeholder="Descripcion......"
+                    v-model="email"
+                    placeholder="Email......"
                     class="form-control"
                     @keyup.enter="insertar()"
                     required
                   />
                 </div>
               </div>
-             
+
               <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Categoria</label>
+                <label class="col-md-3 form-control-label" for="text-input">Password</label>
                 <div class="col-md-9">
-                  <v-select
-                    @search="select_categoria"
-                    label="nombre"
-                    :options="array_categoria"
-                    placeholder="Sucursal..."
-                    @input="get_categoria"
-                    v-model="vue_categoria"
+                  <input
+                    type="text"
+                    v-model="password"
+                    placeholder="nuevo password......"
+                    class="form-control"
+                    @keyup.enter="insertar()"
+                    required
                   />
                 </div>
               </div>
-            </form>
+            <!-- </form> -->
           </div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
-            <button
-              class="btn btn-primary"
-              type="button"
-              v-if="tipoAccion==1"
-              @click="registrar()"
-            >Save changes</button>
-            <button
-              class="btn btn-primary"
-              type="button"
-              v-else
-              @click="actualizar()"
-            >Update changes</button>
+            <button class="btn btn-primary" type="button" v-if="tipoAccion==1" @click="registrar()">Save changes</button>
+            <button class="btn btn-primary" type="button" v-else @click="actualizar()">Update changes</button>
           </div>
         </div>
         <!-- /.modal-content-->
@@ -246,31 +208,19 @@
 </template>
 <script>
 import Vue from "vue";
-import vSelect from "vue-select";
-import "vue-select/dist/vue-select.css";
-Vue.component("v-select", vSelect);
-
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 export default {
   data() {
     return {
       id: 0,
-      serie:'',
-      descripcion:'',
-      categoria_id: 0,
-      array_categoria: [],
-      vue_categoria: {
-        id: 0,
-        nombre: ""
-      },
-      
-      opcion: "serie",
-      url_ctrl: "equipo_controller",
+      name: "",
+      email:'',
+      password:'',
+      url_ctrl: "user_controller",
       array_data: [],
       titulo_modal: "",
       tipoAccion: 0,
-      pagina: 5,
       pagination: {
         total: 0,
         current_page: 0,
@@ -283,11 +233,11 @@ export default {
       buscar: "",
       activarValidate: "",
       mensaje: "",
-      nombre_vista:'Equipo'
+      nombre_vista:"Aministrador"
     };
   },
   mounted() {
-    this.listar(1, this.buscar);
+    this.listar(1, "");
   },
   computed: {
     isActived: function() {
@@ -319,32 +269,20 @@ export default {
       // actualizar la Pagina
       me.pagination.current_page = page;
       // enviar la peticion para visualizar la data de esta pagina
-      this.listar(page, buscar);
+      listar(page, buscar);
     },
     listar(page, buscar) {
-      var url =
-        this.url_ctrl +
-        "?page=" +
-        page +
-        "&opcion=" +
-        this.opcion +
-        "&pagina=" +
-        this.pagina +
-        "&buscar=" +
-        buscar;
+      var url = this.url_ctrl + "?page=" + page + "&buscar=" + buscar;
       axios
         .get(url)
         .then(resp => {
-          // console.log(resp.data.data);
           this.array_data = resp.data.table.data;
           this.pagination = resp.data.pagination;
+          // console.log(resp);
         })
         .catch(error => {
           console.log(error);
         });
-    },
-    descargar_excel() {
-      window.open('reporte/equipo');
     },
     eventoAlerta(icono, mensaje) {
       Swal.fire({
@@ -363,15 +301,15 @@ export default {
       }
       axios
         .post(this.url_ctrl + "/registrar", {
-          categoria_id:this.categoria_id,
-          serie:this.serie,
-          descripcion:this.descripcion
+          name: this.name,
+          email:this.email,
+          password:this.password
         })
         .then(resp => {
           this.eventoAlerta("success", "Guardado Exitosamente");
-          $("#ModalLong").modal("hide");
+           $('#ModalLong').modal('hide');
           // $('.modal-backdrop').remove();
-          this.listar(1, this.buscar);
+          this.listar(1, "");
           this.limpiar();
         })
         .catch(error => {
@@ -387,16 +325,16 @@ export default {
       axios
         .put(this.url_ctrl + "/actualizar", {
           id: this.id,
-          categoria_id:this.categoria_id,
-          serie:this.serie,
-          descripcion:this.descripcion
+          name: this.name,
+          email:this.email,
+          password:this.password
         })
         .then(resp => {
           this.eventoAlerta("success", "Actualizado Exitosamente");
-          $("#ModalLong").modal("hide");
+          $('#ModalLong').modal('hide');
           // $('.modal-backdrop').remove();
           // console.log($("#ModalLong").modal("hide"));
-          this.listar(1, this.buscar);
+          this.listar(1, "");
           this.limpiar();
         })
         .catch(error => {
@@ -427,7 +365,7 @@ export default {
               .delete(this.url_ctrl + "/eliminar_" + id)
               .then(resp => {
                 this.eventoAlerta("success", "Eliminado Exitosamente");
-                this.listar(1, this.buscar);
+                this.listar(1, "");
               })
               .catch(error => {
                 console.log(error);
@@ -440,81 +378,79 @@ export default {
           }
         });
     },
-    insertar() {
-      if (this.tipoAccion == 1) {
+    insertar(){
+      if(this.tipoAccion==1)
+      {
         this.registrar();
-      } else {
+      }
+      else{
         this.actualizar();
       }
     },
-    select_categoria(search, loading) {
-      loading(true);
-      var url = "categoria_controller/select?buscar=" + search;
-      axios
-        .get(url)
-        .then(resp => {
-          let respuesta = resp.data;
-          q: search;
-          this.array_categoria = respuesta.table;
-          loading(false);
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    },
-    get_categoria(val1) {
-      try {
-        this.categoria_id = val1.id;
-        this.vue_categoria = {
-          id: val1.id,
-          nombre: val1.nombre
-        };
-      } catch {
-        this.categoria_id = 0;
-        this.vue_categoria = {
-          id: 0,
-          nombre: ""
-        };
-      }
-    },
-   
+    // selectCategoria(search, loading) {
+    //   loading(true);
+    //   var url = "categoria/select?buscar=" + search;
+    //   axios
+    //     .get(url)
+    //     .then(resp => {
+    //       let respuesta = resp.data;
+    //       q: search;
+    //       this.array_categoria = respuesta.table;
+    //       loading(false);
+    //     })
+    //     .catch(error => {
+    //       console.log(error);
+    //     });
+    // },
+    // getDatoCategoria(val1) {
+    //   this.id_categoria = val1.id;
+    //   this.categoria = val1.nombre;
+    //   this.vue_categoria={
+    //     id:val1.id,
+    //     nombre:val1.nombre
+    //   };
+    // },
     abrirModal(accion, data = []) {
       // $("#ModalLong").modal('show')
       switch (accion) {
         case "registrar": {
-          this.titulo_modal = "Registrar "+this.nombre_vista;
+          this.titulo_modal = "Registrar "+ this.nombre_vista;
           this.limpiar();
           this.tipoAccion = 1;
           break;
         }
         case "actualizar": {
-          this.titulo_modal = "Actualizar "+this.nombre_vista;
+          this.titulo_modal = "Actualizar "+ this.nombre_vista;
           this.tipoAccion = 2;
           this.id = data.id;
-          this.categoria_id=data.categoria_id;
-          this.vue_categoria=data.categoria;
+          this.name = data.name;
+          this.email=data.email;
+          this.password=data.password;
           break;
         }
       }
     },
     limpiar() {
       this.id = 0;
+      this.name= "";
+      this.email='';
+      this.password='';
       this.buscar = "";
-      this.serie='';
-      this.descripcion='';
-      this.vue_categoria = {
-        id: 0,
-        nombre: ""
-      };
-      this.categoria_id = 0;
       this.activarValidate = "";
     },
     validar() {
-      if (!this.categoria_id) {
-        this.mensaje = "Seleccione la Categoria";
+      if (!this.name) {
+        this.mensaje = "Ingrese el Nombre";
         return true;
       }
-      
+      if (!this.email) {
+        this.mensaje = "Ingrese El Correo";
+        return true;
+      }
+      if (!this.password) {
+        this.mensaje = "Ingrese un Password";
+        return true;
+      }
       return false;
     }
   }

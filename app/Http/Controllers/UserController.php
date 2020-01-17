@@ -3,31 +3,32 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    use AuthenticatesUsers;
-    protected $redirectTo = '/home';
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        if(!$request->ajax()) return redirect('/');
+        $buscar=$request->buscar;
+        $table=User::where('name','like','%'.$buscar.'%')
+        ->where('estado','=','1')
+        ->orderBy('id','desc')
+        // ->with('categoria')
+         ->paginate(10);
+        return [
+            'pagination' => [
+                'total'        => $table->total(),
+                'current_page' => $table->currentPage(),
+                'per_page'     => $table->perPage(),
+                'last_page'    => $table->lastPage(),
+                'from'         => $table->firstItem(),
+                'to'           => $table->lastItem(),
+            ],
+            'table' => $table
+        ];
+    
     }
 
     /**
@@ -38,29 +39,13 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        if(!$request->ajax()) return redirect('/');
+        $table= new User();
+        $table->name=$request->name;
+        $table->email=$request->email;
+        $table->password=Hash::make($request->password);
+        $table->estado='1';
+        $table->save();
     }
 
     /**
@@ -70,9 +55,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        if(!$request->ajax()) return redirect('/');
+        $table= User::findOrfail($request->id);
+        $table->name=$request->name;
+        $table->email=$request->email;
+        $table->password=Hash::make($request->password);
+        $table->estado='1';
+        $table->save();
     }
 
     /**
@@ -83,6 +74,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // if(!$request->ajax()) return redirect('/');
+        $table=User::find($id);
+        $table->estado='0';
+        $table->save();
     }
 }
