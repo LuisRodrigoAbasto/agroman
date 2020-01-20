@@ -38,12 +38,15 @@
                             <option value="500">500</option>
                           </select>
                           <div class="input-group">
-                            <select class="form-control col-md-3" v-model="opcion">
-                              <option value="nombre">Nombre</option>
-                              <option value="email">Email</option>
-                              <option value="celular">Celular</option>
-                              <option value="corto">Corto</option>
-                              <option value="interno">Interno</option>
+                            <select class="form-control col-md-3" v-model="opcion" @focus="listar(1,buscar)">
+                              <option value="usuarios.nombre">Usuario</option>
+                              <option value="departamentos.nombre">Departamento</option>
+                              <option value="sucursals.nombre">Sucursal</option>
+                              <option value="empresas.nombre">Empresa</option>
+                              <option value="usuarios.email">Correo</option>
+                              <option value="usuarios.celular">Celular</option>
+                              <option value="usuarios.interno">Interno</option>
+                              <option value="usuarios.corto">Corto</option>
                             </select>
                             <input
                               type="text"
@@ -62,7 +65,9 @@
                                 Buscar
                               </button>
                             </span>
+                            
                           </div>
+                          
                         </div>
                       </div>
                     </div>
@@ -354,7 +359,7 @@ export default {
       empresa_id: 0,
       array_empresa:[],
       departamento_id: 0,
-      opcion: "nombre",
+      opcion: "usuarios.nombre",
       url_ctrl: "usuario_controller",
       array_data: [],
       titulo_modal: "",

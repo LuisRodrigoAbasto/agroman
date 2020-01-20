@@ -6,7 +6,6 @@
           <div class="row">
             <div class="col-lg-12">
               <div class="card">
-                
                 <div class="card-body">
                   <div class="form-group row">
                     <div class="col-md-12">
@@ -25,14 +24,10 @@
                             <option value="250">250</option>
                             <option value="500">500</option>
                           </select>
-
-                          <button type="button" class="btn btn-success" @click="descargar_excel()"> 
-                           Excel <i class="cil-grid"></i>&nbsp;
-                          </button>
                           <div class="input-group">
                             <select class="form-control col-md-3" v-model="opcion">
                               <option value="usuarios.nombre">Usuario</option>
-                              <option value="departamentos.nombre">Departamentos</option>
+                              <option value="departamentos.nombre">Departamento</option>
                               <option value="sucursals.nombre">Sucursal</option>
                               <option value="empresas.nombre">Empresa</option>
                               <option value="usuarios.email">Correo</option>
@@ -57,7 +52,9 @@
                                 Buscar
                               </button>
                             </span>
+                            
                           </div>
+                          
                         </div>
                       </div>
                     </div>
@@ -67,29 +64,29 @@
                       <thead>
                         <tr>
                           <th>Nº</th>
-                          <th>Usuario</th>
-                          <th>Interno</th>
+                          <th>Nombre</th>
                           <th>Empresa</th>
                           <th>Sucursal</th>
                           <th>Departamento</th>
+                          <th>Email</th>
                           <th>Interno</th>
-                          <th>Celular Corto</th>
                           <th>Celular</th>
-                          <th>Email Office</th>
+                          <th>Corto</th>
+
+                          
                         </tr>
                       </thead>
                       <tbody>
                         <tr v-for="(data,index) in array_data" :key="data.id">
                           <td>{{ index+1 }}</td>
-                          <td>{{ data.usuario.nombre }}</td>
-                          <td>{{ data.interno }}</td>
+                          <td>{{ data.nombre }}</td>
                           <td>{{ data.empresa.nombre }}</td>
                           <td>{{ data.sucursal.nombre }}</td>
                           <td>{{ data.departamento.nombre }}</td>
+                          <td>{{ data.email }}</td>
                           <td>{{ data.interno }}</td>
-                          <td>{{ data.usuario.corto }}</td>
-                          <td>{{ data.usuario.celular }}</td>
-                          <td>{{ data.usuario.email }}</td>
+                          <td>{{ data.celular }}</td>
+                          <td>{{ data.corto }}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -144,7 +141,7 @@
         </div>
       </div>
     </main>
-
+  
   </div>
 </template>
 <script>
@@ -156,29 +153,21 @@ Vue.component("v-select", vSelect);
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 export default {
-  // props: {
-  //   user: Object
-  // },
   data() {
     return {
-      id: 0,
-      ip: "",
-      usuario_id: 0,
-      array_usuario: [],
-      vue_usuario: {
-        id: 0,
-        nombre: ""
-      },
-      usuario_sap: "",
-      password_sap: "",
-      usuario_ad: "",
-      password_ad: "",
-
-      telefono_interno: "",
-      telefono_ip: "",
-      empresa: "",
+      direccion_ip: "",
+      nombre: "",
+      email: "",
+      celular: "",
+      corto: "",
+      interno: "",
+      empresa_id: 0,
+      array_empresa:[],
       departamento_id: 0,
       opcion: "usuarios.nombre",
+      url_ctrl: "principal_controller",
+      array_data: [],
+      titulo_modal: "",
       array_departamento: [],
       vue_departamento: {
         id: 0,
@@ -190,9 +179,6 @@ export default {
         id: 0,
         nombre: ""
       },
-      url_ctrl: "usuario_controller",
-      array_data: [],
-      titulo_modal: "",
       tipoAccion: 0,
       pagina: 5,
       pagination: {
@@ -207,7 +193,7 @@ export default {
       buscar: "",
       activarValidate: "",
       mensaje: "",
-      nombre_vista:'Usuario'
+      nombre_vista: "Usuario"
     };
   },
   mounted() {
@@ -245,6 +231,7 @@ export default {
       // enviar la peticion para visualizar la data de esta pagina
       this.listar(page, buscar);
     },
+
     listar(page, buscar) {
       var url =
         this.url_ctrl +
@@ -259,18 +246,14 @@ export default {
       axios
         .get(url)
         .then(resp => {
-          // console.log(resp.data.data);
           this.array_data = resp.data.table.data;
           this.pagination = resp.data.pagination;
+          // console.log(resp);
         })
         .catch(error => {
           console.log(error);
         });
-    },
-    descargar_excel() {
-      window.open('reporte/usuario');
-    }
-   
+    },   
   }
 };
 </script>

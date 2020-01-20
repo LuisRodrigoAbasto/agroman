@@ -4540,6 +4540,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4551,6 +4574,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
     return {
       id: 0,
       serie: '',
+      tipo: '',
+      stock: 0,
       descripcion: '',
       categoria_id: 0,
       array_categoria: [],
@@ -4558,7 +4583,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
         id: 0,
         nombre: ""
       },
-      opcion: "serie",
+      opcion: "equipos.serie",
       url_ctrl: "equipo_controller",
       array_data: [],
       titulo_modal: "",
@@ -4656,6 +4681,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
 
       axios.post(this.url_ctrl + "/registrar", {
         categoria_id: this.categoria_id,
+        tipo: this.tipo,
+        stock: this.stock,
         serie: this.serie,
         descripcion: this.descripcion
       }).then(function (resp) {
@@ -4682,6 +4709,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
       axios.put(this.url_ctrl + "/actualizar", {
         id: this.id,
         categoria_id: this.categoria_id,
+        tipo: this.tipo,
+        stock: this.stock,
         serie: this.serie,
         descripcion: this.descripcion
       }).then(function (resp) {
@@ -4787,6 +4816,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
             this.titulo_modal = "Actualizar " + this.nombre_vista;
             this.tipoAccion = 2;
             this.id = data.id;
+            this.tipo = data.tipo;
+            this.serie = data.serie;
+            this.stock = data.stock;
             this.categoria_id = data.categoria_id;
             this.vue_categoria = data.categoria;
             break;
@@ -4797,6 +4829,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
       this.id = 0;
       this.buscar = "";
       this.serie = '';
+      this.stock = 0;
+      this.tipo = '';
       this.descripcion = '';
       this.vue_categoria = {
         id: 0,
@@ -4809,6 +4843,18 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
       if (!this.categoria_id) {
         this.mensaje = "Seleccione la Categoria";
         return true;
+      }
+
+      if (!this.serie) {
+        this.mensaje = "Inserte la Serie o un Nombre al Equipo";
+        return true;
+      }
+
+      if (this.stock == 0 && this.tipo == 'grupal') {
+        this.mensaje = "El Stock No Puede ser  0";
+        return true;
+      } else {
+        this.stock = 1;
       }
 
       return false;
@@ -4983,9 +5029,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 
 
@@ -4993,28 +5036,21 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  // props: {
-  //   user: Object
-  // },
   data: function data() {
     return {
-      id: 0,
-      ip: "",
-      usuario_id: 0,
-      array_usuario: [],
-      vue_usuario: {
-        id: 0,
-        nombre: ""
-      },
-      usuario_sap: "",
-      password_sap: "",
-      usuario_ad: "",
-      password_ad: "",
-      telefono_interno: "",
-      telefono_ip: "",
-      empresa: "",
+      direccion_ip: "",
+      nombre: "",
+      email: "",
+      celular: "",
+      corto: "",
+      interno: "",
+      empresa_id: 0,
+      array_empresa: [],
       departamento_id: 0,
       opcion: "usuarios.nombre",
+      url_ctrl: "principal_controller",
+      array_data: [],
+      titulo_modal: "",
       array_departamento: [],
       vue_departamento: {
         id: 0,
@@ -5026,9 +5062,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
         id: 0,
         nombre: ""
       },
-      url_ctrl: "usuario_controller",
-      array_data: [],
-      titulo_modal: "",
       tipoAccion: 0,
       pagina: 5,
       pagination: {
@@ -5043,7 +5076,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
       buscar: "",
       activarValidate: "",
       mensaje: "",
-      nombre_vista: 'Usuario'
+      nombre_vista: "Usuario"
     };
   },
   mounted: function mounted() {
@@ -5093,15 +5126,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
 
       var url = this.url_ctrl + "?page=" + page + "&opcion=" + this.opcion + "&pagina=" + this.pagina + "&buscar=" + buscar;
       axios.get(url).then(function (resp) {
-        // console.log(resp.data.data);
         _this.array_data = resp.data.table.data;
-        _this.pagination = resp.data.pagination;
+        _this.pagination = resp.data.pagination; // console.log(resp);
       })["catch"](function (error) {
         console.log(error);
       });
-    },
-    descargar_excel: function descargar_excel() {
-      window.open('reporte/usuario');
     }
   }
 });
@@ -5897,6 +5926,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -5917,7 +5951,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-select", vue_select__WEB
       empresa_id: 0,
       array_empresa: [],
       departamento_id: 0,
-      opcion: "nombre",
+      opcion: "usuarios.nombre",
       url_ctrl: "usuario_controller",
       array_data: [],
       titulo_modal: "",
@@ -43779,14 +43813,14 @@ var render = function() {
                               [
                                 _c(
                                   "option",
-                                  { attrs: { value: "categorias.nombre" } },
-                                  [_vm._v("Categoria")]
+                                  { attrs: { value: "equipos.serie" } },
+                                  [_vm._v("Serie")]
                                 ),
                                 _vm._v(" "),
                                 _c(
                                   "option",
-                                  { attrs: { value: "equipos.serie" } },
-                                  [_vm._v("Serie")]
+                                  { attrs: { value: "categorias.nombre" } },
+                                  [_vm._v("Categoria")]
                                 )
                               ]
                             ),
@@ -43863,7 +43897,7 @@ var render = function() {
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(data.serie))]),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(data.description))]),
+                              _c("td", [_vm._v(_vm._s(data.descripcion))]),
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(data.categoria.nombre))]),
                               _vm._v(" "),
@@ -44181,7 +44215,119 @@ var render = function() {
                         ],
                         1
                       )
-                    ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [_vm._v("Tipo")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.tipo,
+                                expression: "tipo"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.tipo = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              }
+                            }
+                          },
+                          [
+                            _c("option", { attrs: { value: "" } }, [
+                              _vm._v("Seleccione")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "unico" } }, [
+                              _vm._v("Unico")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "grupal" } }, [
+                              _vm._v("Grupal")
+                            ])
+                          ]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _vm.tipo == "grupal"
+                      ? _c("div", { staticClass: "form-group row" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "col-md-3 form-control-label",
+                              attrs: { for: "text-input" }
+                            },
+                            [_vm._v("Stock")]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-9" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.stock,
+                                  expression: "stock"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "number",
+                                placeholder: "stock......",
+                                required: ""
+                              },
+                              domProps: { value: _vm.stock },
+                              on: {
+                                keyup: function($event) {
+                                  if (
+                                    !$event.type.indexOf("key") &&
+                                    _vm._k(
+                                      $event.keyCode,
+                                      "enter",
+                                      13,
+                                      $event.key,
+                                      "Enter"
+                                    )
+                                  ) {
+                                    return null
+                                  }
+                                  return _vm.insertar()
+                                },
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.stock = $event.target.value
+                                }
+                              }
+                            })
+                          ])
+                        ])
+                      : _vm._e()
                   ]
                 )
               ]),
@@ -44364,24 +44510,6 @@ var render = function() {
                             ]
                           ),
                           _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-success",
-                              attrs: { type: "button" },
-                              on: {
-                                click: function($event) {
-                                  return _vm.descargar_excel()
-                                }
-                              }
-                            },
-                            [
-                              _vm._v(" \n                         Excel "),
-                              _c("i", { staticClass: "cil-grid" }),
-                              _vm._v(" \n                        ")
-                            ]
-                          ),
-                          _vm._v(" "),
                           _c("div", { staticClass: "input-group" }, [
                             _c(
                               "select",
@@ -44422,7 +44550,7 @@ var render = function() {
                                 _c(
                                   "option",
                                   { attrs: { value: "departamentos.nombre" } },
-                                  [_vm._v("Departamentos")]
+                                  [_vm._v("Departamento")]
                                 ),
                                 _vm._v(" "),
                                 _c(
@@ -44533,9 +44661,7 @@ var render = function() {
                             return _c("tr", { key: data.id }, [
                               _c("td", [_vm._v(_vm._s(index + 1))]),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(data.usuario.nombre))]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(data.interno))]),
+                              _c("td", [_vm._v(_vm._s(data.nombre))]),
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(data.empresa.nombre))]),
                               _vm._v(" "),
@@ -44545,13 +44671,13 @@ var render = function() {
                                 _vm._v(_vm._s(data.departamento.nombre))
                               ]),
                               _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(data.email))]),
+                              _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(data.interno))]),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(data.usuario.corto))]),
+                              _c("td", [_vm._v(_vm._s(data.celular))]),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(data.usuario.celular))]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(data.usuario.email))])
+                              _c("td", [_vm._v(_vm._s(data.corto))])
                             ])
                           }),
                           0
@@ -44654,9 +44780,7 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Nº")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Usuario")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Interno")]),
+        _c("th", [_vm._v("Nombre")]),
         _vm._v(" "),
         _c("th", [_vm._v("Empresa")]),
         _vm._v(" "),
@@ -44664,13 +44788,13 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Departamento")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Interno")]),
+        _c("th", [_vm._v("Email")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Celular Corto")]),
+        _c("th", [_vm._v("Interno")]),
         _vm._v(" "),
         _c("th", [_vm._v("Celular")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Email Office")])
+        _c("th", [_vm._v("Corto")])
       ])
     ])
   }
@@ -45249,6 +45373,9 @@ var render = function() {
                                 ],
                                 staticClass: "form-control col-md-3",
                                 on: {
+                                  focus: function($event) {
+                                    return _vm.listar(1, _vm.buscar)
+                                  },
                                   change: function($event) {
                                     var $$selectedVal = Array.prototype.filter
                                       .call($event.target.options, function(o) {
@@ -45266,25 +45393,53 @@ var render = function() {
                                 }
                               },
                               [
-                                _c("option", { attrs: { value: "nombre" } }, [
-                                  _vm._v("Nombre")
-                                ]),
+                                _c(
+                                  "option",
+                                  { attrs: { value: "usuarios.nombre" } },
+                                  [_vm._v("Usuario")]
+                                ),
                                 _vm._v(" "),
-                                _c("option", { attrs: { value: "email" } }, [
-                                  _vm._v("Email")
-                                ]),
+                                _c(
+                                  "option",
+                                  { attrs: { value: "departamentos.nombre" } },
+                                  [_vm._v("Departamento")]
+                                ),
                                 _vm._v(" "),
-                                _c("option", { attrs: { value: "celular" } }, [
-                                  _vm._v("Celular")
-                                ]),
+                                _c(
+                                  "option",
+                                  { attrs: { value: "sucursals.nombre" } },
+                                  [_vm._v("Sucursal")]
+                                ),
                                 _vm._v(" "),
-                                _c("option", { attrs: { value: "corto" } }, [
-                                  _vm._v("Corto")
-                                ]),
+                                _c(
+                                  "option",
+                                  { attrs: { value: "empresas.nombre" } },
+                                  [_vm._v("Empresa")]
+                                ),
                                 _vm._v(" "),
-                                _c("option", { attrs: { value: "interno" } }, [
-                                  _vm._v("Interno")
-                                ])
+                                _c(
+                                  "option",
+                                  { attrs: { value: "usuarios.email" } },
+                                  [_vm._v("Correo")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "option",
+                                  { attrs: { value: "usuarios.celular" } },
+                                  [_vm._v("Celular")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "option",
+                                  { attrs: { value: "usuarios.interno" } },
+                                  [_vm._v("Interno")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "option",
+                                  { attrs: { value: "usuarios.corto" } },
+                                  [_vm._v("Corto")]
+                                )
                               ]
                             ),
                             _vm._v(" "),

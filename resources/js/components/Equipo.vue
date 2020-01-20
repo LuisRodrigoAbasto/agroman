@@ -44,8 +44,9 @@
                           </button>
                           <div class="input-group">
                             <select class="form-control col-md-3" v-model="opcion">
-                              <option value="categorias.nombre">Categoria</option>
                               <option value="equipos.serie">Serie</option>
+                              <option value="categorias.nombre">Categoria</option>
+                              
                             </select>
                             <input
                               type="text"
@@ -84,7 +85,7 @@
                         <tr v-for="data in array_data" :key="data.id">
                           <td>{{ data.id }}</td>
                           <td>{{ data.serie }}</td>
-                          <td>{{ data.description }}</td>
+                          <td>{{ data.descripcion }}</td>
                           <td>{{ data.categoria.nombre }}</td>
                           <td>
                             <button
@@ -205,8 +206,7 @@
                   />
                 </div>
               </div>
-             
-              <div class="form-group row">
+             <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Categoria</label>
                 <div class="col-md-9">
                   <v-select
@@ -216,6 +216,29 @@
                     placeholder="Sucursal..."
                     @input="get_categoria"
                     v-model="vue_categoria"
+                  />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Tipo</label>
+                <div class="col-md-9">
+                  <select class="form-control" v-model="tipo">
+                    <option value="">Seleccione</option>
+                    <option value="unico">Unico</option>
+                    <option value="grupal">Grupal</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row" v-if="tipo=='grupal'">
+                <label class="col-md-3 form-control-label" for="text-input">Stock</label>
+                <div class="col-md-9">
+                  <input
+                    type="number"
+                    v-model="stock"
+                    placeholder="stock......"
+                    class="form-control"
+                    @keyup.enter="insertar()"
+                    required
                   />
                 </div>
               </div>
@@ -257,6 +280,8 @@ export default {
     return {
       id: 0,
       serie:'',
+      tipo:'',
+      stock:0,
       descripcion:'',
       categoria_id: 0,
       array_categoria: [],
@@ -265,7 +290,7 @@ export default {
         nombre: ""
       },
       
-      opcion: "serie",
+      opcion: "equipos.serie",
       url_ctrl: "equipo_controller",
       array_data: [],
       titulo_modal: "",
@@ -364,6 +389,8 @@ export default {
       axios
         .post(this.url_ctrl + "/registrar", {
           categoria_id:this.categoria_id,
+          tipo:this.tipo,
+          stock:this.stock,
           serie:this.serie,
           descripcion:this.descripcion
         })
@@ -388,6 +415,8 @@ export default {
         .put(this.url_ctrl + "/actualizar", {
           id: this.id,
           categoria_id:this.categoria_id,
+          tipo:this.tipo,
+          stock:this.stock,
           serie:this.serie,
           descripcion:this.descripcion
         })
@@ -491,6 +520,9 @@ export default {
           this.titulo_modal = "Actualizar "+this.nombre_vista;
           this.tipoAccion = 2;
           this.id = data.id;
+          this.tipo=data.tipo;
+          this.serie=data.serie;
+          this.stock=data.stock;
           this.categoria_id=data.categoria_id;
           this.vue_categoria=data.categoria;
           break;
@@ -501,6 +533,8 @@ export default {
       this.id = 0;
       this.buscar = "";
       this.serie='';
+      this.stock=0;
+      this.tipo='';
       this.descripcion='';
       this.vue_categoria = {
         id: 0,
@@ -513,6 +547,17 @@ export default {
       if (!this.categoria_id) {
         this.mensaje = "Seleccione la Categoria";
         return true;
+      }
+
+      if (!this.serie) {
+        this.mensaje = "Inserte la Serie o un Nombre al Equipo";
+        return true;
+      }
+      if (this.stock==0 && this.tipo=='grupal') {
+        this.mensaje = "El Stock No Puede ser  0";
+        return true;
+      }else{
+        this.stock=1;
       }
       
       return false;

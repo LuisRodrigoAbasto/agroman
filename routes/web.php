@@ -100,5 +100,5 @@ Route::delete('/cuenta_controller/eliminar_{id}', 'CuentaController@destroy');
 
 });
 Route::get('/direccion', 'UsuarioController@direccion');
-Route::get('/cuenta_controller', 'CuentaController@index');
+Route::get('/principal_controller', 'UsuarioController@index');
 Route::get('/reporte/usuario','ReporteController@index');

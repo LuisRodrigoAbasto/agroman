@@ -20,7 +20,6 @@ class CreateEquiposTable extends Migration
             $table->string('descripcion')->nullable();
             $table->integer('stock')->nullable();
             $table->string('tipo',20);
-            $table->string('status',20);
             $table->boolean('estado')->default(1);
             $table->foreign('categoria_id')->references('id')->on('categorias');
             $table->timestamps();

@@ -19,9 +19,13 @@ class UsuarioController extends Controller
         $opcion=$request->opcion;
         if($buscar=='')
         {
-            $table=Usuario::where('estado','=','1')
-            // ->select('id','email','nombre','password','celular','celular_corto','tipo','tipo')
-            ->orderBy('id','desc')
+            $table=Usuario::join('empresas','usuarios.empresa_id','=','empresas.id')
+            ->join('sucursals','usuarios.sucursal_id','=','sucursals.id')
+            ->join('departamentos','usuarios.departamento_id','=','departamentos.id')
+            ->where('usuarios.estado','=','1')
+            ->select('usuarios.id','usuarios.nombre','email','password','celular','corto','interno',
+            'empresa_id','departamento_id','sucursal_id')
+            ->orderBy($opcion,'asc')
             ->with('sucursal')
             ->with('departamento')
             ->with('empresa')
@@ -29,14 +33,18 @@ class UsuarioController extends Controller
         }
         else
         {
-            $table=Usuario::where($opcion,'like','%'.$buscar.'%')
-        // ->with('sucursal')
-        // ->select('id','email','nombre','password','celular','celular_corto','tipo','tipo')
-        ->where('estado','=','1')
-        ->with('sucursal')
-        ->with('departamento')
-        ->with('empresa')
-        ->paginate($pagina);
+            $table=Usuario::join('empresas','usuarios.empresa_id','=','empresas.id')
+            ->join('sucursals','usuarios.sucursal_id','=','sucursals.id')
+            ->join('departamentos','usuarios.departamento_id','=','departamentos.id')
+            ->where($opcion,'like','%'.$buscar.'%')
+            ->select('usuarios.id','usuarios.nombre','email','password','celular','corto','interno',
+            'empresa_id','departamento_id','sucursal_id')
+            ->where('usuarios.estado','=','1')
+            ->orderBy($opcion,'asc')
+            ->with('sucursal')
+            ->with('departamento')
+            ->with('empresa')
+            ->paginate($pagina);
 
         }
         return [
@@ -53,6 +61,38 @@ class UsuarioController extends Controller
     
     }
    
+    public function principal(Request $request)
+    {
+        if(!$request->ajax()) return redirect('/');
+        $buscar=$request->buscar;
+        $pagina=$request->pagina;
+        $opcion=$request->opcion;
+
+            $table=Usuario::join('empresas','usuarios.empresa_id','=','empresas.id')
+            ->join('sucursals','usuarios.sucursal_id','=','sucursals.id')
+            ->join('departamentos','usuarios.departamento_id','=','departamentos.id')
+            ->where($opcion,'like','%'.$buscar.'%')
+            ->select('usuarios.id','usuarios.nombre','email','password','celular','corto','interno',
+            'empresa_id','departamento_id','sucursal_id')
+            ->where('usuarios.estado','=','1')
+            ->orderBy($opcion,'asc')
+            ->with('sucursal')
+            ->with('departamento')
+            ->with('empresa')
+            ->paginate($pagina);
+        return [
+            'pagination' => [
+                'total'        => $table->total(),
+                'current_page' => $table->currentPage(),
+                'per_page'     => $table->perPage(),
+                'last_page'    => $table->lastPage(),
+                'from'         => $table->firstItem(),
+                'to'           => $table->lastItem(),
+            ],
+            'table' => $table
+        ];
+    
+    }
     
     public function direccion(Request $request)
     {

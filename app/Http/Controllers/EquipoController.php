@@ -11,7 +11,7 @@ class EquipoController extends Controller
 {
     public function index(Request $request)
     {
-        if(!$request->ajax()) return redirect('/');
+        // if(!$request->ajax()) return redirect('/');
         $buscar=$request->buscar;
         $opcion=$request->opcion;
         $pagina=$request->pagina;
@@ -72,7 +72,6 @@ class EquipoController extends Controller
         $table->descripcion=$request->descripcion;
         $table->stock=$request->stock;
         $table->tipo=$request->tipo;
-        $table->status=$request->status;
         $table->estado='1';
         $table->save();
     }
@@ -93,7 +92,6 @@ class EquipoController extends Controller
         $table->descripcion=$request->descripcion;
         $table->stock=$request->stock;
         $table->tipo=$request->tipo; 
-        $table->status=$request->status;
         $table->estado='1';
         $table->save();
     }
