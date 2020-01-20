@@ -187,6 +187,7 @@
                     placeholder="nuevo password......"
                     class="form-control"
                     @keyup.enter="insertar()"
+                
                     required
                   />
                 </div>
