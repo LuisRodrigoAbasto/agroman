@@ -523,6 +523,7 @@ export default {
           this.tipo=data.tipo;
           this.serie=data.serie;
           this.stock=data.stock;
+          this.descripcion=data.descripcion;
           this.categoria_id=data.categoria_id;
           this.vue_categoria=data.categoria;
           break;

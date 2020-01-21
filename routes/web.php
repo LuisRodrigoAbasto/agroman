@@ -43,6 +43,10 @@ Route::get('/categorias', function () {
     return view('categoria/index');
 });
 
+Route::get('/notas', function () {
+    return view('nota/index');
+});
+
 Route::get('/administradores', function () {
     return view('administradore/index');
 });
@@ -93,7 +97,7 @@ Route::post('/nota_controller/registrar', 'NotaController@store');
 Route::put('/nota_controller/actualizar', 'NotaController@update');
 Route::delete('/nota_controller/eliminar_{id}', 'NotaController@destroy');
 
-// Route::get('/cuenta_controller', 'CuentaController@index');
+Route::get('/cuenta_controller', 'CuentaController@index');
 Route::post('/cuenta_controller/registrar', 'CuentaController@store');
 Route::put('/cuenta_controller/actualizar', 'CuentaController@update');
 Route::delete('/cuenta_controller/eliminar_{id}', 'CuentaController@destroy');
