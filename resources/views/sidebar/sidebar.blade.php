@@ -55,7 +55,6 @@
                           <svg class="c-sidebar-nav-icon">
                             <use xlink:href="coreui/vendors/@coreui/icons/svg/free.svg#cil-pencil"></use>
                           </svg> ADMINISTRADORES</a></li>
-         
         </ul>
         <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent" data-class="c-sidebar-minimized"></button>
       </div>

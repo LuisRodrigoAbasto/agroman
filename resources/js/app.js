@@ -30,6 +30,7 @@ Vue.component('categoria-component', require('./components/Categoria.vue').defau
 Vue.component('principal-component', require('./components/Principal.vue').default);
 Vue.component('administradores-component', require('./components/Administradores.vue').default);
 Vue.component('nota-component', require('./components/Nota.vue').default);
+Vue.component('servicio-component', require('./components/Servicio.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

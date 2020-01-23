@@ -1,4 +1,4 @@
 <footer class="c-footer">
-    <div><a href="https://coreui.io">CoreUI</a> © 2019 creativeLabs.</div>
-    <div class="ml-auto">Powered by&nbsp;<a href="https://coreui.io/">CoreUI</a></div>
-  </footer>
+    <div><a href="https://www.facebook.com/LuisRodrigoAbasto">Luis Rodrigo Abasto</a> © {{ now()->year }} creativeLabs.</div>
+    <div class="mfs-auto">Creado por &nbsp;<a href="https://www.facebook.com/LuisRodrigoAbasto">Luis Rodrigo Abasto</a></div>
+</footer>

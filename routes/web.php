@@ -47,6 +47,9 @@ Route::get('/notas', function () {
     return view('nota/index');
 });
 
+Route::get('/servicios', function () {
+    return view('servicio/index');
+});
 Route::get('/administradores', function () {
     return view('administradore/index');
 });
@@ -97,12 +100,19 @@ Route::post('/nota_controller/registrar', 'NotaController@store');
 Route::put('/nota_controller/actualizar', 'NotaController@update');
 Route::delete('/nota_controller/eliminar_{id}', 'NotaController@destroy');
 
+Route::get('/servicio_controller', 'ServicioController@index');
+Route::post('/servicio_controller/registrar', 'ServicioController@store');
+Route::put('/servicio_controller/actualizar', 'ServicioController@update');
+Route::delete('/servicio_controller/eliminar_{id}', 'ServicioController@destroy');
+
 Route::get('/cuenta_controller', 'CuentaController@index');
 Route::post('/cuenta_controller/registrar', 'CuentaController@store');
 Route::put('/cuenta_controller/actualizar', 'CuentaController@update');
 Route::delete('/cuenta_controller/eliminar_{id}', 'CuentaController@destroy');
 
+Route::get('/reporte/servicio','ReporteController@servicio');
+
 });
 Route::get('/direccion', 'UsuarioController@direccion');
 Route::get('/principal_controller', 'UsuarioController@index');
-Route::get('/reporte/usuario','ReporteController@index');
+Route::get('/reporte/usuario','ReporteController@usuario');

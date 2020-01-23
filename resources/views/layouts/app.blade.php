@@ -19,7 +19,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/lib.css') }}" rel="stylesheet">
 </head>
-<body class="c-app" >
+<body class="c-app pace-done pace-done" >
     <div id="app">
 
             @guest

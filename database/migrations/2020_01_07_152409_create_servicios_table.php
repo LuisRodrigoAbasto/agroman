@@ -15,10 +15,12 @@ class CreateServiciosTable extends Migration
     {
         Schema::create('servicios', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('usuario_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('usuario_id')->nullable();            
             $table->date('fecha');
             $table->string('descripcion');
             $table->boolean('estado')->default(1);
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('usuario_id')->references('id')->on('usuarios');
             $table->timestamps();
         });
