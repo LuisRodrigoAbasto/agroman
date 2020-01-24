@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Router;
+use App\Red;
+use DB;
 
 class RouterController extends Controller
 {
@@ -51,6 +53,13 @@ class RouterController extends Controller
     public function store(Request $request)
     {
         if(!$request->ajax()) return redirect('/');
+        DB::beginTransaction();
+        try{
+        
+        $red=Red::where('ip','=',$request->ip)->first();
+        
+        if($red->estado=='1')
+        {
         $table= new Router();
         $table->ip=$request->ip;
         $table->wifi=$request->wifi;
@@ -60,7 +69,25 @@ class RouterController extends Controller
         $table->descripcion=$request->descripcion;
         $table->estado='1';
         $table->save();
+
+        $data=Red::findOrfail($red->id);
+        $data->estado='0';
+        $data->save();
+
+        DB::commit();
+        $mensaje='success';
     }
+    else{
+        DB::rollBack();
+        $mensaje='error';
+    }
+    } 
+    catch (Exception $e){
+        DB::rollBack();
+        $mensaje='error';
+    }
+    return $mensaje;
+}
 
     /**
      * Update the specified resource in storage.
@@ -72,7 +99,21 @@ class RouterController extends Controller
     public function update(Request $request)
     {
         if(!$request->ajax()) return redirect('/');
-        $table= Router::findOrfail($request->id);
+        $mensaje='';
+        DB::beginTransaction();
+        try{
+        
+        $red=Red::where('ip','=',$request->ip)->first();
+        
+        if($red->estado=='1')
+        {
+
+        $table= Router::find($request->id);
+
+        $dat=Red::where('ip','=',$table->ip)->first();
+        $dat->estado='1';
+        $dat->save();
+
         $table->ip=$request->ip;
         $table->wifi=$request->wifi;
         $table->password_wifi=$request->password_wifi;
@@ -81,6 +122,23 @@ class RouterController extends Controller
         $table->descripcion=$request->descripcion;
         $table->estado='1';
         $table->save();
+        $data=Red::findOrfail($red->id);
+        $data->estado='0';
+        $data->save();
+
+            DB::commit();
+            $mensaje='success';
+        }
+        else{
+            DB::rollBack();
+            $mensaje='error';
+        }
+        } 
+        catch (Exception $e){
+            DB::rollBack();
+            $mensaje='error';
+        }
+        return $mensaje;
     }
 
     /**

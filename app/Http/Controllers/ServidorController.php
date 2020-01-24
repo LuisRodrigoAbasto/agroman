@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Servidore;
-
+use App\Red;
+use DB;
 class ServidorController extends Controller
 {
     public function index(Request $request)
@@ -39,6 +40,14 @@ class ServidorController extends Controller
     public function store(Request $request)
     {
         if(!$request->ajax()) return redirect('/');
+        $mensaje='';
+        DB::beginTransaction();
+        try{
+        
+        $red=Red::where('ip','=',$request->ip)->first();
+        
+        if($red->estado=='1')
+        {
         $table= new Servidore();
         $table->ip=$request->ip;
         $table->descripcion=$request->descripcion;
@@ -47,7 +56,25 @@ class ServidorController extends Controller
         $table->password=$request->password;
         $table->estado='1';
         $table->save();
+
+        $data=Red::findOrfail($red->id);
+        $data->estado='0';
+        $data->save();
+
+        DB::commit();
+        $mensaje='success';
     }
+    else{
+        DB::rollBack();
+        $mensaje='error';
+    }
+    } 
+    catch (Exception $e){
+        DB::rollBack();
+        $mensaje='error';
+    }
+    return $mensaje;
+}
 
     /**
      * Update the specified resource in storage.
@@ -59,7 +86,22 @@ class ServidorController extends Controller
     public function update(Request $request)
     {
         if(!$request->ajax()) return redirect('/');
-        $table= Servidore::findOrfail($request->id);
+
+        $mensaje='';
+        DB::beginTransaction();
+        try{
+        
+        $red=Red::where('ip','=',$request->ip)->first();
+        
+        if($red->estado=='1')
+        {
+
+        $table= Servidore::find($request->id);
+
+        $dat=Red::where('ip','=',$table->ip)->first();
+        $dat->estado='1';
+        $dat->save();
+
         $table->ip=$request->ip;
         $table->descripcion=$request->descripcion;
         $table->nombre=$request->nombre;
@@ -67,6 +109,23 @@ class ServidorController extends Controller
         $table->password=$request->password;
         $table->estado='1';
         $table->save();
+        $data=Red::findOrfail($red->id);
+        $data->estado='0';
+        $data->save();
+
+            DB::commit();
+            $mensaje='success';
+        }
+        else{
+            DB::rollBack();
+            $mensaje='error';
+        }
+        } 
+        catch (Exception $e){
+            DB::rollBack();
+            $mensaje='error';
+        }
+        return $mensaje;
     }
 
     /**
