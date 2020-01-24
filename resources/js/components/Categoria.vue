@@ -7,7 +7,8 @@
             <div class="col-lg-12">
               <div class="card">
                 <div class="card-header">
-                  <i class="fa fa-align-justify"></i> {{ nombre_vista }}
+                  <i class="fa fa-align-justify"></i>
+                  {{ nombre_vista }}
                   <button
                     type="button"
                     data-toggle="modal"
@@ -23,13 +24,36 @@
                     <div class="col-md-12">
                       <div class="input-group">
                         <div class="col-md-10">
+                          <select
+                            class="form-control col-2"
+                            v-model="pagina"
+                            @click="listar(1,buscar)"
+                          >
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="250">250</option>
+                            <option value="500">500</option>
+                          </select>
                           <div class="input-group">
                             <select class="form-control col-md-3">
                               <option value="nombre">Nombre</option>
                             </select>
-                            <input type="text" class="form-control" @keyup="listar(1,buscar)" v-model="buscar" placeholder="Buscar...." />
+                            <input
+                              type="text"
+                              class="form-control"
+                              @keyup="listar(1,buscar)"
+                              v-model="buscar"
+                              placeholder="Buscar...."
+                            />
                             <span class="input-group-append">
-                              <button type="submit" class="btn btn-primary" @click="listar(1,buscar)">
+                              <button
+                                type="submit"
+                                class="btn btn-primary"
+                                @click="listar(1,buscar)"
+                              >
                                 <i class="cil-search"></i>
                                 Buscar
                               </button>
@@ -51,9 +75,9 @@
                       <tr v-for="data in array_data" :key="data.id">
                         <td>
                           <!-- <span class="badge badge-success"> -->
-                            {{
-                            data.id
-                            }}
+                          {{
+                          data.id
+                          }}
                           <!-- </span> -->
                         </td>
                         <td>{{ data.nombre }}</td>
@@ -148,25 +172,35 @@
           </div>
           <div :class="'modal-body '+activarValidate">
             <!-- <form action method="post" enctype="multipart/form-data" class="form-horizontal"> -->
-              <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
-                <div class="col-md-9">
-                  <input
-                    type="text"
-                    v-model="nombre"
-                    placeholder="Nombre......"
-                    class="form-control"
-                    @keyup.enter="insertar()"
-                    required
-                  />
-                </div>
+            <div class="form-group row">
+              <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
+              <div class="col-md-9">
+                <input
+                  type="text"
+                  v-model="nombre"
+                  placeholder="Nombre......"
+                  class="form-control"
+                  @keyup.enter="insertar()"
+                  required
+                />
               </div>
+            </div>
             <!-- </form> -->
           </div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
-            <button class="btn btn-primary" type="button" v-if="tipoAccion==1" @click="registrar()">Save changes</button>
-            <button class="btn btn-primary" type="button" v-else @click="actualizar()">Update changes</button>
+            <button
+              class="btn btn-primary"
+              type="button"
+              v-if="tipoAccion==1"
+              @click="registrar()"
+            >Save changes</button>
+            <button
+              class="btn btn-primary"
+              type="button"
+              v-else
+              @click="actualizar()"
+            >Update changes</button>
           </div>
         </div>
         <!-- /.modal-content-->
@@ -198,10 +232,11 @@ export default {
         to: 0
       },
       offset: 3,
+      pagina: 5,
       buscar: "",
       activarValidate: "",
       mensaje: "",
-      nombre_vista:"Categoria"
+      nombre_vista: "Categoria"
     };
   },
   mounted() {
@@ -237,10 +272,17 @@ export default {
       // actualizar la Pagina
       me.pagination.current_page = page;
       // enviar la peticion para visualizar la data de esta pagina
-      listar(page, buscar);
+      this.listar(page, buscar);
     },
     listar(page, buscar) {
-      var url = this.url_ctrl + "?page=" + page + "&buscar=" + buscar;
+      var url =
+        this.url_ctrl +
+        "?page=" +
+        page +
+        "&pagina=" +
+        this.pagina +
+        "&buscar=" +
+        buscar;
       axios
         .get(url)
         .then(resp => {
@@ -273,7 +315,7 @@ export default {
         })
         .then(resp => {
           this.eventoAlerta("success", "Guardado Exitosamente");
-           $('#ModalLong').modal('hide');
+          $("#ModalLong").modal("hide");
           // $('.modal-backdrop').remove();
           this.listar(1, "");
           this.limpiar();
@@ -295,7 +337,7 @@ export default {
         })
         .then(resp => {
           this.eventoAlerta("success", "Actualizado Exitosamente");
-          $('#ModalLong').modal('hide');
+          $("#ModalLong").modal("hide");
           // $('.modal-backdrop').remove();
           // console.log($("#ModalLong").modal("hide"));
           this.listar(1, "");
@@ -342,12 +384,10 @@ export default {
           }
         });
     },
-    insertar(){
-      if(this.tipoAccion==1)
-      {
+    insertar() {
+      if (this.tipoAccion == 1) {
         this.registrar();
-      }
-      else{
+      } else {
         this.actualizar();
       }
     },
@@ -378,13 +418,13 @@ export default {
       // $("#ModalLong").modal('show')
       switch (accion) {
         case "registrar": {
-          this.titulo_modal = "Registrar "+ this.nombre_vista;
+          this.titulo_modal = "Registrar " + this.nombre_vista;
           this.limpiar();
           this.tipoAccion = 1;
           break;
         }
         case "actualizar": {
-          this.titulo_modal = "Actualizar "+ this.nombre_vista;
+          this.titulo_modal = "Actualizar " + this.nombre_vista;
           this.tipoAccion = 2;
           this.id = data.id;
           this.nombre = data.nombre;

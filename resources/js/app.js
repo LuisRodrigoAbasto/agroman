@@ -31,6 +31,10 @@ Vue.component('principal-component', require('./components/Principal.vue').defau
 Vue.component('administradores-component', require('./components/Administradores.vue').default);
 Vue.component('nota-component', require('./components/Nota.vue').default);
 Vue.component('servicio-component', require('./components/Servicio.vue').default);
+Vue.component('servidores-component', require('./components/Servidores.vue').default);
+
+Vue.component('wifi-component', require('./components/Wifi.vue').default);
+Vue.component('red-component', require('./components/Red.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

@@ -15,23 +15,8 @@
               <svg class="c-sidebar-nav-icon">
                 <use xlink:href="coreui/vendors/@coreui/icons/svg/free.svg#cil-drop1"></use>
               </svg> USUARIOS</a></li>
-
-          <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="departamentos">
-              <svg class="c-sidebar-nav-icon">
-                <use xlink:href="coreui/vendors/@coreui/icons/svg/free.svg#cil-pencil"></use>
-              </svg> DEPARTAMENTOS</a></li>
-
-              <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="sucursal">
-                <svg class="c-sidebar-nav-icon">
-                  <use xlink:href="coreui/vendors/@coreui/icons/svg/free.svg#cil-pencil"></use>
-                </svg> SUCURSAL</a></li>
-
-                <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="empresas">
-                  <svg class="c-sidebar-nav-icon">
-                    <use xlink:href="coreui/vendors/@coreui/icons/svg/free.svg#cil-pencil"></use>
-                  </svg> EMPRESAS</a></li>
                 
-                <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="equipos">
+                {{-- <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="equipos">
                   <svg class="c-sidebar-nav-icon">
                     <use xlink:href="coreui/vendors/@coreui/icons/svg/free.svg#cil-pencil"></use>
                   </svg> EQUIPOS</a></li>
@@ -44,7 +29,7 @@
                     <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="notas">
                       <svg class="c-sidebar-nav-icon">
                         <use xlink:href="coreui/vendors/@coreui/icons/svg/free.svg#cil-pencil"></use>
-                      </svg> NOTAS</a></li>
+                      </svg> NOTAS</a></li> --}}
          
                       <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="servicios">
                         <svg class="c-sidebar-nav-icon">
@@ -55,6 +40,36 @@
                           <svg class="c-sidebar-nav-icon">
                             <use xlink:href="coreui/vendors/@coreui/icons/svg/free.svg#cil-pencil"></use>
                           </svg> ADMINISTRADORES</a></li>
+
+                          <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="servidores">
+                            <svg class="c-sidebar-nav-icon">
+                              <use xlink:href="coreui/vendors/@coreui/icons/svg/free.svg#cil-pencil"></use>
+                            </svg> SERVIDORES</a></li>
+
+                            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="wireles">
+                              <svg class="c-sidebar-nav-icon">
+                                <use xlink:href="coreui/vendors/@coreui/icons/svg/free.svg#cil-pencil"></use>
+                              </svg> WIFI</a></li>
+  
+                              <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="red">
+                                <svg class="c-sidebar-nav-icon">
+                                  <use xlink:href="coreui/vendors/@coreui/icons/svg/free.svg#cil-pencil"></use>
+                                </svg> RED IP</a></li>
+
+                            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="departamentos">
+                              <svg class="c-sidebar-nav-icon">
+                                <use xlink:href="coreui/vendors/@coreui/icons/svg/free.svg#cil-pencil"></use>
+                              </svg> DEPARTAMENTOS</a></li>
+                
+                              <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="sucursal">
+                                <svg class="c-sidebar-nav-icon">
+                                  <use xlink:href="coreui/vendors/@coreui/icons/svg/free.svg#cil-pencil"></use>
+                                </svg> SUCURSAL</a></li>
+                
+                                <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="empresas">
+                                  <svg class="c-sidebar-nav-icon">
+                                    <use xlink:href="coreui/vendors/@coreui/icons/svg/free.svg#cil-pencil"></use>
+                                  </svg> EMPRESAS</a></li>
         </ul>
         <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent" data-class="c-sidebar-minimized"></button>
       </div>

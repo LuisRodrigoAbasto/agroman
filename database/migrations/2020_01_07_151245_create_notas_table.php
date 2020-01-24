@@ -17,7 +17,7 @@ class CreateNotasTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('usuario_id')->nullable();
             $table->date('fecha');
-            $table->string('descripcion');
+            $table->text('descripcion')->nullable();
             $table->string('tipo',20);
             $table->boolean('estado')->default(1);
             $table->foreign('usuario_id')->references('id')->on('usuarios');

@@ -54,6 +54,17 @@ Route::get('/administradores', function () {
     return view('administradore/index');
 });
 
+Route::get('/servidores', function () {
+    return view('servidore/index');
+});
+
+Route::get('/wireles', function () {
+    return view('wifi/index');
+});
+
+Route::get('/red', function () {
+    return view('red/index');
+});
 Route::get('/departamento_controller', 'DepartamentoController@index');
 Route::post('/departamento_controller/registrar', 'DepartamentoController@store');
 Route::put('/departamento_controller/actualizar', 'DepartamentoController@update');
@@ -109,6 +120,23 @@ Route::get('/cuenta_controller', 'CuentaController@index');
 Route::post('/cuenta_controller/registrar', 'CuentaController@store');
 Route::put('/cuenta_controller/actualizar', 'CuentaController@update');
 Route::delete('/cuenta_controller/eliminar_{id}', 'CuentaController@destroy');
+
+Route::get('/servidor_controller', 'ServidorController@index');
+Route::post('/servidor_controller/registrar', 'ServidorController@store');
+Route::put('/servidor_controller/actualizar', 'ServidorController@update');
+Route::delete('/servidor_controller/eliminar_{id}', 'ServidorController@destroy');
+
+Route::get('/wifi_controller', 'RouterController@index');
+Route::post('/wifi_controller/registrar', 'RouterController@store');
+Route::put('/wifi_controller/actualizar', 'RouterController@update');
+Route::delete('/wifi_controller/eliminar_{id}', 'RouterController@destroy');
+
+Route::get('/red_controller', 'RedController@index');
+Route::post('/red_controller/registrar', 'RedController@store');
+
+Route::get('/red_controller/generar', 'RedController@generar');
+Route::put('/red_controller/actualizar', 'RedController@update');
+Route::delete('/red_controller/eliminar_{id}', 'RedController@destroy');
 
 Route::get('/reporte/servicio','ReporteController@servicio');
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEquiposTable extends Migration
+class CreateRoutersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateEquiposTable extends Migration
      */
     public function up()
     {
-        Schema::create('equipos', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('categoria_id')->nullable();
-            $table->string('serie',50);
+        Schema::create('routers', function (Blueprint $table) {
+            $table->string('ip');
+            $table->string('wifi');
+            $table->string('password_wifi');
+            $table->string('usuario');
+            $table->string('password');
             $table->text('descripcion')->nullable();
-            $table->integer('stock')->nullable();
-            $table->string('tipo',20);
             $table->boolean('estado')->default(1);
-            $table->foreign('categoria_id')->references('id')->on('categorias');
             $table->timestamps();
         });
     }
@@ -33,6 +32,6 @@ class CreateEquiposTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('equipos');
+        Schema::dropIfExists('routers');
     }
 }

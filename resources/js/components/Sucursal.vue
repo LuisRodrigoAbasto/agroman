@@ -23,6 +23,19 @@
                     <div class="col-md-12">
                       <div class="input-group">
                         <div class="col-md-10">
+                          <select
+                            class="form-control col-2"
+                            v-model="pagina"
+                            @click="listar(1,buscar)"
+                          >
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="250">250</option>
+                            <option value="500">500</option>
+                          </select>
                           <div class="input-group">
                             <select class="form-control col-md-3">
                               <option value="nombre">Nombre</option>
@@ -198,6 +211,7 @@ export default {
         to: 0
       },
       offset: 3,
+      pagina:5,
       buscar: "",
       activarValidate: "",
       mensaje: "",
@@ -237,10 +251,11 @@ export default {
       // actualizar la Pagina
       me.pagination.current_page = page;
       // enviar la peticion para visualizar la data de esta pagina
-      listar(page, buscar);
+      this.listar(page, buscar);
     },
     listar(page, buscar) {
-      var url = this.url_ctrl + "?page=" + page + "&buscar=" + buscar;
+      var url = this.url_ctrl + "?page=" + page+"&pagina=" +
+        this.pagina + "&buscar=" + buscar;
       axios
         .get(url)
         .then(resp => {

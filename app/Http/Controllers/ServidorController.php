@@ -3,30 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Servicio;
-use App\User;
+use App\Servidore;
 
-class ServicioController extends Controller
+class ServidorController extends Controller
 {
     public function index(Request $request)
     {
-        // if(!$request->ajax()) return redirect('/');
+        if(!$request->ajax()) return redirect('/');
         $buscar=$request->buscar;
-        $opcion=$request->opcion;
         $pagina=$request->pagina;
-        $table=Servicio::join('usuarios','servicios.usuario_id','usuarios.id')
-        ->join('users','servicios.user_id','users.id')
-        ->join('empresas','usuarios.empresa_id','=','empresas.id')
-        ->join('sucursals','usuarios.sucursal_id','=','sucursals.id')
-        ->join('departamentos','usuarios.departamento_id','=','departamentos.id')
-        ->where($opcion,'like','%'.$buscar.'%')
-        ->where('servicios.estado','=','1')
-        ->where('usuarios.estado','=','1')
-        ->select('servicios.id','servicios.usuario_id','servicios.user_id','servicios.fecha','servicios.descripcion',
-        'departamentos.nombre as departamento','empresas.nombre as empresa','sucursals.nombre as sucursal')
-        ->orderBy('servicios.fecha','desc')
-        ->with('usuario')
-        ->with('user')
+        $table=Servidore::where('nombre','like','%'.$buscar.'%')
+        ->where('estado','=','1')
+        ->orderBy('id','desc')
+        // ->with('Servidore')
          ->paginate($pagina);
         return [
             'pagination' => [
@@ -41,7 +30,6 @@ class ServicioController extends Controller
         ];
     
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -51,11 +39,12 @@ class ServicioController extends Controller
     public function store(Request $request)
     {
         if(!$request->ajax()) return redirect('/');
-        $table= new Servicio();
-        $table->user_id=auth()->id();
-        $table->usuario_id=$request->usuario_id;        
-        $table->fecha=$request->fecha;
+        $table= new Servidore();
+        $table->ip=$request->ip;
         $table->descripcion=$request->descripcion;
+        $table->nombre=$request->nombre;
+        $table->usuario=$request->usuario;
+        $table->password=$request->password;
         $table->estado='1';
         $table->save();
     }
@@ -70,11 +59,12 @@ class ServicioController extends Controller
     public function update(Request $request)
     {
         if(!$request->ajax()) return redirect('/');
-        $table= Servicio::findOrfail($request->id);
-        $table->usuario_id=$request->usuario_id;
-        // $table->user_id=auth()->id();
-        $table->fecha=$request->fecha;
+        $table= Servidore::findOrfail($request->id);
+        $table->ip=$request->ip;
         $table->descripcion=$request->descripcion;
+        $table->nombre=$request->nombre;
+        $table->usuario=$request->usuario;
+        $table->password=$request->password;
         $table->estado='1';
         $table->save();
     }
@@ -88,7 +78,7 @@ class ServicioController extends Controller
     public function destroy($id)
     {
         // if(!$request->ajax()) return redirect('/');
-        $table=Servicio::find($id);
+        $table=Servidore::find($id);
         $table->estado='0';
         $table->save();
     }

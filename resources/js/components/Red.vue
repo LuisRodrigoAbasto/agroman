@@ -6,6 +6,10 @@
           <div class="row">
             <div class="col-lg-12">
               <div class="card">
+                <div class="card-header">
+                  <i class="fa fa-align-justify"></i>
+                  {{ nombre_vista }}
+                </div>
                 <div class="card-body">
                   <div class="form-group row">
                     <div class="col-md-12">
@@ -24,19 +28,9 @@
                             <option value="250">250</option>
                             <option value="500">500</option>
                           </select>
-                          <button type="button" class="btn btn-success" @click="descargar_excel()"> 
-                           Excel <i class="cil-grid"></i>&nbsp;
-                          </button>
                           <div class="input-group">
                             <select class="form-control col-md-3" v-model="opcion">
-                              <option value="usuarios.nombre">Usuario</option>
-                              <option value="departamentos.nombre">Departamento</option>
-                              <option value="sucursals.nombre">Sucursal</option>
-                              <option value="empresas.nombre">Empresa</option>
-                              <option value="usuarios.email">Correo</option>
-                              <option value="usuarios.celular">Celular</option>
-                              <option value="usuarios.interno">Interno</option>
-                              <option value="usuarios.corto">Corto</option>
+                              <option value="red.ip">IP</option>
                             </select>
                             <input
                               type="text"
@@ -55,45 +49,32 @@
                                 Buscar
                               </button>
                             </span>
-                            
                           </div>
-                          
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div class="table-responsive">
-                    <table class="table table-bordered table-striped table-sm">
-                      <thead>
-                        <tr>
-                          <th>Nº</th>
-                          <th>Nombre</th>
-                          <th>Empresa</th>
-                          <th>Sucursal</th>
-                          <th>Departamento</th>
-                          <th>Email</th>
-                          <th>Interno</th>
-                          <th>Celular</th>
-                          <th>Corto</th>
-
-                          
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr v-for="(data,index) in array_data" :key="data.id">
-                          <td>{{ index+1 }}</td>
-                          <td>{{ data.nombre }}</td>
-                          <td>{{ data.empresa.nombre }}</td>
-                          <td>{{ data.sucursal.nombre }}</td>
-                          <td>{{ data.departamento.nombre }}</td>
-                          <td>{{ data.email }}</td>
-                          <td>{{ data.interno }}</td>
-                          <td>{{ data.celular }}</td>
-                          <td>{{ data.corto }}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+                  <table class="table table-responsive-sm table-bordered table-striped table-sm">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>IP</th>
+                        <th>Estado</th>
+                        <th>Descripcion</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="data in array_data" :key="data.id">
+                        <td>{{data.id}}</td>
+                        <td>{{ data.ip }}</td>
+                        <td>
+                          <span v-if="data.estado" class="badge badge-success">LIBRE</span>
+                          <span v-else class="badge badge-danger">OCUPADO</span>
+                          </td>
+                        <td>{{ data.descripcion }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
                   <nav>
                     <ul class="pagination">
                       <li class="page-item" v-if="pagination.current_page > 1">
@@ -144,46 +125,19 @@
         </div>
       </div>
     </main>
-  
+    <!-- modal empieza -->
   </div>
 </template>
 <script>
 import Vue from "vue";
-import vSelect from "vue-select";
-import "vue-select/dist/vue-select.css";
-Vue.component("v-select", vSelect);
-
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 export default {
   data() {
     return {
-      direccion_ip: "",
-      nombre: "",
-      email: "",
-      celular: "",
-      corto: "",
-      interno: "",
-      empresa_id: 0,
-      array_empresa:[],
-      departamento_id: 0,
-      opcion: "usuarios.nombre",
-      url_ctrl: "principal_controller",
+      
+      url_ctrl: "red_controller",
       array_data: [],
-      titulo_modal: "",
-      array_departamento: [],
-      vue_departamento: {
-        id: 0,
-        nombre: ""
-      },
-      sucursal_id: 0,
-      array_sucursal: [],
-      vue_sucursal: {
-        id: 0,
-        nombre: ""
-      },
-      tipoAccion: 0,
-      pagina: 5,
       pagination: {
         total: 0,
         current_page: 0,
@@ -193,14 +147,16 @@ export default {
         to: 0
       },
       offset: 3,
+      pagina: 5,
       buscar: "",
       activarValidate: "",
       mensaje: "",
-      nombre_vista: "Usuario"
+      opcion: "red.ip",
+      nombre_vista: "Red"
     };
   },
   mounted() {
-    this.listar(1, this.buscar);
+    this.listar(1, "");
   },
   computed: {
     isActived: function() {
@@ -234,9 +190,6 @@ export default {
       // enviar la peticion para visualizar la data de esta pagina
       this.listar(page, buscar);
     },
-descargar_excel() {
-      window.open('reporte/usuario');
-    },
     listar(page, buscar) {
       var url =
         this.url_ctrl +
@@ -258,7 +211,29 @@ descargar_excel() {
         .catch(error => {
           console.log(error);
         });
-    },   
+    },
+    // eventoAlerta(icono, mensaje) {
+    //   Swal.fire({
+    //     position: "center",
+    //     icon: icono,
+    //     title: mensaje,
+    //     showConfirmButton: false,
+    //     timer: 1500
+    //   });
+    // },
+    // generar() {
+    //   axios
+    //     .get(this.url_ctrl + "/generar")
+    //     .then(resp => {
+    //       this.eventoAlerta("success", "Guardado Exitosamente");
+    //       $("#ModalLong").modal("hide");
+    //       // $('.modal-backdrop').remove();
+    //       this.listar(1, this.buscar);
+    //     })
+    //     .catch(error => {
+    //       console.log(error);
+    //     });
+    // }
   }
 };
 </script>

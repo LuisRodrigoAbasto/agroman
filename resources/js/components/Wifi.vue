@@ -6,18 +6,19 @@
           <div class="row">
             <div class="col-lg-12">
               <div class="card">
-                  <div class="card-header">
-                    <i class="fa fa-align-justify"></i> {{ nombre_vista }}
-                    <button
-                      type="button"
-                      data-toggle="modal"
-                      data-target="#ModalLong"
-                      class="btn btn-secondary"
-                      @click="abrirModal('registrar')"
-                    >
-                      <i class="cil-plus"></i>&nbsp;Nuevo
-                    </button>
-                  </div>
+                <div class="card-header">
+                  <i class="fa fa-align-justify"></i>
+                  {{ nombre_vista }}
+                  <button
+                    type="button"
+                    data-toggle="modal"
+                    data-target="#ModalLong"
+                    class="btn btn-secondary"
+                    @click="abrirModal('registrar')"
+                  >
+                    <i class="cil-plus"></i>&nbsp;Nuevo
+                  </button>
+                </div>
                 <div class="card-body">
                   <div class="form-group row">
                     <div class="col-md-12">
@@ -36,21 +37,11 @@
                             <option value="250">250</option>
                             <option value="500">500</option>
                           </select>
-
-                          <button type="button" class="btn btn-success" @click="descargar_excel()"> 
-                           Excel <i class="cil-grid"></i>&nbsp;
-                          </button>
                           <div class="input-group">
                             <select class="form-control col-md-3" v-model="opcion">
-                              <option value="usuarios.nombre">Usuario</option>
-                              <option value="cuentas.ip">IP</option>
-                              <option value="departamentos.nombre">Departamentos</option>
-                              <option value="sucursals.nombre">Sucursal</option>
-                              <option value="empresas.nombre">Empresa</option>
-                              <option value="usuarios.email">Correo</option>
-                              <option value="usuarios.celular">Celular</option>
-                              <option value="usuarios.interno">Interno</option>
-                              <option value="usuarios.corto">Corto</option>
+                              <option value="routers.wifi">Nombre Wifi </option>
+                              <option value="routers.descripcion">Descripcion</option>
+                              <option value="routers.ip">IP</option>
                             </select>
                             <input
                               type="text"
@@ -74,70 +65,56 @@
                       </div>
                     </div>
                   </div>
-                  <div class="table-responsive">
-                    <table class="table table-bordered table-striped table-sm">
-                      <thead>
-                        <tr>
-                          <th >ID</th>
-                          <th >Direccion IP</th>
-                          <th>Usuario</th>
-                          <th>Interno</th>
-                          <th>Empresa</th>
-                          <th>Sucursal</th>
-                          <th>Departamento</th>
-                          <th>Celular Corto</th>
-                          <th>Celular</th>
-                          <th>Email Office</th>
-                          <th>Password Office</th>
-                          <th>Usuario SAP</th>
-                          <th>Password SAP</th>
-                          <th>Usuario AD</th>
-                          <th>Password AD</th>
-                          <th>Telefono IP</th>
-                          <th>Opciones</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr v-for="data in array_data" :key="data.id">
-                          <td>{{ data.id }}</td>
-                          <td>{{ data.ip }}</td>
-                          <td>{{ data.nombre }}</td>
-                          <td>{{ data.interno }}</td>
-                          <td>{{ data.empresa.nombre }}</td>
-                          <td>{{ data.sucursal.nombre }}</td>
-                          <td>{{ data.departamento.nombre }}</td>
-                          <td>{{ data.corto }}</td>
-                          <td>{{ data.celular }}</td>
-                          <td>{{ data.email }}</td>
-                          <td>{{ data.password }}</td>
-                          <td>{{ data.usuario_sap }}</td>
-                          <td>{{ data.password_sap }}</td>
-                          <td>{{ data.usuario_ad }}</td>
-                          <td>{{ data.password_ad }}</td>
-                          <td>{{ data.telefono_ip }}</td>
-                          <td>
-                            <button
-                              type="button"
-                              data-toggle="modal"
-                              data-target="#ModalLong"
-                              class="btn btn-warning btn-sm"
-                              @click="abrirModal('actualizar',data)"
-                            >
-                              <i class="cil-pencil"></i>
-                            </button>
-                            &nbsp;
-                            <button
-                              type="button"
-                              class="btn btn-danger btn-sm"
-                              @click="eliminar(data.id)"
-                            >
-                              <i class="cil-trash"></i>
-                            </button>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+                  <table class="table table-responsive-sm table-bordered table-striped table-sm">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>IP</th>
+                        <th>Wifi</th>
+                        <th>Password Wifi</th>
+                        <th>Admin</th>
+                        <th>Password Admin</th>
+                        <th>Descripcion</th>
+                        <th>Opciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="data in array_data" :key="data.id">
+                        <td>
+                          <!-- <span class="badge badge-success"> -->
+                          {{
+                          data.id
+                          }}
+                          <!-- </span> -->
+                        </td>
+                        <td>{{ data.ip }}</td>
+                        <td>{{ data.wifi }}</td>
+                        <td>{{ data.password_wifi }}</td>
+                        <td>{{ data.usuario }}</td>
+                        <td>{{ data.password }}</td>
+                        <td>{{ data.descripcion }}</td>
+                        <td>
+                          <button
+                            type="button"
+                            data-toggle="modal"
+                            data-target="#ModalLong"
+                            class="btn btn-warning btn-sm"
+                            @click="abrirModal('actualizar',data)"
+                          >
+                            <i class="cil-pencil"></i>
+                          </button>
+                          &nbsp;
+                          <button
+                            type="button"
+                            class="btn btn-danger btn-sm"
+                            @click="eliminar(data.id)"
+                          >
+                            <i class="cil-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                   <nav>
                     <ul class="pagination">
                       <li class="page-item" v-if="pagination.current_page > 1">
@@ -208,52 +185,26 @@
           <div :class="'modal-body '+activarValidate">
             <form action method="post" enctype="multipart/form-data" class="form-horizontal">
               <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Usuario</label>
-                <div class="col-md-9">
-                  <v-select
-                    @search="select_usuario"
-                    label="nombre"
-                    :options="array_usuario"
-                    placeholder="Usuario..."
-                    @input="get_usuario"
-                    v-model="vue_usuario"
-                  />
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Direccion IP</label>
+                <label class="col-md-3 form-control-label" for="text-input">IP</label>
                 <div class="col-md-9">
                   <input
                     type="text"
                     v-model="ip"
-                    placeholder="Direccion IP......"
+                    placeholder="IP......"
                     class="form-control"
                     @keyup.enter="insertar()"
                     required
                   />
                 </div>
               </div>
-
+             
               <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Usuario_Sap</label>
+                <label class="col-md-3 form-control-label" for="text-input">Wifi</label>
                 <div class="col-md-9">
                   <input
                     type="text"
-                    v-model="usuario_sap"
-                    placeholder="Usuario_Sap......"
-                    class="form-control"
-                    @keyup.enter="insertar()"
-                    required
-                  />
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Password_Sap</label>
-                <div class="col-md-9">
-                  <input
-                    type="text"
-                    v-model="password_sap"
-                    placeholder="Password_Sap......"
+                    v-model="wifi"
+                    placeholder="Nombre del Wifi......"
                     class="form-control"
                     @keyup.enter="insertar()"
                     required
@@ -261,12 +212,25 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Usuario_AD</label>
+                <label class="col-md-3 form-control-label" for="text-input">Password Wifi</label>
                 <div class="col-md-9">
                   <input
                     type="text"
-                    v-model="usuario_ad"
-                    placeholder="Usuario_AD......"
+                    v-model="password_wifi"
+                    placeholder="Password del Wifi......"
+                    class="form-control"
+                    @keyup.enter="insertar()"
+                    required
+                  />
+                </div>
+              </div>
+               <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Usuario</label>
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    v-model="usuario"
+                    placeholder="Usuario......"
                     class="form-control"
                     @keyup.enter="insertar()"
                     required
@@ -274,33 +238,33 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Password_AD</label>
+                <label class="col-md-3 form-control-label" for="text-input">Password</label>
                 <div class="col-md-9">
                   <input
                     type="text"
-                    v-model="password_ad"
-                    placeholder="Password_AD......"
+                    v-model="password"
+                    placeholder="Password......"
                     class="form-control"
                     @keyup.enter="insertar()"
                     required
                   />
                 </div>
               </div>
-              <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Telefono_IP</label>
+               <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Descripcion</label>
                 <div class="col-md-9">
-                  <input
+                   <textarea
+                    rows="4"
+                    cols="50"
                     type="text"
-                    v-model="telefono_ip"
-                    placeholder="Telefono_IP......"
+                    v-model="descripcion"
+                    placeholder="Descripcion......"
                     class="form-control"
                     @keyup.enter="insertar()"
                     required
                   />
                 </div>
               </div>
-
-              
             </form>
           </div>
           <div class="modal-footer">
@@ -328,37 +292,22 @@
 </template>
 <script>
 import Vue from "vue";
-import vSelect from "vue-select";
-import "vue-select/dist/vue-select.css";
-Vue.component("v-select", vSelect);
-
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 export default {
-  // props: {
-  //   user: Object
-  // },
   data() {
     return {
       id: 0,
+      wifi: "",
+      password_wifi:'',
       ip: "",
-      usuario_id: 0,
-      array_usuario: [],
-      vue_usuario: {
-        id: 0,
-        nombre: ""
-      },
-      usuario_sap: "",
-      password_sap: "",
-      usuario_ad: "",
-      password_ad: "",
-      telefono_ip: "",
-      opcion: "usuarios.nombre",
-      url_ctrl: "cuenta_controller",
+      descripcion: "",
+      usuario: "",
+      password: "",
+      url_ctrl: "wifi_controller",
       array_data: [],
       titulo_modal: "",
       tipoAccion: 0,
-      pagina: 5,
       pagination: {
         total: 0,
         current_page: 0,
@@ -371,11 +320,12 @@ export default {
       buscar: "",
       activarValidate: "",
       mensaje: "",
-      nombre_vista:'Cuenta'
+      opcion:'routers.wifi',
+      nombre_vista: "Wifi"
     };
   },
   mounted() {
-    this.listar(1, this.buscar);
+    this.listar(1, "");
   },
   computed: {
     isActived: function() {
@@ -423,16 +373,13 @@ export default {
       axios
         .get(url)
         .then(resp => {
-          // console.log(resp.data.data);
           this.array_data = resp.data.table.data;
           this.pagination = resp.data.pagination;
+          // console.log(resp);
         })
         .catch(error => {
           console.log(error);
         });
-    },
-    descargar_excel() {
-      window.open('reporte/cuenta');
     },
     eventoAlerta(icono, mensaje) {
       Swal.fire({
@@ -451,19 +398,18 @@ export default {
       }
       axios
         .post(this.url_ctrl + "/registrar", {
-          usuario_id: this.usuario_id,
           ip: this.ip,
-          usuario_sap: this.usuario_sap,
-          password_sap: this.password_sap,
-          usuario_ad: this.usuario_ad,
-          password_ad: this.password_ad,
-          telefono_ip: this.telefono_ip
+          wifi:this.wifi,
+          password_wifi:this.password_wifi,
+          usuario: this.usuario,
+          password: this.password,
+          descripcion: this.descripcion,
         })
         .then(resp => {
           this.eventoAlerta("success", "Guardado Exitosamente");
           $("#ModalLong").modal("hide");
           // $('.modal-backdrop').remove();
-          this.listar(1, this.buscar);
+          this.listar(1, "");
           this.limpiar();
         })
         .catch(error => {
@@ -479,20 +425,19 @@ export default {
       axios
         .put(this.url_ctrl + "/actualizar", {
           id: this.id,
-          usuario_id: this.usuario_id,
           ip: this.ip,
-          usuario_sap: this.usuario_sap,
-          password_sap: this.password_sap,
-          usuario_ad: this.usuario_ad,
-          password_ad: this.password_ad,
-          telefono_ip: this.telefono_ip
+          wifi:this.wifi,
+          password_wifi:this.password_wifi,
+          usuario: this.usuario,
+          password: this.password,
+          descripcion: this.descripcion,
         })
         .then(resp => {
           this.eventoAlerta("success", "Actualizado Exitosamente");
           $("#ModalLong").modal("hide");
           // $('.modal-backdrop').remove();
           // console.log($("#ModalLong").modal("hide"));
-          this.listar(1, this.buscar);
+          this.listar(1, "");
           this.limpiar();
         })
         .catch(error => {
@@ -523,7 +468,7 @@ export default {
               .delete(this.url_ctrl + "/eliminar_" + id)
               .then(resp => {
                 this.eventoAlerta("success", "Eliminado Exitosamente");
-                this.listar(1, this.buscar);
+                this.listar(1, "");
               })
               .catch(error => {
                 console.log(error);
@@ -543,85 +488,92 @@ export default {
         this.actualizar();
       }
     },
-    select_usuario(search, loading) {
-      loading(true);
-      var url = "usuario_controller/select?buscar=" + search;
-      axios
-        .get(url)
-        .then(resp => {
-          let respuesta = resp.data;
-          q: search;
-          this.array_usuario = respuesta.table;
-          loading(false);
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    },
-    get_usuario(val1) {
-      try {
-        this.usuario_id = val1.id;
-        this.vue_usuario = {
-          id: val1.id,
-          nombre: val1.nombre
-        };
-      } catch {
-        this.usuario_id = 0;
-        this.vue_usuario = {
-          id: 0,
-          nombre: ""
-        };
-      }
-    },
-    
+    // selectCategoria(search, loading) {
+    //   loading(true);
+    //   var url = "categoria/select?buscar=" + search;
+    //   axios
+    //     .get(url)
+    //     .then(resp => {
+    //       let respuesta = resp.data;
+    //       q: search;
+    //       this.array_categoria = respuesta.table;
+    //       loading(false);
+    //     })
+    //     .catch(error => {
+    //       console.log(error);
+    //     });
+    // },
+    // getDatoCategoria(val1) {
+    //   this.id_categoria = val1.id;
+    //   this.categoria = val1.nombre;
+    //   this.vue_categoria={
+    //     id:val1.id,
+    //     nombre:val1.nombre
+    //   };
+    // },
     abrirModal(accion, data = []) {
       // $("#ModalLong").modal('show')
-
       switch (accion) {
         case "registrar": {
-          this.titulo_modal = "Registrar "+this.nombre_vista;
+          this.titulo_modal = "Registrar " + this.nombre_vista;
           this.limpiar();
           this.tipoAccion = 1;
           break;
         }
         case "actualizar": {
-          this.titulo_modal = "Actualizar "+this.nombre_vista;
+          this.titulo_modal = "Actualizar " + this.nombre_vista;
           this.tipoAccion = 2;
           this.id = data.id;
           this.ip = data.ip;
-          this.usuario_id = data.usuario_id;
-          this.usuario_sap = data.usuario_sap;
-          this.password_sap = data.password_sap;
-          this.usuario_ad = data.usuario_ad;
-          this.password_ad = data.password_ad;
-          this.telefono_ip = data.telefono_ip;
-          this.vue_usuario = {id:data.usuario_id,nombre:data.nombre}
+          this.wifi = data.wifi;
+          this.password_wifi=data.password_wifi;
+          this.usuario = data.usuario;
+          this.password = data.password;
+          this.descripcion = data.descripcion;
           break;
         }
       }
     },
     limpiar() {
       this.id = 0;
-      this.buscar = "";
-      
+      this.wifi = "";
+      this.password_wifi='';
+      this.usuario = "";
+      this.password = "";
+      this.descripcion = "";
       this.ip = "";
-      this.vue_usuario = {
-        id: 0,
-        nombre: ""
-      };
-      this.usuario_id = 0;
-
-      this.usuario_sap = "";
-      this.password_sap = "";
-      this.usuario_ad = "";
-      this.password_ad = "";
-      this.telefono_ip = "";
-      
+      this.buscar = "";
       this.activarValidate = "";
     },
     validar() {
-      if (!this.usuario_id) {
-        this.mensaje = "Seleccione el Usuario";
+
+        if (!this.ip) {
+        this.mensaje = "Ingrese la IP";
+        return true;
+      }
+
+      if (!this.wifi) {
+        this.mensaje = "Ingrese el Nombre del Wifi";
+        return true;
+      }
+      if (!this.password_wifi) {
+        this.mensaje = "Ingrese el Nombre del Password del Wifi";
+        return true;
+      }
+      if (!this.ip) {
+        this.mensaje = "Ingrese la IP";
+        return true;
+      }
+      if (!this.usuario) {
+        this.mensaje = "Ingrese el Usuario Admin";
+        return true;
+      }
+      if (!this.password) {
+        this.mensaje = "Ingrese el Password del Admin";
+        return true;
+      }
+      if (!this.descripcion) {
+        this.mensaje = "Ingrese la Descripcion";
         return true;
       }
       return false;

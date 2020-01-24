@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Cuenta;
 use App\Usuario;
+use App\Red;
+use DB;
 
 class CuentaController extends Controller
 {
@@ -26,7 +28,7 @@ class CuentaController extends Controller
             ->join('departamentos','usuarios.departamento_id','=','departamentos.id')
             ->where('usuarios.estado','=','1')
             ->where('cuentas.estado','=','1')
-            ->select('cuentas.id','usuarios.sucursal_id','usuarios.departamento_id',
+            ->select('cuentas.id','cuentas.usuario_id','usuarios.sucursal_id','usuarios.departamento_id',
             'usuarios.empresa_id','usuarios.nombre','usuarios.nombre','usuarios.email',
             'usuarios.password','usuarios.celular','usuarios.corto','usuarios.interno',
             'cuentas.ip','cuentas.usuario_sap','cuentas.password_sap','cuentas.usuario_ad','cuentas.password_ad','cuentas.telefono_ip')
@@ -46,7 +48,7 @@ class CuentaController extends Controller
             ->where($opcion,'like','%'.$buscar.'%')
             ->where('usuarios.estado','=','1')
             ->where('cuentas.estado','=','1')
-            ->select('cuentas.id','usuarios.sucursal_id','usuarios.departamento_id',
+            ->select('cuentas.id','cuentas.usuario_id','usuarios.sucursal_id','usuarios.departamento_id',
             'usuarios.empresa_id','usuarios.nombre','usuarios.nombre','usuarios.email',
             'usuarios.password','usuarios.celular','usuarios.corto','usuarios.interno',
             'cuentas.ip','cuentas.usuario_sap','cuentas.password_sap','cuentas.usuario_ad','cuentas.password_ad','cuentas.telefono_ip')
@@ -120,16 +122,43 @@ class CuentaController extends Controller
     public function store(Request $request)
     {
         if(!$request->ajax()) return redirect('/');
-        $table= new Cuenta();
-        $table->usuario_id=$request->usuario_id;
-        $table->ip=$request->ip;
-        $table->usuario_sap=$request->usuario_sap;
-        $table->password_sap=$request->password_sap;
-        $table->usuario_ad=$request->usuario_ad;
-        $table->password_ad=$request->password_ad;
-        $table->telefono_ip=$request->telefono_ip;
-        $table->estado='1';
-        $table->save();
+        $mensaje='';
+        DB::beginTransaction();
+        try{
+        
+        $red=Red::where('ip','=',$request->ip)->first();
+        
+        if($red->estado=='1')
+        {
+            $table= new Cuenta();
+            $table->usuario_id=$request->usuario_id;
+            $table->ip=$request->ip;
+            $table->usuario_sap=$request->usuario_sap;
+            $table->password_sap=$request->password_sap;
+            $table->usuario_ad=$request->usuario_ad;
+            $table->password_ad=$request->password_ad;
+            $table->telefono_ip=$request->telefono_ip;
+            $table->estado='1';
+            $table->save();
+            
+
+            $data=Red::findOrfail($red->id);
+            $data->estado='0';
+            $data->save();
+
+            DB::commit();
+            $mensaje='success';
+        }
+        else{
+            DB::rollBack();
+            $mensaje='error';
+        }
+        } 
+        catch (Exception $e){
+            DB::rollBack();
+            $mensaje='error';
+        }
+        return $mensaje;
     }
 
     /**
@@ -142,8 +171,21 @@ class CuentaController extends Controller
     public function update(Request $request)
     {
         if(!$request->ajax()) return redirect('/');
-        $table= Cuenta::findOrfail($request->id);
-       
+        $mensaje='';
+        DB::beginTransaction();
+        try{
+        
+        $red=Red::where('ip','=',$request->ip)->first();
+        
+        if($red->estado=='1')
+        {
+
+        $table= Cuenta::find($request->id);
+
+        $dat=Red::where('ip','=',$table->ip)->first();
+        $dat->estado='1';
+        $dat->save();
+
         $table->usuario_id=$request->usuario_id;
         $table->ip=$request->ip;
         $table->usuario_sap=$request->usuario_sap;
@@ -153,7 +195,26 @@ class CuentaController extends Controller
         $table->telefono_ip=$request->telefono_ip;
         $table->estado='1';
         $table->save();
+
+        $data=Red::findOrfail($red->id);
+        $data->estado='0';
+        $data->save();
+
+            DB::commit();
+            $mensaje='success';
+        }
+        else{
+            DB::rollBack();
+            $mensaje='error';
+        }
+        } 
+        catch (Exception $e){
+            DB::rollBack();
+            $mensaje='error';
+        }
+        return $mensaje;
     }
+    
 
     /**
      * Remove the specified resource from storage.

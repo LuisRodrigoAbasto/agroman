@@ -61,7 +61,7 @@
                               <button
                                 type="button"
                                 class="btn btn-success"
-                                @click="descargar_excel()"
+                                @click="descargar_excel(fecha_inicio,fecha_fin)"
                               >
                                 Excel
                                 <i class="cil-grid"></i>&nbsp;
@@ -330,7 +330,7 @@ export default {
       array_data: [],
       titulo_modal: "",
       tipoAccion: 0,
-      pagina: 5,
+      
       pagination: {
         total: 0,
         current_page: 0,
@@ -340,6 +340,7 @@ export default {
         to: 0
       },
       offset: 3,
+      pagina: 5,
       buscar: "",
       activarValidate: "",
       mensaje: "",
@@ -404,7 +405,7 @@ export default {
         });
     },
     descargar_excel() {
-      window.open("reporte/servicio");
+      window.open("reporte/servicio?fecha_inicio="+this.fecha_inicio+'&fecha_fin='+this.fecha_fin);
     },
     eventoAlerta(icono, mensaje) {
       Swal.fire({
