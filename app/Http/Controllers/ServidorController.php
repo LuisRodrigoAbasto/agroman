@@ -58,22 +58,21 @@ class ServidorController extends Controller
         $table->save();
 
         $data=Red::findOrfail($red->id);
+        $data->tabla='Servidore';
+        $data->tabla_id=$table->id;
         $data->estado='0';
         $data->save();
 
         DB::commit();
-        $mensaje='success';
     }
     else{
         DB::rollBack();
-        $mensaje='error';
+        throw('No Exite IP');
     }
     } 
     catch (Exception $e){
         DB::rollBack();
-        $mensaje='error';
     }
-    return $mensaje;
 }
 
     /**
@@ -99,6 +98,8 @@ class ServidorController extends Controller
         $table= Servidore::find($request->id);
 
         $dat=Red::where('ip','=',$table->ip)->first();
+        $dat->tabla='';
+        $dat->tabla_id='';
         $dat->estado='1';
         $dat->save();
 
@@ -109,23 +110,25 @@ class ServidorController extends Controller
         $table->password=$request->password;
         $table->estado='1';
         $table->save();
+
         $data=Red::findOrfail($red->id);
+         $data->tabla='Servidore';
+        $data->tabla_id=$table->id;
         $data->estado='0';
         $data->save();
 
             DB::commit();
-            $mensaje='success';
         }
         else{
             DB::rollBack();
-            $mensaje='error';
+            throw('Error');
         }
         } 
         catch (Exception $e){
             DB::rollBack();
             $mensaje='error';
         }
-        return $mensaje;
+        // return $mensaje;
     }
 
     /**
@@ -137,8 +140,23 @@ class ServidorController extends Controller
     public function destroy($id)
     {
         // if(!$request->ajax()) return redirect('/');
+        DB::beginTransaction();
+        try{
         $table=Servidore::find($id);
         $table->estado='0';
         $table->save();
+
+        $dat=Red::where('ip','=',$table->ip)->first();
+        $dat->estado='1';
+        $dat->tabla='';
+        $dat->tabla_id='';
+        $dat->save();
+
+        DB::commit();
+    } 
+    catch (Exception $e){
+        DB::rollBack();
+        $mensaje='error';
+    }
     }
 }

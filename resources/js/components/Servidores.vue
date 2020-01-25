@@ -380,8 +380,8 @@ export default {
       }
       axios
         .post(this.url_ctrl + "/registrar", {
-          nombre: this.nombre,
           ip: this.ip,
+          nombre: this.nombre,
           descripcion: this.descripcion,
           usuario: this.usuario,
           password: this.password
@@ -394,7 +394,8 @@ export default {
           this.limpiar();
         })
         .catch(error => {
-          console.log(error);
+          this.eventoAlerta("error",'La IP esta Siendo Ocupada o No Existe' );
+          // console.log(error);
         });
     },
     actualizar() {
@@ -406,8 +407,8 @@ export default {
       axios
         .put(this.url_ctrl + "/actualizar", {
           id: this.id,
-          nombre: this.nombre,
           ip: this.ip,
+          nombre: this.nombre,
           descripcion: this.descripcion,
           usuario: this.usuario,
           password: this.password
@@ -421,7 +422,8 @@ export default {
           this.limpiar();
         })
         .catch(error => {
-          console.log(error);
+          this.eventoAlerta("error",'La IP esta Siendo Ocupada o No Existe' );
+          // console.log(error);
         });
     },
     eliminar(id) {

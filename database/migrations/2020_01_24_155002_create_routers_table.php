@@ -14,6 +14,7 @@ class CreateRoutersTable extends Migration
     public function up()
     {
         Schema::create('routers', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->string('ip');
             $table->string('wifi');
             $table->string('password_wifi');

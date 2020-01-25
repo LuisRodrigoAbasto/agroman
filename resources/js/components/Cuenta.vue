@@ -465,9 +465,12 @@ export default {
           // $('.modal-backdrop').remove();
           this.listar(1, this.buscar);
           this.limpiar();
+          
         })
         .catch(error => {
-          console.log(error);
+          this.eventoAlerta("error",'La IP esta Siendo Ocupada o No Existe' );
+          // $("#ModalLong").modal("hide");
+          // console.log(error);
         });
     },
     actualizar() {
@@ -496,7 +499,8 @@ export default {
           this.limpiar();
         })
         .catch(error => {
-          console.log(error);
+          this.eventoAlerta("error",'La IP esta Siendo Ocupada o No Existe' );
+          // console.log(error);
         });
     },
     eliminar(id) {

@@ -143,6 +143,8 @@ class CuentaController extends Controller
             
 
             $data=Red::findOrfail($red->id);
+            $data->tabla='Cuenta';
+            $data->tabla_id=$table->id;
             $data->estado='0';
             $data->save();
 
@@ -152,13 +154,15 @@ class CuentaController extends Controller
         else{
             DB::rollBack();
             $mensaje='error';
+            throw('Error');
         }
         } 
         catch (Exception $e){
             DB::rollBack();
             $mensaje='error';
+            
         }
-        return $mensaje;
+        // return $mensaje;
     }
 
     /**
@@ -184,6 +188,8 @@ class CuentaController extends Controller
 
         $dat=Red::where('ip','=',$table->ip)->first();
         $dat->estado='1';
+        $dat->tabla='';
+        $dat->tabla_id='';
         $dat->save();
 
         $table->usuario_id=$request->usuario_id;
@@ -197,6 +203,8 @@ class CuentaController extends Controller
         $table->save();
 
         $data=Red::findOrfail($red->id);
+        $data->tabla='Cuenta';
+        $data->tabla_id=$table->id;
         $data->estado='0';
         $data->save();
 
@@ -204,15 +212,17 @@ class CuentaController extends Controller
             $mensaje='success';
         }
         else{
+            
             DB::rollBack();
             $mensaje='error';
+            throw('La IP esta Siendo Ocupada');
         }
         } 
         catch (Exception $e){
             DB::rollBack();
             $mensaje='error';
         }
-        return $mensaje;
+        // return $mensaje;
     }
     
 
@@ -225,9 +235,26 @@ class CuentaController extends Controller
     public function destroy($id)
     {
         // if(!$request->ajax()) return redirect('/');
+        DB::beginTransaction();
+        try{
+
         $table=Cuenta::findOrfail($id);
+        
         $table->estado='0';
         $table->save();
+
+        $dat=Red::where('ip','=',$table->ip)->first();
+        $dat->estado='1';
+        $dat->tabla='';
+        $dat->tabla_id='';
+        $dat->save();
+
+        DB::commit();
+        
+    } 
+    catch (Exception $e){
+        DB::rollBack();
+    }
     }
 }
 

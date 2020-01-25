@@ -11,7 +11,7 @@ class RouterController extends Controller
 {
     public function index(Request $request)
     {
-        if(!$request->ajax()) return redirect('/');
+        // if(!$request->ajax()) return redirect('/');
         $buscar=$request->buscar;
         $opcion=$request->opcion;
         $pagina=$request->pagina;
@@ -71,6 +71,8 @@ class RouterController extends Controller
         $table->save();
 
         $data=Red::findOrfail($red->id);
+        $data->tabla='Router';
+        $data->tabla_id=$table->id;
         $data->estado='0';
         $data->save();
 
@@ -80,13 +82,14 @@ class RouterController extends Controller
     else{
         DB::rollBack();
         $mensaje='error';
+        throw('Error');
     }
     } 
     catch (Exception $e){
         DB::rollBack();
         $mensaje='error';
     }
-    return $mensaje;
+    // return $mensaje;
 }
 
     /**
@@ -111,6 +114,8 @@ class RouterController extends Controller
         $table= Router::find($request->id);
 
         $dat=Red::where('ip','=',$table->ip)->first();
+        $dat->tabla='';
+        $dat->tabla_id='';
         $dat->estado='1';
         $dat->save();
 
@@ -122,7 +127,10 @@ class RouterController extends Controller
         $table->descripcion=$request->descripcion;
         $table->estado='1';
         $table->save();
+
         $data=Red::findOrfail($red->id);
+        $data->tabla='Router';
+        $data->tabla_id=$table->id;
         $data->estado='0';
         $data->save();
 
@@ -132,6 +140,7 @@ class RouterController extends Controller
         else{
             DB::rollBack();
             $mensaje='error';
+            throw('Error');
         }
         } 
         catch (Exception $e){
@@ -150,8 +159,23 @@ class RouterController extends Controller
     public function destroy($id)
     {
         // if(!$request->ajax()) return redirect('/');
+        DB::beginTransaction();
+        try{
         $table=Router::find($id);
         $table->estado='0';
         $table->save();
+
+        $dat=Red::where('ip','=',$table->ip)->first();
+        $dat->estado='1';
+        $dat->tabla='';
+        $dat->tabla_id='';
+        $dat->save();
+
+        DB::commit();
+    } 
+    catch (Exception $e){
+        DB::rollBack();
+        $mensaje='error';
+    }
     }
 }

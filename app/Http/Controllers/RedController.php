@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Red;
 use DB;
-use Cuenta;
+use App\Cuenta;
+use App\Router;
+use App\Servidore;
 
 class RedController extends Controller
 {
     public function index(Request $request)
     {
-        if(!$request->ajax()) return redirect('/');
+        // if(!$request->ajax()) return redirect('/');
         $buscar=$request->buscar;
         $opcion=$request->opcion;
         $pagina=$request->pagina;
@@ -19,14 +21,33 @@ class RedController extends Controller
         ->orderBy('ip','desc')
         // ->with('categoria')
          ->paginate($pagina);
+        $i=0;
+         foreach ($table as $value) {
+             if($value->tabla!=''){
+                 $i++;
 
-         foreach ($table as $key => $value) {
-             if(!$value->table)
-             if($value->table=='Cuenta'){
-                $data=Cuenta::find($value->table_id)
-                ->with('usuario');
-                $value->descripcion=$data->usuario->nombre;
+             if($value->tabla=='Cuenta'){
+                $data=Cuenta::join('usuarios','cuentas.usuario_id','usuarios.id')
+                ->where('Cuentas.id','=',$value->tabla_id)
+                ->select('usuarios.nombre')
+                ->first();
+                $value->descripcion='Ocupado por el Usuario '.$data->nombre;
              }
+
+             if($value->tabla=='Router'){
+                $data=Router::find($value->tabla_id);
+                $value->descripcion='Ocupado por el Wifi '.$data->wifi;
+             }
+
+             if($value->tabla=='Servidore'){
+                $data=Servidore::find($value->tabla_id);
+                $value->descripcion='Ocupado por el servidor '.$data->nombre.' '.$data->descripcion;
+             }
+
+            }
+            else{
+            $value->descripcion='';
+            }
 
          }
          
@@ -39,7 +60,8 @@ class RedController extends Controller
                 'from'         => $table->firstItem(),
                 'to'           => $table->lastItem(),
             ],
-            'table' => $table
+            'table' => $table,
+            'suma'=>$i
         ];
     
     }/**

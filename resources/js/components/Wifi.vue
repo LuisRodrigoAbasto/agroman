@@ -317,6 +317,7 @@ export default {
         to: 0
       },
       offset: 3,
+      pagina:5,
       buscar: "",
       activarValidate: "",
       mensaje: "",
@@ -413,7 +414,8 @@ export default {
           this.limpiar();
         })
         .catch(error => {
-          console.log(error);
+          this.eventoAlerta("error",'La IP esta Siendo Ocupada o No Existe' );
+          // console.log(error);
         });
     },
     actualizar() {
@@ -441,7 +443,8 @@ export default {
           this.limpiar();
         })
         .catch(error => {
-          console.log(error);
+          this.eventoAlerta("error",'La IP esta Siendo Ocupada o No Existe' );
+          // console.log(error);
         });
     },
     eliminar(id) {
