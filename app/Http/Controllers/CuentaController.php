@@ -42,7 +42,7 @@ class CuentaController extends Controller
         }
         else{
             $table=Usuario::join('cuentas','usuarios.id','=','cuentas.usuario_id')
-            ->join('empresas','usuarios.empesa_id','=','empresas.id')
+            ->join('empresas','usuarios.empresa_id','=','empresas.id')
             ->join('sucursals','usuarios.sucursal_id','=','sucursals.id')
             ->join('departamentos','usuarios.departamento_id','=','departamentos.id')
             ->where($opcion,'like','%'.$buscar.'%')
